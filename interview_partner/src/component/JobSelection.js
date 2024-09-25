@@ -1,41 +1,68 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom'; // useNavigate 임포트
-import './css/JobSelection.css'; // CSS 파일 임포트
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import './css/JobSelection.css';
 
 const JobSelection = () => {
-  const jobs = [
-    { label: "기획·전략", subJobs: ["게임기획", "경영기획", "광고기획"] },
-    { label: "마케팅·홍보·조사", subJobs: ["광고PD", "광고마케팅"] },
-    { label: "회계·세무·재무", subJobs: ["감사", "경리"] },
-    { label: "인사·노무·HRD", subJobs: ["노무사", "인사"] },
-    { label: "총무·법무·사무", subJobs: ["법률사무원", "법무"] },
-    { label: "IT개발·데이터", subJobs: ["TEST1", "TEST2"] },
-    { label: "디자인", subJobs: ["TEST1", "TEST2"] },
-    { label: "영업·판매·무역", subJobs: ["TEST1", "TEST2"] },
-    { label: "고객상담·TM", subJobs: ["TEST1", "TEST2"] },
-    { label: "구매·자재·물류", subJobs: ["TEST1", "TEST2"] },
-    { label: "상품기획·MD", subJobs: ["TEST1", "TEST2"] },
-    { label: "운전·운송·배송", subJobs: ["TEST1", "TEST2"] },
-    { label: "서비스", subJobs: ["TEST1", "TEST2"] },
-    { label: "생산", subJobs: ["TEST1", "TEST2"] },
-    { label: "건설·건축", subJobs: ["TEST1", "TEST2"] },
-    { label: "의료", subJobs: ["TEST1", "TEST2"] },
-    { label: "연구·R&D", subJobs: ["TEST1", "TEST2"] },
-    { label: "교육", subJobs: ["TEST1", "TEST2"] },
-    { label: "미디어·문화·스포츠", subJobs: ["TEST1", "TEST2"] },
-    { label: "금융·보험", subJobs: ["TEST1", "TEST2"] },
-    { label: "공공·복지", subJobs: ["TEST1", "TEST2"] },
-  ];
+  // const jobs = [
+  //   { label: "기획·전략", subJobs: ["게임기획", "경영기획", "광고기획"] },
+  //   { label: "마케팅·홍보·조사", subJobs: ["광고PD", "광고마케팅"] },
+  //   { label: "회계·세무·재무", subJobs: ["감사", "경리"] },
+  //   { label: "인사·노무·HRD", subJobs: ["노무사", "인사"] },
+  //   { label: "총무·법무·사무", subJobs: ["법률사무원", "법무"] },
+  //   { label: "IT개발·데이터", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "디자인", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "영업·판매·무역", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "고객상담·TM", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "구매·자재·물류", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "상품기획·MD", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "운전·운송·배송", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "서비스", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "생산", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "건설·건축", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "의료", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "연구·R&D", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "교육", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "미디어·문화·스포츠", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "금융·보험", subJobs: ["TEST1", "TEST2"] },
+  //   { label: "공공·복지", subJobs: ["TEST1", "TEST2"] },
+  // ];
+  const [jobs, setJobs] = useState([]); // API에서 받은 jobs 저장 - 추가
 
   const [selectedJob, setSelectedJob] = useState(null); // 선택된 직무를 하나만 저장
   const [hoveredJob, setHoveredJob] = useState(null); // 마우스 오버된 직무 저장
   const [selectedSubJob, setSelectedSubJob] = useState({}); // 선택된 하위 직무 저장
   const navigate = useNavigate(); // useNavigate 훅 사용
 
+  // 하위 직무 데이터 - 추가
+  const [subJobsMap, setSubJobsMap] = useState({}); // 각 직무에 대한 하위 직무 저장
+
+  // useEffect를 사용해 직무 데이터를 가져옴 - 추가
+  useEffect(() => {
+    fetch('/api/occupational')
+      .then(response => response.json())
+      .then(data => {
+        setJobs(data);
+      })
+      .catch(error => console.error('Error fetching jobs:', error));
+  }, []);
+
+  // 특정 직무에 대한 하위 직무 가져오기 - 추가
+  const fetchSubJobs = (jobLabel, occupationalId) => {
+    // 하위 직무가 아직 로드되지 않은 경우에만 API 호출
+    if (!subJobsMap[jobLabel]) {
+      fetch(`/api/occupational/${occupationalId}`)
+        .then(response => response.json())
+        .then(data => {
+          setSubJobsMap(prev => ({ ...prev, [jobLabel]: data }));
+        })
+        .catch(error => console.error('Error fetching sub-jobs:', error));
+    }
+  };
+
   // 하위 직무 선택을 토글하는 함수
   const toggleSubJobSelection = (jobLabel, subJob) => {
     if (selectedJob === subJob) {
-      // 선택된 하위 직무를 다시 클릭하면 비활성화 (기획·전략으로 복원)
+      // 선택된 하위 직무를 다시 클릭하면 비활성화
       setSelectedSubJob((prev) => ({ ...prev, [jobLabel]: null }));
       setSelectedJob(null);
     } else {
@@ -65,7 +92,12 @@ const JobSelection = () => {
           <div
             key={index}
             className="jobContainer"
-            onMouseEnter={() => setHoveredJob(job.label)}
+            // onMouseEnter={() => setHoveredJob(job.label)}
+            // onMouseLeave={() => setHoveredJob(null)}
+            onMouseEnter={() => {
+              setHoveredJob(job.label);
+              fetchSubJobs(job.label, job.occupationalId); // occupationalId로 하위 직무 데이터 가져오기
+            }}
             onMouseLeave={() => setHoveredJob(null)}
           >
             <button
