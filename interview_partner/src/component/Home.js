@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
-import { Bell, ShoppingBag, MessageSquare, Grid, List, Users, Calendar, Search, Clock, LogOut, User } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Bell, ShoppingBag, MessageSquare, Grid, List, Users, Calendar, Search, Clock, LogOut, User, LogIn } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from './UserProvider';
 import './Home.css';
 
 const Home = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    const { currentUser, setCurrentUser } = useUser();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        setCurrentUser(null);
+        localStorage.removeItem('user');
+        navigate('/login');
+    };
+
+    const handleLogin = () => {
+        navigate('/login');
+    };
 
     const getDaysInMonth = (month, year) => {
         return new Date(year, month + 1, 0).getDate();
@@ -40,8 +54,8 @@ const Home = () => {
                 {/* Profile Section */}
                 <div className="profile-section">
                     <img src="/api/placeholder/100/100" alt="Profile" className="profile-pic" />
-                    <h3>홍길동</h3>
-                    <p>구직자</p>
+                    <h3>{currentUser ? currentUser.name : '게스트'}</h3>
+                    <p>{currentUser ? '구직자' : '로그인하세요'}</p>
                 </div>
 
                 {/* Menu Section */}
@@ -68,10 +82,19 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* Logout Section */}
-                <div className="logout-section">
-                    <LogOut size={20} />
-                    <span>로그아웃</span>
+                {/* Login/Logout Section */}
+                <div className="auth-section">
+                    {currentUser ? (
+                        <div className="menu-item" onClick={handleLogout}>
+                            <LogOut size={20} />
+                            <span>로그아웃</span>
+                        </div>
+                    ) : (
+                        <div className="menu-item" onClick={handleLogin}>
+                            <LogIn size={20} />
+                            <span>로그인</span>
+                        </div>
+                    )}
                 </div>
             </aside>
 

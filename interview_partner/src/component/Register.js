@@ -6,7 +6,8 @@ import './Register.css';
 
 const Register = () => {
     const navigate = useNavigate();
-    const [fullName, setFullName] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
@@ -19,9 +20,11 @@ const Register = () => {
         }
 
         const registerData = {
-            fullName,
             username,
             password,
+            name,
+            email,
+            role: 'user' // 기본 역할을 'user'로 설정
         };
 
         try {
@@ -53,9 +56,16 @@ const Register = () => {
                 <input
                     className="register-input"
                     type="text"
-                    placeholder="Your full name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                    className="register-input"
+                    type="email"
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     className="register-input"

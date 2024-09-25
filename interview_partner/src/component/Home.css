@@ -140,10 +140,10 @@
     fill: #007bff;
 }
 
-/* Job Cards and Calendar now stacked vertically */
+/* Job Cards in 2x2 grid layout */
 .job-cards {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-bottom: 20px;
 }
@@ -153,7 +153,6 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: calc(50% - 10px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -169,18 +168,22 @@
 .job-card h3 {
     font-size: 18px;
     margin: 15px 0 10px;
+    text-align: center;
 }
 
 .job-card p {
     font-size: 14px;
     color: #666;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .job-card-footer {
     display: flex;
     gap: 10px;
     margin-top: auto;
+    justify-content: center;
+    width: 100%;
 }
 
 .job-card-footer button {
@@ -195,6 +198,13 @@
 
 .job-card-footer button:hover {
     background-color: #0056b3;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .job-cards {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Calendar Section */
