@@ -26,7 +26,7 @@ const JobSelection = () => {
   //   { label: "금융·보험", subJobs: ["TEST1", "TEST2"] },
   //   { label: "공공·복지", subJobs: ["TEST1", "TEST2"] },
   // ];
-  const [jobs, setJobs] = useState([]); // API에서 받은 jobs 저장 - 추가
+  const [jobs, setJobs] = useState([]); // API에서 받은 jobs 저장 - 추가 
 
   const [selectedJob, setSelectedJob] = useState(null); // 선택된 직무를 하나만 저장
   const [hoveredJob, setHoveredJob] = useState(null); // 마우스 오버된 직무 저장
