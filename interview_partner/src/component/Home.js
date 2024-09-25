@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, Profiler} from 'react';
 import { Bell, ShoppingBag, MessageSquare, Grid, List, Users, Calendar, Search, Clock, LogOut, User, LogIn } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import { useUser } from './UserProvider';
+import MemoModal from './MemoModal';
 import './Home.css';
 
 const Home = () => {
@@ -9,6 +12,10 @@ const Home = () => {
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const { currentUser, setCurrentUser } = useUser();
     const navigate = useNavigate();
+
+    const [memos, setMemos] = useState({});
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleLogout = () => {
         setCurrentUser(null);
@@ -24,6 +31,19 @@ const Home = () => {
         return new Date(year, month + 1, 0).getDate();
     };
 
+    const handleDateClick = (day) => {
+        setSelectedDate(`${currentYear}-${currentMonth + 1}-${day}`);
+        setIsModalOpen(true);
+    };
+
+    const handleSaveMemo = (memo) => {
+        setMemos(prevMemos => ({
+            ...prevMemos,
+            [selectedDate]: memo
+        }));
+        setIsModalOpen(false);
+    };
+
     const renderCalendar = () => {
         const daysInMonth = getDaysInMonth(currentMonth, currentYear);
         const firstDay = new Date(currentYear, currentMonth, 1).getDay();
@@ -34,12 +54,18 @@ const Home = () => {
         }
 
         for (let i = 1; i <= daysInMonth; i++) {
+            const dateKey = `${currentYear}-${currentMonth + 1}-${i}`;
             days.push(
-                <div key={`day-${i}`} className={`calendar-day ${i === 10 || i === 5 || i === 15 ? 'has-event' : ''}`}>
+                <div
+                    key={`day-${i}`}
+                    className={`calendar-day ${i === 10 || i === 5 || i === 15 ? 'has-event' : ''} ${memos[dateKey] ? 'has-memo' : ''}`}
+                    onClick={() => handleDateClick(i)}
+                >
                     {i}
                     {i === 10 && <div className="event-indicator">인터뷰 면접</div>}
                     {i === 5 && <div className="event-indicator">인터뷰 1</div>}
                     {i === 15 && <div className="event-indicator">구업 준비</div>}
+                    {memos[dateKey] && <div className="memo-indicator">메모</div>}
                 </div>
             );
         }
@@ -61,24 +87,28 @@ const Home = () => {
                 {/* Menu Section */}
                 <div className="menu-section">
                     <div className="menu-item active">
-                        <Grid size={20} />
-                        <span>대시보드</span>
+                        <User size={20}/>
+                        <span onClick={() => navigate('/profile')}>내 프로필</span>
+
+                    </div>
+                    <div className="menu-item active">
+                    <Grid size={20}/>
+
+                        <span onClick={() => navigate('/')}>대시보드</span>
+
                     </div>
                     <div className="menu-item">
-                        <List size={20} />
-                        <span>작업 목록</span>
+                        <List size={20}/>
+                        <span>면접 목록</span>
                     </div>
+
                     <div className="menu-item">
-                        <Users size={20} />
-                        <span>지원자</span>
-                    </div>
-                    <div className="menu-item">
-                        <Calendar size={20} />
+                        <Calendar size={20}/>
                         <span>캘린더</span>
                     </div>
                     <div className="menu-item">
-                        <MessageSquare size={20} />
-                        <span>메시지</span>
+                        <MessageSquare size={20}/>
+                        <span>메모</span>
                     </div>
                 </div>
 
@@ -119,20 +149,17 @@ const Home = () => {
                         {/* Job Card 1 */}
                         <div className="job-card">
                             <img src="/api/placeholder/400/300" alt="Remote Developer" />
-                            <h3>원격 개발자</h3>
-                            <p>재택근무 직위</p>
-                            <p><Clock size={16} /> 시작일: 2021년 10월 15일</p>
-                            <p><Users size={16} /> 지원자: 12명</p>
+                            <h3>살펴보기</h3>
+                            <p>AI 면접 코치에 대해 자세히 알아보세요</p>
                             <div className="job-card-footer">
-                                <button>인터뷰 일정</button>
-                                <button>피드백을 기다리는 중</button>
+                                <button onClick={() => navigate('/about')}>AI 면접 코치란</button>
                             </div>
                         </div>
 
                         {/* Job Card 2 */}
                         <div className="job-card">
                             <img src="/api/placeholder/400/300" alt="Job Selection" />
-                            <h3>직업 선택</h3>
+                            <h3>직무 선택</h3>
                             <p>당신에게 맞는 직업을 찾아보세요</p>
                             <button className="primary-btn">알아보기</button>
                         </div>
@@ -140,11 +167,17 @@ const Home = () => {
                         {/* Job Card 3 */}
                         <div className="job-card">
                             <img src="/api/placeholder/400/300" alt="설문 참여" />
-                            <h3>선도 산업</h3>
-                            <p>최고 직사</p>
+                            <h3>구글 기사 바로보기</h3>
+                            <p></p>
                             <div className="job-card-footer">
-                                <button>다가올 인터뷰</button>
-                                <button>인터뷰 준비</button>
+                                <button
+                                    onClick={() => window.open('https://news.google.com/search?q=취업+면접&hl=ko&gl=KR&ceid=KR:ko', '_blank')}>
+                                    면접 News
+                                </button>
+                                <button
+                                    onClick={() => window.open('https://news.google.com/search?q=직업+트렌드&hl=ko&gl=KR&ceid=KR:ko', '_blank')}>
+                                    직업 News
+                                </button>
                             </div>
                         </div>
 
@@ -239,6 +272,15 @@ const Home = () => {
                     <button className="alert-btn">→</button>
                 </div>
             </aside>
+
+            {isModalOpen && (
+                <MemoModal
+                    date={selectedDate}
+                    initialMemo={memos[selectedDate] || ''}
+                    onSave={handleSaveMemo}
+                    onClose={() => setIsModalOpen(false)}
+                />
+            )}
         </div>
     );
 };

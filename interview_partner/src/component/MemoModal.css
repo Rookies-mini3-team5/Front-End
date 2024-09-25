@@ -1,0 +1,39 @@
+.memo-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.memo-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.memo-modal h2 {
+    margin-top: 0;
+}
+
+.memo-modal textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.memo-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.memo-modal-buttons button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
