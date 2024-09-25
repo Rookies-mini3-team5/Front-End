@@ -1,0 +1,89 @@
+.JobSelect_container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+  }
+  
+  .jobGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .jobContainer {
+    position: relative;
+  }
+  
+  .jobButton {
+    padding: 20px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 180px;
+    max-width: 240px;
+    text-align: center;
+  }
+  
+  .subJobDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    min-width: 180px;
+  }
+  
+  .subJobItem {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Hover 효과 추가 */
+  .subJobItem:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .fixedBottom {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .banner {
+    background-color: #ffeb3b;
+    padding: 20px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 30px;
+    color: #333;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nextButton {
+    margin-top: 50px;
+    padding: 15px 30px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .nextButton:not([disabled]) {
+    background-color: #6200ee;
+    cursor: pointer;
+  }

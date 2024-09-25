@@ -1,0 +1,84 @@
+.JobQuestionList_container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 40px;
+  }
+  
+  .questionsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .questionBox {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .questionTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .infoIcon {
+    font-style: normal;
+    background-color: #6200ee;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .questionDescription {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  .fixedBottom {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .startButton {
+    padding: 15px 30px;
+    background-color: #6200ee;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .startButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
