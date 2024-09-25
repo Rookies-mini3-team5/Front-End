@@ -1,0 +1,107 @@
+.feedback-page-container {
+    display: flex; /* 사이드바와 피드백 내용을 나란히 배치 */
+    justify-content: center; /* 중앙 정렬 */
+    flex-grow: 1; /* 페이지가 가득 차도록 */
+    background-color: #f9fafb;
+  }
+  
+  .feedback-page {
+    padding: 20px;
+    background-color: #fff;
+    width: 70%; /* 적절한 너비로 조정 */
+    max-width: 1200px; /* 최대 너비 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* 박스 그림자 추가 */
+    border-radius: 10px;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .summary-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .strengths-summary,
+  .weaknesses-summary {
+    display: flex;
+    align-items: center;
+    background-color: #eef6ff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+  }
+  
+  .strengths-summary .icon {
+    background-color: #34d399;
+    padding: 10px;
+    border-radius: 50%;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .weaknesses-summary .icon {
+    background-color: #fbbf24;
+    padding: 10px;
+    border-radius: 50%;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  h3 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .detailed-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .detailed-strengths,
+  .detailed-weaknesses {
+    background-color: #f1f5f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 42%;
+  }
+  
+  h4 {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .retry-button {
+    width: 80%;
+    padding: 15px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    justify-content: center;
+    margin-left:50px;
+
+    
+  }
+  
+  .retry-button:hover {
+    background-color: #2563eb;
+  }
+  

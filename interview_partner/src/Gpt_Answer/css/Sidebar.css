@@ -1,0 +1,381 @@
+.sidebar {
+    width: 300px;
+    background-color: #f5f7fa;
+    padding: 20px;
+    height: 100vh;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #e0e0e0;
+    position: fixed; /* 고정 위치 설정 */
+
+    transition: width 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 상단과 하단에 요소 배치 */
+}
+
+/* 접힌 사이드바 스타일 */
+.sidebar.collapsed {
+    width: 100px; /* 접혔을 때의 폭을 넉넉하게 조정 */
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+/* 햄버거 버튼 선 스타일 */
+.sidebar.collapsed .hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: #3b82f6;
+    border-radius: 2px;
+}
+
+.sidebar h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar .logo-collapsed {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+/* 접힌 사이드바에서 나타나는 햄버거 버튼 (플러스와 돋보기 위에 위치) */
+.sidebar.collapsed .arrow-equal-toggle-button {
+    position: absolute;
+    top: 40px; /* 플러스와 돋보기 버튼 위에 정확히 위치하도록 조정 */
+    left: 50%; /* 가운데 정렬 */
+    transform: translateX(-50%);
+    background-color: transparent;
+    border: none;
+    color: #3b82f6;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 3px;
+    z-index: 100; /* 버튼이 위로 나오도록 z-index 설정 */
+}
+/* 접힌 사이드바에서 나타나는 햄버거 버튼 선 스타일 */
+.sidebar.collapsed .hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: #3b82f6;
+    border-radius: 2px;
+}
+/* 접혔을 때 플러스와 검색 버튼을 세로로 배치 */
+.sidebar.collapsed .chat-btn-expanded-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* 너비를 100%로 설정 */
+}
+
+.sidebar.collapsed .chat-btn-expanded {
+    width: 60px; /* 버튼 너비 */
+    height: 60px; /* 버튼 높이 */
+    margin-bottom: 10px; /* 두 버튼 간의 간격 */
+}
+
+.sidebar.collapsed .search-btn {
+    width: 60px;
+    height: 60px;
+    background-color: #9061f9; /* 검색 버튼 배경색 */
+    border-radius: 50%; /* 검색 버튼 모서리 둥글게 */
+    color: white;
+    font-size: 30px;
+}
+.search-btn-collapsed {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #9061f9); /* 플러스 버튼과 동일한 배경색 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    margin-top: 10px; /* 플러스 버튼과의 간격 조정 */
+  }
+  
+  .search-icon-collapsed {
+    color: white; /* 아이콘 색상을 흰색으로 변경 */
+  }
+/* 펼쳐졌을 때 햄버거 버튼의 기본 위치 (변경 없음) */
+.arrow-equal-toggle-button {
+    position: absolute;
+    top: 20px; /* 상단 오른쪽 기본 위치 */
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    color: #3b82f6;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 3px;
+    width: 50px; /* 햄버거 버튼의 너비 */
+    height: 50px; /* 햄버거 버튼의 높이 */
+}
+
+/* 햄버거 선 스타일 */
+.hamburger-line {
+    width: 20px;
+    height: 2px;
+    background-color: #3b82f6;
+    border-radius: 5px;
+}
+
+/* 접힌 상태에서도 기본 햄버거 버튼 스타일 유지 */
+.middle-equal-toggle-button {
+    display: none; /* 접혔을 때는 로고 위 버튼만 활성화하기 위해 이 버튼을 숨김 */
+}
+/* 새 채팅 버튼 및 검색 버튼 컨테이너 */
+.chat-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-direction: column; /* 줄바꿈을 위해 컬럼으로 변경 */
+    margin-top: 50px; /* 새로 추가: 버튼을 아래로 내리기 위한 여백 */
+
+}
+.chat-btn-expanded-container {
+    display: flex; /* 새 채팅과 검색 버튼을 한 줄에 배치 */
+    justify-content: space-between; /* 좌우로 버튼 간격을 자동으로 배분 */
+    width: 90%;
+}
+
+.chat-btn-expanded {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #3b82f6, #9061f9);
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: 70%; /* 가로 길이를 조정 */
+}
+
+.chat-icon {
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.chat-btn-collapsed {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #9061f9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    margin-bottom: 10px; /* 돋보기 버튼과의 간격 조정 */
+}
+
+/* 검색 버튼 */
+.search-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #9061f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    margin-left: 10px; /* 새 채팅 버튼과의 간격 */
+
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li a:hover {
+    color: #3b82f6;
+}
+
+.sidebar li a.selected {
+    background-color: #e6f7ff;
+    padding: 10px;
+    border-radius: 5px;
+    color: #3b82f6;
+}
+
+.sidebar .divider {
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
+}
+/* 구분선 추가 (나의 대화 아래에 위치) */
+.sidebar .section-divider {
+    border-bottom: 1px solid #e0e0e0; /* 구분선을 아래로 추가 */
+    margin-bottom: 20px;
+}
+
+
+
+.sidebar .settings {
+    
+    justify-content: center;
+    background-color: transparent; /* 필요에 따라 색상 변경 가능 */
+    margin-top: 200px;
+}
+.sidebar.collapsed .settings {
+    margin-top: 170px;
+
+}
+.sidebar .user-profile {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left:18px;
+    padding: 10px 20px; /* padding을 늘려서 여백을 확보 */
+    border-radius: 30px; /* 모서리를 둥글게 */
+    background-color: #f0f4f7; /* 배경 색상 */
+    border: 1px solid #e0e0e0; /* 테두리 추가 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.sidebar .user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* 프로필 이미지를 둥글게 */
+    margin-right: 10px;
+}
+
+.sidebar .user-profile span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333; /* 텍스트 색상 */
+}
+
+.sidebar .user-profile .profile-action {
+    margin-left: auto; /* 아이콘을 오른쪽 끝으로 밀기 */
+    background-color: #9061f9;
+    border-radius: 50%; /* 아이콘 배경을 둥글게 */
+    padding: 10px;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+.sidebar ul {
+    flex-grow: 1;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: auto; /* 상단 공간 확보 */
+}
+
+.sidebar li {
+    margin-bottom: 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .user-profile {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f4f7;
+    position: absolute;
+    bottom: 100px; 
+    width: calc(100); 
+    left: 20px;
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: #f0f4f7;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* collapsed 상태일 때 프로필 텍스트와 나가기 버튼 숨기기 */
+.sidebar.collapsed .user-profile span,
+.sidebar.collapsed .user-profile .profile-action {
+    display: none; /* 텍스트와 나가기 버튼 숨기기 */
+}
+
+/* collapsed 상태일 때 프로필 상자의 크기 조정 */
+.sidebar.collapsed .user-profile {
+    width: auto; /* 상자의 너비를 자동으로 조정 */
+    padding: 0; /* 여백 제거 */
+    background-color: transparent; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    border-radius: 50%; /* 프로필 사진 둥글게 유지 */
+
+    justify-content: center; /* 프로필 이미지를 가운데 정렬 */
+}
+
+/* collapsed 상태에서도 프로필 이미지 유지 */
+.sidebar.collapsed .user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* 프로필 사진 둥글게 유지 */
+}
+
+
+.profile-action {
+    background-color: #9061f9;
+    border-radius: 50%;
+    padding: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
