@@ -26,34 +26,32 @@ const JobSelection = () => {
   //   { label: "금융·보험", subJobs: ["TEST1", "TEST2"] },
   //   { label: "공공·복지", subJobs: ["TEST1", "TEST2"] },
   // ];
-  const [jobs, setJobs] = useState([]); // API에서 받은 jobs 저장 - 추가 
+  
+  const [jobs, setJobs] = useState([]); // API에서 받은 직군 목록 저장 - 추가
+  const [subJobsMap, setSubJobsMap] = useState({}); // 각 직군에 대한 하위 직무 저장
 
-  const [selectedJob, setSelectedJob] = useState(null); // 선택된 직무를 하나만 저장
-  const [hoveredJob, setHoveredJob] = useState(null); // 마우스 오버된 직무 저장
-  const [selectedSubJob, setSelectedSubJob] = useState({}); // 선택된 하위 직무 저장
+  const [selectedJob, setSelectedJob] = useState(null); // 선택된 직무(하위 직무)를 하나만 저장
+  const [selectedSubJob, setSelectedSubJob] = useState({}); // 직군별로 선택된 하위 직무 저장
   const navigate = useNavigate(); // useNavigate 훅 사용
 
-  // 하위 직무 데이터 - 추가
-  const [subJobsMap, setSubJobsMap] = useState({}); // 각 직무에 대한 하위 직무 저장
-
-  // useEffect를 사용해 직무 데이터를 가져옴 - 추가
+  // useEffect를 사용해 직군 데이터를 가져옴 - 추가
   useEffect(() => {
-    fetch('/api/occupational')
+    fetch('/open-api/occupational')
       .then(response => response.json())
       .then(data => {
-        setJobs(data);
+        setJobs(data.body.occupationalList); // API 응답 구조에 맞게 데이터 저장
       })
       .catch(error => console.error('Error fetching jobs:', error));
   }, []);
 
-  // 특정 직무에 대한 하위 직무 가져오기 - 추가
+  // 하위 직무 데이터 로드 - 추가
   const fetchSubJobs = (jobLabel, occupationalId) => {
     // 하위 직무가 아직 로드되지 않은 경우에만 API 호출
     if (!subJobsMap[jobLabel]) {
-      fetch(`/api/occupational/${occupationalId}`)
+      fetch(`/open-api/occupational/${occupationalId}`)
         .then(response => response.json())
         .then(data => {
-          setSubJobsMap(prev => ({ ...prev, [jobLabel]: data }));
+          setSubJobsMap(prev => ({ ...prev, [jobLabel]: data.body.jobList }));
         })
         .catch(error => console.error('Error fetching sub-jobs:', error));
     }
@@ -73,20 +71,53 @@ const JobSelection = () => {
   };
 
   // "다음" 버튼을 눌렀을 때 실행되는 함수
+  // const handleNextClick = () => {
+  //   if (!selectedJob) {
+  //     alert("하나 이상의 직무를 선택해 주세요.");
+  //   } else {
+  //     // 직무가 선택되면 /jobresume 페이지로 이동
+  //     navigate('/jobresume');
+  //     console.log("선택된 직무 ->", selectedJob);
+  //   }
+  // };
+
+  // 직무 선택 후 POST 요청
   const handleNextClick = () => {
     if (!selectedJob) {
       alert("하나 이상의 직무를 선택해 주세요.");
     } else {
-      // 직무가 선택되면 /jobresume 페이지로 이동
-      navigate('/jobresume');
-      console.log("선택된 직무 ->", selectedJob);
+      // POST 요청
+      fetch('/api/section/job', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          occupational: Object.keys(selectedSubJob)[0], // 선택된 직군
+          job: selectedJob // 선택된 직무
+        }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.result.resultCode === 201) {
+            console.log("직무 선택 성공:", data);
+            // 성공하면 /jobresume 페이지로 이동
+            navigate('/jobresume');
+          } else {
+            alert('직무 선택에 실패했습니다. 다시 시도해 주세요.');
+          }
+        })
+        .catch(error => {
+          console.error('Error posting job:', error);
+          alert('직무 선택 중 오류가 발생했습니다.');
+        });
     }
   };
 
   return (
     <div className="JobSelect_container">
-      <h1>직무선택</h1>
-      <p>자신이 준비하고자 하는 직무를 선택해주세요.</p>
+      <h1 className="common-title">직무선택</h1>
+      <p className="common-text">자신이 준비하고자 하는 직무를 선택해주세요.</p>
       <div className="jobGrid">
         {jobs.map((job, index) => (
           <div
@@ -95,30 +126,29 @@ const JobSelection = () => {
             // onMouseEnter={() => setHoveredJob(job.label)}
             // onMouseLeave={() => setHoveredJob(null)}
             onMouseEnter={() => {
-              setHoveredJob(job.label);
-              fetchSubJobs(job.label, job.occupationalId); // occupationalId로 하위 직무 데이터 가져오기
+              fetchSubJobs(job.occupationalName, job.id); // 하위 직무 가져오기
             }}
-            onMouseLeave={() => setHoveredJob(null)}
           >
             <button
               className="jobButton"
               style={{
-                backgroundColor: selectedSubJob[job.label] && selectedJob === selectedSubJob[job.label] ? "#A7C7E7" : "#f0f0f0",
+                backgroundColor: selectedSubJob[job.occupationalName] && selectedJob === selectedSubJob[job.occupationalName] ? "#A7C7E7" : "#f0f0f0",
               }}
             >
-              {selectedSubJob[job.label] || job.label}
+              {/* 선택된 하위 직무가 있으면 하위 직무 이름을 표시하고, 그렇지 않으면 직군 이름을 표시 */}
+              {selectedSubJob[job.occupationalName] || job.occupationalName}
             </button>
 
             {/* 모든 직무에 대해 드롭다운 표시 */}
-            {hoveredJob === job.label && (
+            {subJobsMap[job.occupationalName] && (
               <div className="subJobDropdown">
-                {job.subJobs.map((subJob, subIndex) => (
+                {subJobsMap[job.occupationalName].map((subJob, subIndex) => (
                   <div
                     key={subIndex}
                     className="subJobItem"
-                    onClick={() => toggleSubJobSelection(job.label, subJob)}
+                    onClick={() => toggleSubJobSelection(job.occupationalName, subJob.jobName)}
                   >
-                    {subJob}
+                    {subJob.jobName}
                   </div>
                 ))}
               </div>
