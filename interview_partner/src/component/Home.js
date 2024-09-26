@@ -158,10 +158,13 @@ const Home = () => {
 
                         {/* Job Card 2 */}
                         <div className="job-card">
-                            <img src="/api/placeholder/400/300" alt="Job Selection" />
+                            <img src="/api/placeholder/400/300" alt="Job Selection"/>
                             <h3>직무 선택</h3>
                             <p>당신에게 맞는 직업을 찾아보세요</p>
-                            <button className="primary-btn">알아보기</button>
+                            <div className="job-card-footer">
+                                <button onClick={() => navigate('/jobquestionlist')}>직무 선택</button>
+                            </div>
+
                         </div>
 
                         {/* Job Card 3 */}
