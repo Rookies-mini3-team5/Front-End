@@ -21,9 +21,11 @@ jobs:
           git config user.email "<>"
 
       - name: Dependecies
-        run: npm ci
+        working-directory: ./interview_partner
+        run: npm install
 
       - name: Build
+        working-directory: ./interview_partner
         run: CI=false npm run build
 
       - name: Set up Docker Buildx
@@ -38,7 +40,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: Dockerfile
+          context: ./interview_partner  # Dockerfile 경로가 프론트엔드 프로젝트 안에 있을 경우
+          file: ./interview_partner/Dockerfile 
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/interview_partner_fe:latest
