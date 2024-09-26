@@ -1,0 +1,47 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  Docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Dependecies
+        working-directory: ./interview_partner
+        run: npm install
+
+      - name: Build
+        working-directory: ./interview_partner
+        run: CI=false npm run build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          
+  
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./interview_partner  # Dockerfile 경로가 프론트엔드 프로젝트 안에 있을 경우
+          file: ./interview_partner/Dockerfile 
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/interview_partner_fe:latest
