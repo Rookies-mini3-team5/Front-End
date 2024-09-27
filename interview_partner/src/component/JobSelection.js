@@ -6,8 +6,11 @@ const JobSelection = () => {
   const [jobs, setJobs] = useState([]); // API에서 받은 직군 목록 저장
   const [subJobsMap, setSubJobsMap] = useState({}); // 각 직군에 대한 하위 직무 저장
   const [hoveredJob, setHoveredJob] = useState(null); // 현재 마우스를 올려놓은 직군을 저장
-  const [selectedJob, setSelectedJob] = useState(null); // 선택된 직무(하위 직무)를 하나만 저장
+  const [selectedJobId, setSelectedJobId] = useState(null); // 선택된 직무 ID 저장
+  const [selectedJobName, setSelectedJobName] = useState(null); // 선택된 직무 이름 저장
   const [selectedSubJob, setSelectedSubJob] = useState({}); // 직군별로 선택된 하위 직무 저장
+  const [selectedOccupationalId, setSelectedOccupationalId] = useState(null); // 선택된 직군 ID 저장
+  const [selectedOccupationalName, setSelectedOccupationalName] = useState(null); // 선택된 직군 이름 저장
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   // useEffect를 사용해 직군 데이터를 가져옴
@@ -21,37 +24,48 @@ const JobSelection = () => {
   }, []);
 
   // 하위 직무 데이터 로드
-  const fetchSubJobs = (jobLabel, occupationalId) => {
+  const fetchSubJobs = (occupationalId) => {
     // 하위 직무가 아직 로드되지 않은 경우에만 API 호출
-    if (!subJobsMap[jobLabel]) {
+    if (!subJobsMap[occupationalId]) {
       fetch(`http://localhost:8080/open-api/occupational/${occupationalId}`)
         .then(response => response.json())
         .then(data => {
-          setSubJobsMap(prev => ({ ...prev, [jobLabel]: data.body.jobList }));
+          setSubJobsMap(prev => ({ ...prev, [occupationalId]: data.body.jobList }));
         })
         .catch(error => console.error('Error fetching sub-jobs:', error));
     }
   };
 
   // 하위 직무 선택을 토글하는 함수
-  const toggleSubJobSelection = (jobLabel, subJob) => {
-    if (selectedJob === subJob) {
+  const toggleSubJobSelection = (occupationalId, subJobId, subJobName, occupationalName) => {
+    if (selectedJobId === subJobId) {
       // 선택된 하위 직무를 다시 클릭하면 비활성화
-      setSelectedSubJob((prev) => ({ ...prev, [jobLabel]: null }));
-      setSelectedJob(null);
+      setSelectedSubJob((prev) => ({ ...prev, [occupationalId]: null }));
+      setSelectedJobId(null);  // 직무 ID 초기화
+      setSelectedJobName(null); // 직무 이름 초기화
+      setSelectedOccupationalId(null);  // 직군 ID 초기화
+      setSelectedOccupationalName(null);  // 직군 이름 초기화
     } else {
       // 하위 직무 선택 시 활성화, 이전 선택 해제
-      setSelectedSubJob((prev) => ({ ...prev, [jobLabel]: subJob }));
-      setSelectedJob(subJob);
+      setSelectedSubJob((prev) => ({ ...prev, [occupationalId]: subJobId }));
+      setSelectedJobId(subJobId);  // 직무 ID 설정
+      setSelectedJobName(subJobName);  // 직무 이름 설정
+      setSelectedOccupationalId(occupationalId);  // 직군 ID 설정
+      setSelectedOccupationalName(occupationalName);  // 직군 이름 설정
 
-      console.log("Selected Occupational:", jobLabel);
-    console.log("Selected SubJob:", subJob);
+      // 추가된 로그: 선택된 값들을 콘솔에 출력하여 확인 가능
+      console.log("Selected Occupational ID:", occupationalId);
+      console.log("Selected SubJob ID:", subJobId);
+      console.log("Selected Occupational Name:", occupationalName);
+      console.log("Selected SubJob Name:", subJobName);
     }
   };
 
   // 직무 선택 후 POST 요청
   const handleNextClick = () => {
-    if (!selectedJob) {
+    const token = localStorage.getItem("token");  // 저장된 JWT 토큰 가져오기
+
+    if (!selectedJobId || !selectedOccupationalId) {  // 직무 및 직군 ID가 선택되지 않으면 경고
       alert("하나 이상의 직무를 선택해 주세요.");
     } else {
       // POST 요청
@@ -59,26 +73,30 @@ const JobSelection = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,  // JWT 토큰을 Authorization 헤더에 포함
         },
         body: JSON.stringify({
-          occupational: Object.keys(selectedSubJob)[0], // 선택된 직군
-          job: selectedJob // 선택된 직무
+          occupational: selectedOccupationalId,  // 선택된 직군 ID 전송
+          job: selectedJobId  // 선택된 직무 ID 전송
         }),
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.result.resultCode === 200) {
-            console.log("직무 선택 성공:", data);
-            // 성공하면 /jobresume 페이지로 이동
-            navigate('/jobresume');
-          } else {
-            alert('직무 선택에 실패했습니다. 다시 시도해 주세요.');
-          }
-        })
-        .catch(error => {
-          console.error('Error posting job:', error);
-          alert('직무 선택 중 오류가 발생했습니다.');
-        });
+      .then(response => response.json())
+      .then(data => {
+        if (data.result && data.result.resultCode === 200) {
+          const sectionId = data.body.id; // 서버에서 받은 섹션 ID
+          console.log("POST 성공:", data);
+
+          // 섹션 ID를 JobResume 페이지로 넘기면서 이동
+          navigate('/jobresume', { state: { sectionId } });
+        } else {
+          console.log("POST 실패:", data);
+          alert('직무 선택에 실패했습니다. 다시 시도해 주세요.');
+        }
+      })
+      .catch(error => {
+        console.error('Error posting job:', error);
+        alert('직무 선택 중 오류가 발생했습니다.');
+      });
     }
   };
 
@@ -93,28 +111,28 @@ const JobSelection = () => {
             className="jobContainer"
             onMouseEnter={() => {
               setHoveredJob(job.occupationalName); // 마우스를 올렸을 때 직군 저장
-              fetchSubJobs(job.occupationalName, job.id); // 하위 직무 가져오기
+              fetchSubJobs(job.id); // 하위 직무 가져오기
             }}
             onMouseLeave={() => setHoveredJob(null)} // 마우스를 뗐을 때 직군 초기화
           >
             <button
               className="jobButton"
               style={{
-                backgroundColor: selectedSubJob[job.occupationalName] && selectedJob === selectedSubJob[job.occupationalName] ? "#A7C7E7" : "#f0f0f0",
+                backgroundColor: selectedSubJob[job.id] && selectedJobId === selectedSubJob[job.id] ? "#A7C7E7" : "#f0f0f0",
               }}
             >
-            {/* 선택된 하위 직무가 있으면 하위 직무 이름을 표시하고, 그렇지 않으면 직군 이름을 표시 */}
-              {selectedSubJob[job.occupationalName] || job.occupationalName}
+              {/* 선택된 하위 직무가 있으면 하위 직무 이름을 표시하고, 그렇지 않으면 직군 이름을 표시 */}
+              {selectedSubJob[job.id] ? selectedJobName : job.occupationalName}
             </button>
 
             {/* 마우스를 올렸을 때만 하위 직무 드롭다운 표시 */}
-            {hoveredJob === job.occupationalName && subJobsMap[job.occupationalName] && (
+            {hoveredJob === job.occupationalName && subJobsMap[job.id] && (
               <div className="subJobDropdown">
-                {subJobsMap[job.occupationalName].map((subJob, subIndex) => (
+                {subJobsMap[job.id].map((subJob, subIndex) => (
                   <div
                     key={subIndex}
                     className="subJobItem"
-                    onClick={() => toggleSubJobSelection(job.occupationalName, subJob.jobName)}
+                    onClick={() => toggleSubJobSelection(job.id, subJob.id, subJob.jobName, job.occupationalName)} // 변경됨: 직군 및 직무 ID와 이름 전달
                   >
                     {subJob.jobName}
                   </div>
@@ -131,7 +149,7 @@ const JobSelection = () => {
         <button
           onClick={handleNextClick}
           className="nextButton"
-          disabled={!selectedJob} // 직무 선택이 없으면 버튼 비활성화
+          disabled={!selectedJobId} // 직무 선택이 없으면 버튼 비활성화
         >
           다음
         </button>
