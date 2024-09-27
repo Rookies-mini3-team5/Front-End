@@ -83,8 +83,11 @@ const JobSelection = () => {
       .then(response => response.json())
       .then(data => {
         if (data.result && data.result.resultCode === 200) {
+          const sectionId = data.body.id; // 서버에서 받은 섹션 ID
           console.log("POST 성공:", data);
-          navigate('/jobresume');
+
+          // 섹션 ID를 JobResume 페이지로 넘기면서 이동
+          navigate('/jobresume', { state: { sectionId } });
         } else {
           console.log("POST 실패:", data);
           alert('직무 선택에 실패했습니다. 다시 시도해 주세요.');
@@ -118,7 +121,7 @@ const JobSelection = () => {
                 backgroundColor: selectedSubJob[job.id] && selectedJobId === selectedSubJob[job.id] ? "#A7C7E7" : "#f0f0f0",
               }}
             >
-            {/* 선택된 하위 직무가 있으면 하위 직무 이름을 표시하고, 그렇지 않으면 직군 이름을 표시 */}
+              {/* 선택된 하위 직무가 있으면 하위 직무 이름을 표시하고, 그렇지 않으면 직군 이름을 표시 */}
               {selectedSubJob[job.id] ? selectedJobName : job.occupationalName}
             </button>
 
