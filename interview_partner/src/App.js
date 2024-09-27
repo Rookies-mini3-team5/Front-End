@@ -70,10 +70,12 @@ const App = () => {
           <Route path="/jobselect" element={<JobSelection />} />
           <Route path="/jobresume" element={<JobResume />} />
           <Route path="/jobquestionlist" element={<JobQuestionList />} />
-          <Route
+          {/* <Route
             path="/question-answer/:sectionId"
             element={<QuestionAnswerPage />}
-          />
+          /> */}
+          <Route path="/question-answer" element={<QuestionAnswerPage />} />
+
           <Route
             path="/feedback/:sectionId/:gptQuestionId"
             element={<FeedbackPage />}
