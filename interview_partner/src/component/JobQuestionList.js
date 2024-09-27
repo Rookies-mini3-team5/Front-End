@@ -1,33 +1,35 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./css/JobQuestionList.css";
 
-// const questions = [
-//   { id: 1, title: "질문 1", description: "Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story." },
-//   { id: 2, title: "질문 2", description: "Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story." },
-//   { id: 3, title: "질문 3", description: "Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story." },
-//   { id: 4, title: "질문 4", description: "Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story." },
-//   { id: 5, title: "질문 5", description: "Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story." },
-//   { id: 6, title: "질문 6", description: "Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very very short story." },
-// ];
-
-const JobQuestionList = ({ sectionId }) => {
+const JobQuestionList = () => {
+    const location = useLocation(); // JobResume에서 전달된 질문 리스트와 sectionId 받기
+    const { questions: initialQuestions, sectionId } = location.state || {}; // questions와 sectionId 추출
 
     // 컴포넌트가 마운트될 때 백엔드에서 질문 목록을 가져옴 - 추가
-    const [questions, setQuestions] = useState([]);
+    const [questions, setQuestions] = useState(initialQuestions || []); // 초기값으로 JobResume에서 받은 질문 사용
+
     useEffect(() => {
+        if (!sectionId) {
+            console.error("섹션 ID가 없습니다.");
+            return;
+        }
+
+        // 서버로부터 질문을 다시 가져옴 (만약 questions가 없을 경우)
         const fetchQuestions = async () => {
             try {
-                const response = await axios.get(`/api/section/gpt/question/list/${sectionId}`);
-                // API 응답에서 body.gptQuestionList 배열에 접근
-                setQuestions(response.data.body.gptQuestionList);
+                const response = await fetch(`http://localhost:8080/api/section/gpt/question/list/${sectionId}`);
+                const data = await response.json();
+                setQuestions(data.body.gptQuestionList); // gptQuestionList 배열에 접근
             } catch (error) {
                 console.error("질문 목록을 가져오는 중 오류 발생:", error);
             }
         };
 
-        fetchQuestions();
-    }, [sectionId]);
+        if (questions.length === 0) {
+            fetchQuestions();
+        }
+    }, [sectionId, questions]);
 
     return (
         <div className="JobQuestionList_container">
@@ -36,12 +38,10 @@ const JobQuestionList = ({ sectionId }) => {
 
             <div className="questionsGrid">
                 {questions.map((question) => (
-                    <div key={question.id} className="questionBox">
+                    <div key={question.questionId} className="questionBox">
                         <div className="questionTitle">
-                            {/* <i className="infoIcon">i</i> {question.title} */}
-                            <i className="infoIcon">i</i> {question.question}
+                            {question.expectedQuestion}
                         </div>
-                        {/* <p className="questionDescription">{question.description}</p> */}
                         <p className="questionDescription">{question.answerGuide}</p>
                     </div>
                 ))}
