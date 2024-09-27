@@ -14,6 +14,9 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:8080/open-api/login", { username, password });
       console.log("로그인 성공:", response.data);
+  
+      const token = response.data.body.token;  // 응답에서 JWT 토큰 추출
+
       // 받아온 사용자 데이터에서 필요한 정보만 저장
       const userData = {
         id: response.data.id,
@@ -23,7 +26,10 @@ const Login = () => {
         role: response.data.role,
       };
       setCurrentUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData)); // 로컬 스토리지에 사용자 정보 저장
+  
+      // JWT 토큰을 localStorage에 저장
+      
+      localStorage.setItem("token", token);  // JWT 토큰을 로컬 스토리지에 저장
       alert("로그인 성공!");
       navigate("/");
     } catch (error) {
