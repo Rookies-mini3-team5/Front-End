@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import ClipLoader from "react-spinners/DotLoader";
 import './css/JobResume.css';
 
 const JobResume = () => {
@@ -7,7 +8,7 @@ const JobResume = () => {
         resume: "",
         emphasize: "",
     });
-
+    const [loading, setLoading] = useState(false);  // 로딩 상태 추가
     const navigate = useNavigate(); // 페이지 전환을 위한 useNavigate 훅 사용
     const location = useLocation(); // JobSelection에서 전달된 sectionId 받기
     const { sectionId } = location.state || {}; // location.state에서 sectionId 추출
@@ -38,7 +39,9 @@ const JobResume = () => {
             console.error("섹션 ID가 없습니다."); // sectionId가 없으면 오류 메시지 출력
             return;
         }
-    
+
+        setLoading(true);  // 로딩 상태 시작
+
         // 백엔드로 POST 요청을 보냄 (sectionId 포함)
         fetch(`http://localhost:8080/api/section/${sectionId}`, {
             method: "POST",
@@ -50,8 +53,9 @@ const JobResume = () => {
         })
         .then((response) => response.json()) // 응답을 JSON으로 변환
         .then((data) => {
+            setLoading(false);  // 로딩 상태 종료
+
             if (data.result && data.result.resultCode === 200) {
-                // JobQuestionList로 예상 질문 리스트와 함께 이동
                 const questions = data.body;  // 응답의 body 배열을 questions로 전달
                 navigate("/jobquestionlist", { state: { questions, sectionId } });
             } else {
@@ -59,47 +63,57 @@ const JobResume = () => {
             }
         })
         .catch((error) => {
+            setLoading(false);  // 로딩 상태 종료
             console.error("에러가 발생했습니다.", error);
         });
     };
 
     return (
         <div className="JobResume_container">
-            <h1 className="common-title">이력 및 강조할 점</h1>
-            <p className="common-text">질문에 대한 간단한 답변을 적어주세요. 없으면 넘어가도 돼요.</p>
+            {loading ? (  // 로딩 중일 때 로딩 화면 표시
+                <div className="loadingContainer">
+                    <ClipLoader color={"#123abc"} loading={loading} size={80} />
+                    <p className="loadingText">면접 예상 질문 뽑는 중...</p>
+                </div>
+            ) : (
+                <>
+                    <h1 className="common-title">이력 및 강조할 점</h1>
+                    <p className="common-text">질문에 대한 간단한 답변을 적어주세요. 없으면 넘어가도 돼요.</p>
 
-            <div className="questionContainer">
-                <div className="questionNumber">1</div>
-                <div className="questionText">해당 직무에서 가장 자신 있는 기술 또는 능력은 무엇인가요?</div>
-                <textarea
-                    name="resume"
-                    value={answers.resume}
-                    onChange={handleChange}
-                    className="answerInput"
-                    placeholder="여기에 기술 또는 능력을 적어주세요."
-                />
-                <div className="charCount">{answers.resume.length}/100</div> {/* 입력된 문자 수 표시 */}
-            </div>
+                    <div className="questionContainer">
+                        <div className="questionNumber">1</div>
+                        <div className="questionText">해당 직무에서 가장 자신 있는 기술 또는 능력은 무엇인가요?</div>
+                        <textarea
+                            name="resume"
+                            value={answers.resume}
+                            onChange={handleChange}
+                            className="answerInput"
+                            placeholder="여기에 기술 또는 능력을 적어주세요."
+                        />
+                        <div className="charCount">{answers.resume.length}/100</div> {/* 입력된 문자 수 표시 */}
+                    </div>
 
-            <div className="questionContainer">
-                <div className="questionNumber">2</div>
-                <div className="questionText">당신의 강점이 무엇인가요?</div>
-                <textarea
-                    name="emphasize"
-                    value={answers.emphasize}
-                    onChange={handleChange}
-                    className="answerInput"
-                    placeholder="여기에 당신의 강점을 적어주세요."
-                />
-                <div className="charCount">{answers.emphasize.length}/100</div> {/* 입력된 문자 수 표시 */}
-            </div>
+                    <div className="questionContainer">
+                        <div className="questionNumber">2</div>
+                        <div className="questionText">당신의 강점이 무엇인가요?</div>
+                        <textarea
+                            name="emphasize"
+                            value={answers.emphasize}
+                            onChange={handleChange}
+                            className="answerInput"
+                            placeholder="여기에 당신의 강점을 적어주세요."
+                        />
+                        <div className="charCount">{answers.emphasize.length}/100</div> {/* 입력된 문자 수 표시 */}
+                    </div>
 
-            {/* 아래 고정된 버튼 */}
-            <div className="fixedBottom">
-                <button onClick={handleNextClick} className="nextButton">
-                    다음
-                </button>
-            </div>
+                    {/* 아래 고정된 버튼 */}
+                    <div className="fixedBottom">
+                        <button onClick={handleNextClick} className="nextButton" disabled={loading}>
+                            {loading ? "처리 중..." : "다음"}
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
