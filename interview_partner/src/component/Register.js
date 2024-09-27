@@ -28,7 +28,19 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post("/user", registerData);
+      // FormData 객체를 사용하여 데이터를 담습니다.
+      const formData = new FormData();
+      formData.append("data", new Blob([JSON.stringify(registerData)], { type: "application/json" }));
+    
+      // 파일이 있다면 formData에 파일도 추가
+      // 파일을 업로드하지 않으면 null로 처리, 빈 파일 전송을 피하기 위해 조건을 추가
+      formData.append("file", null); 
+
+      const response = await axios.post("http://localhost:8080/open-api/join", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("회원가입 성공:", response.data);
       alert("회원가입 성공!");
       navigate("/login");
