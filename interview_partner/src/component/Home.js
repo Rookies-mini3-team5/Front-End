@@ -181,7 +181,7 @@ const Home = () => {
               <h3>직무 선택</h3>
               <p>당신에게 맞는 직업을 찾아보세요</p>
               <div className="job-card-footer">
-                <button onClick={() => navigate("/jobquestionlist")}>
+                <button onClick={() => navigate("/jobselect")}>
                   직무 선택
                 </button>
               </div>

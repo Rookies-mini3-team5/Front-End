@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("/user/login", { username, password });
+      const response = await axios.post("http://localhost:8080/open-api/login", { username, password });
       console.log("로그인 성공:", response.data);
       // 받아온 사용자 데이터에서 필요한 정보만 저장
       const userData = {
