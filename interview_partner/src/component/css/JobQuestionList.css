@@ -33,6 +33,10 @@
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+  .questionBox.selected {
+    background-color: #e0f7fa; /* 선택된 상태에서 배경색 변경 */
+    border-color: #00796b; /* 선택된 상태에서 테두리 색상 변경 */
+}
   
   .questionTitle {
     font-size: 18px;
@@ -40,19 +44,6 @@
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-  }
-  
-  .infoIcon {
-    font-style: normal;
-    background-color: #6200ee;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
   }
   
   .questionDescription {

@@ -230,17 +230,6 @@ function Sidebar({ sectionId }) {
         )}
 
         <hr />
-        <li>
-          {!collapsed ? (
-            <a href="#" className="settings">
-              ⚙️ Settings
-            </a>
-          ) : (
-            <a href="#" className="settings">
-              ⚙️
-            </a>
-          )}
-        </li>
 
         {/* 사용자 프로필 영역 */}
         <div className="user-profile">

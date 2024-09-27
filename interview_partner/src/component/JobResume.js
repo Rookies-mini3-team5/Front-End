@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import './css/JobResume.css';
 
 const JobResume = () => {
@@ -9,6 +9,8 @@ const JobResume = () => {
     });
 
     const navigate = useNavigate(); // 페이지 전환을 위한 useNavigate 훅 사용
+    const location = useLocation(); // JobSelection에서 전달된 sectionId 받기
+    const { sectionId } = location.state || {}; // location.state에서 sectionId 추출
 
     // 입력 필드 변경 핸들러 (100자 제한)
     const handleChange = (e) => {
@@ -31,27 +33,34 @@ const JobResume = () => {
 
     // "다음" 버튼을 눌렀을 때 실행되는 함수 - 추가
     const handleNextClick = () => {
-        // 백엔드로 POST 요청을 보냄
-        fetch("/api/section/resume", {
+        const token = localStorage.getItem("token");  // JWT 토큰 가져오기
+        if (!sectionId) {
+            console.error("섹션 ID가 없습니다."); // sectionId가 없으면 오류 메시지 출력
+            return;
+        }
+    
+        // 백엔드로 POST 요청을 보냄 (sectionId 포함)
+        fetch(`http://localhost:8080/api/section/${sectionId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 포함
             },
             body: JSON.stringify(answers), // answers 객체를 JSON 문자열로 변환하여 전송
         })
-            .then((response) => response.json()) // 응답을 JSON으로 변환
-            .then((data) => {
-                // 응답 처리: resultCode가 201일 때 성공
-                if (data.result && data.result.resultCode === 201) {
-                    console.log("작성된 답변이 성공적으로 전송되었습니다.", answers);
-                    navigate("/jobquestionlist"); // 요청이 성공하면 페이지 전환
-                } else {
-                    console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
-                }
-            })
-            .catch((error) => {
-                console.error("에러가 발생했습니다.", error);
-            });
+        .then((response) => response.json()) // 응답을 JSON으로 변환
+        .then((data) => {
+            if (data.result && data.result.resultCode === 200) {
+                // JobQuestionList로 예상 질문 리스트와 함께 이동
+                const questions = data.body;  // 응답의 body 배열을 questions로 전달
+                navigate("/jobquestionlist", { state: { questions, sectionId } });
+            } else {
+                console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
+            }
+        })
+        .catch((error) => {
+            console.error("에러가 발생했습니다.", error);
+        });
     };
 
     return (
