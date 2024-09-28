@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Home from "./component/Home";
+import About from "./component/About";
+import Profile from "./component/Profile";
 import Register from "./component/Register";
 import { UserProvider } from "./component/UserProvider";
 import Login from "./component/Login";
@@ -67,6 +69,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/jobselect" element={<JobSelection />} />
           <Route path="/jobresume" element={<JobResume />} />
           <Route path="/jobquestionlist" element={<JobQuestionList />} />
