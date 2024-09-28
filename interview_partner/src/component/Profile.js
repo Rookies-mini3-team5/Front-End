@@ -66,8 +66,10 @@ const Profile = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfileImage(reader.result); // 미리보기 이미지 설정
+        setProfileImage(reader.result); // 미리보기 이미지 설정
       };
       reader.readAsDataURL(file);
+      setNewProfileImage(file); // 실제 업로드할 파일 저장
       setNewProfileImage(file); // 실제 업로드할 파일 저장
     }
   };
@@ -110,6 +112,7 @@ const Profile = () => {
 
   const handleCancel = () => {
     setIsEditingEmail(false);
+    navigate("/");
     navigate("/");
   };
 

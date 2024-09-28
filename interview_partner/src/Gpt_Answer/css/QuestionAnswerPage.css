@@ -64,4 +64,19 @@
   button:hover {
     background-color: #45a049;
   }
+
+  .loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .loadingText {
+    font-size: 28px;
+    color: #123abc;
+    margin-top: 20px;
+    font-weight: bold;
+  }
   

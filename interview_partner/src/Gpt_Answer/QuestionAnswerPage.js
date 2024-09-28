@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "./Sidebar";
+import DotLoader from "react-spinners/DotLoader"; // ClipLoader 대신 DotLoader 추가
 import "./css/QuestionAnswerPage.css";
 
 function QuestionAnswerPage() {
@@ -9,6 +10,7 @@ function QuestionAnswerPage() {
   const { question, sectionId } = location.state || {};
 
   const [userAnswer, setUserAnswer] = useState("");
+  const [loading, setLoading] = useState(false); // 로딩 상태 추가
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 추가
 
   // 답변 제출 핸들러
@@ -23,11 +25,14 @@ function QuestionAnswerPage() {
       return;
     }
 
+    setLoading(true); // 로딩 상태 활성화
+
     try {
       const token = localStorage.getItem("token"); // JWT 토큰 가져오기
 
       if (!token) {
         console.error("JWT 토큰이 없습니다.");
+        setLoading(false); // 에러 발생 시 로딩 중단
         return;
       }
 
@@ -46,9 +51,8 @@ function QuestionAnswerPage() {
 
       // 성공적으로 응답이 돌아온 경우
       if (response.data.result.resultCode === 201) {
-        alert("답변이 성공적으로 제출되었습니다.");
         navigate(`/feedback/${sectionId}/${question.questionId}`, {
-          state: { sectionId },
+          state: { sectionId, question },
         });
       } else {
         console.error(
@@ -65,6 +69,8 @@ function QuestionAnswerPage() {
       } else {
         console.error("Error in request setup:", error.message);
       }
+    } finally {
+      setLoading(false); // 응답 완료 시 로딩 상태 종료
     }
   };
 
@@ -72,25 +78,38 @@ function QuestionAnswerPage() {
     <div className="question-answer-container">
       <Sidebar sectionId={sectionId} />
       <div className="question-answer-content">
-        <h2>{question?.expectedQuestion}</h2>
-        <div className="answer-guide">
-          <p>💡 답변 가이드</p>
-          <p>이 질문에 답변할 때 다음 사항을 고려하세요:</p>
-          <ul>
-            {question?.answerGuide?.split("\n").map((guide, index) => (
-              <li key={index}>{guide}</li>
-            ))}
-          </ul>
-        </div>
+        {loading ? ( // 로딩 중일 때 로더 표시
+          <div className="loadingContainer">
+            <DotLoader color={"#123abc"} loading={loading} size={80} />
+            <p className="loadingText">
+              응답을 제출 중입니다... 피드백을 생성 하고 있습니다...
+            </p>
+          </div>
+        ) : (
+          <>
+            <h2>{question?.expectedQuestion}</h2>
+            <div className="answer-guide">
+              <p>💡 답변 가이드</p>
+              <p>이 질문에 답변할 때 다음 사항을 고려하세요:</p>
+              <ul>
+                {question?.answerGuide?.split("\n").map((guide, index) => (
+                  <li key={index}>{guide}</li>
+                ))}
+              </ul>
+            </div>
 
-        <textarea
-          value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
-          placeholder="답변을 입력하세요!"
-          className="answer-textarea"
-        />
+            <textarea
+              value={userAnswer}
+              onChange={(e) => setUserAnswer(e.target.value)}
+              placeholder="답변을 입력하세요!"
+              className="answer-textarea"
+            />
 
-        <button onClick={handleSubmit}>응답 제출</button>
+            <button onClick={handleSubmit} disabled={loading}>
+              {loading ? "제출 중..." : "응답 제출"}
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
