@@ -100,6 +100,7 @@ const Profile = () => {
 
   const handleCancel = () => {
     setIsEditingEmail(false);
+    navigate("/");
   };
 
   return (
