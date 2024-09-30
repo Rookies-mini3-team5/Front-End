@@ -227,21 +227,20 @@ const Home = () => {
           <p>{currentUser ? "구직자" : "로그인하세요"}</p>
         </div>
 
-        {/* Menu Section */}
-        <div className="menu-section">
-          <div className="menu-item" onClick={() => navigate("/profile")}>
+        {/* Login/Logout Section */}
+        <div className="auth-section">
+        <div
+            className="menu-item"
+            onClick={() => {
+              if (token) {
+                navigate("/profile");
+              } else {
+                navigate("/login");
+              }
+            }}>
             <User size={20} />
             <span>내 프로필</span>
           </div>
-
-          <div className="menu-item" onClick={() => navigate("/")}>
-            <Grid size={20} />
-            <span>대시보드</span>
-          </div>
-        </div>
-
-        {/* Login/Logout Section */}
-        <div className="auth-section">
           {currentUser ? (
             <div className="menu-item" onClick={handleLogout}>
               <LogOut size={20} />
@@ -327,6 +326,13 @@ const Home = () => {
               value={new Date()}
               locale="ko"
               tileContent={tileContent}
+              // 그 월 기준 다른 달의 날짜 연하게 표시
+              tileClassName={({ date, view, activeStartDate }) => {
+                const currentViewingMonth = activeStartDate.getMonth();
+                if (view === 'month' && date.getMonth() !== currentViewingMonth) {
+                  return 'out-of-current-month';
+                }
+              }}
             />
           </div>
         </div>
