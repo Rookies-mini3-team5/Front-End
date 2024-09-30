@@ -1,3 +1,5 @@
+/* MemoModal.css */
+
 .memo-modal-overlay {
     position: fixed;
     top: 0;
@@ -14,17 +16,33 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 300px;
+    width: 340px;
+    box-sizing: border-box;
+}
+
+.memo-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .memo-modal h2 {
     margin-top: 0;
+    margin-bottom: 14px;
+}
+
+.memo-char-counter {
+    font-size: 14px;
+    color: #666;
 }
 
 .memo-modal textarea {
     width: 100%;
-    height: 100px;
+    height: 130px;
     margin-bottom: 10px;
+    resize: none;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .memo-modal-buttons {

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate 가져오기
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useUser } from "./UserProvider"; // useUser 훅 불러오기
 import "./Profile.css";
 
 const Profile = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const { currentUser, setCurrentUser } = useUser(); // useUser에서 currentUser와 setCurrentUser 가져오기
+  const [name, setName] = useState(currentUser?.name || ""); // 초기값을 currentUser에서 가져옴
+  const [email, setEmail] = useState(currentUser?.email || ""); // 초기값을 currentUser에서 가져옴
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [profileImage, setProfileImage] = useState("/path/to/default-profile-image.jpg");
-  const [newProfileImage, setNewProfileImage] = useState(null); // 업로드된 파일을 저장할 상태
-  const navigate = useNavigate(); // useNavigate 설정
+  const [newProfileImage, setNewProfileImage] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Get user profile info from server
@@ -89,6 +91,10 @@ const Profile = () => {
       })
       .then((response) => {
         alert("프로필이 성공적으로 업데이트되었습니다.");
+        
+        // 전역 상태를 업데이트하여 Home에서 이름이 자동으로 새로고침되도록 함
+        setCurrentUser({ ...currentUser, name, email });
+
         setIsEditingEmail(false);
         navigate("/"); // 저장 후 메인 페이지로 이동
       })

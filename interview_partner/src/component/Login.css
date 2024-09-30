@@ -57,7 +57,10 @@ body, html {
 .login-box {
     flex: 1;
     padding: 2rem;
-    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-title {
@@ -95,11 +98,6 @@ body, html {
 
 .login-button:hover {
     background: #4c32ac;
-}
-
-.login-footer {
-    margin-top: 1rem;
-    text-align: center;
 }
 
 .social-buttons {
