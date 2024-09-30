@@ -9,6 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setCurrentUser, setToken } = useUser();
+  const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const handleLogin = async () => {
     try {
@@ -48,7 +49,7 @@ const Login = () => {
         <h2 className="info-main-title">다시 오셨군요!</h2>
         <h3 className="info-subtitle">GPT AI면접 코치</h3>
         <div className="info-image">
-          <img src="/img/ai_coach.png" alt="GPT AI 면접 코치" />
+          <img src={`${imageBaseUrl}/ai.png`} alt="GPT AI 면접 코치" />
         </div>
         <p className="info-text">
           로그인하고 AI 면접 코치와 함께 연습을 시작하세요!

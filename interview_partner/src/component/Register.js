@@ -12,6 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const { setCurrentUser } = useUser();
+  const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const handleRegister = async () => {
     if (password !== repeatPassword) {
@@ -56,7 +57,7 @@ const Register = () => {
         <h2 className="info-main-title">기회를 탐색하고 계신가요?</h2>
         <h3 className="info-subtitle">GPT AI면접 코치</h3>
         <div className="info-image">
-          <img src="/img/ai_coach.png" alt="GPT AI 면접 코치" />
+          <img src={`${imageBaseUrl}/ai.png`} alt="GPT AI 면접 코치" />
         </div>
         <p className="info-text">이동 중에도 구인공고에 접속하세요!</p>
       </div>
