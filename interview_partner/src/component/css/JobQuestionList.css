@@ -33,6 +33,10 @@
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+  .questionBox.selected {
+    background-color: #e0f7fa; /* 선택된 상태에서 배경색 변경 */
+    border-color: #00796b; /* 선택된 상태에서 테두리 색상 변경 */
+}
   
   .questionTitle {
     font-size: 18px;

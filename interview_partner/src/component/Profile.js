@@ -1,13 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate 가져오기
+import axios from "axios";
 import "./Profile.css";
 
 const Profile = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("example@example.com");
+  const [email, setEmail] = useState("");
   const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [profileImage, setProfileImage] = useState(
-    "/path/to/default-profile-image.jpg"
-  );
+  const [profileImage, setProfileImage] = useState("/path/to/default-profile-image.jpg");
+  const [newProfileImage, setNewProfileImage] = useState(null); // 업로드된 파일을 저장할 상태
+  const navigate = useNavigate(); // useNavigate 설정
+
+  useEffect(() => {
+    // Get user profile info from server
+    axios
+      .get("http://localhost:8080/mypage", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((response) => {
+        const { name, email } = response.data.body;
+        setName(name);
+        setEmail(email);
+      })
+      .catch((error) => {
+        console.error("Error fetching profile data:", error);
+        alert("프로필 정보를 불러오는 중 오류가 발생했습니다.");
+      });
+
+    // Get profile picture from server
+    axios({
+      url: "http://localhost:8080/mypage/picture",
+      method: "GET",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        const url = URL.createObjectURL(response.data);
+        setProfileImage(url);
+      })
+      .catch((error) => {
+        console.error("Error fetching profile image:", error);
+        alert("프로필 사진을 불러오는 중 오류가 발생했습니다.");
+      });
+  }, []);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -26,32 +63,48 @@ const Profile = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImage(reader.result);
+        setProfileImage(reader.result); // 미리보기 이미지 설정
       };
       reader.readAsDataURL(file);
+      setNewProfileImage(file); // 실제 업로드할 파일 저장
     }
   };
 
   const handleSave = () => {
-    // Here you would typically send the updated data to a server
-    console.log("Saving profile:", { name, email, profileImage });
-    setIsEditingEmail(false);
+    // FormData를 사용해 프로필 수정 요청 보내기
+    const formData = new FormData();
+    const data = JSON.stringify({ name, email });
+    formData.append("data", new Blob([data], { type: "application/json" }));
+
+    // 파일이 존재하는 경우 추가
+    if (newProfileImage) {
+      formData.append("file", newProfileImage);
+    }
+
+    axios
+      .patch("http://localhost:8080/mypage", formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        alert("프로필이 성공적으로 업데이트되었습니다.");
+        setIsEditingEmail(false);
+        navigate("/"); // 저장 후 메인 페이지로 이동
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+        alert("프로필 업데이트 중 오류가 발생했습니다.");
+      });
   };
 
   const handleCancel = () => {
-    // Reset to original values or do nothing
     setIsEditingEmail(false);
+    navigate("/");
   };
 
   return (
     <div className="profile-container">
-      <div className="search-bar">
-        <div className="view-controls">
-          <span className="list-view"></span>
-          <span className="grid-view"></span>
-        </div>
-      </div>
-
       <div className="profile-content">
         <div className="profile-section">
           <h3>프로필 사진 업데이트</h3>

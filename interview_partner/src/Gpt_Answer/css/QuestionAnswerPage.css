@@ -1,6 +1,7 @@
 .question-answer-container {
     display: flex;
     background-color: #f4f4f4; /* 전체 배경색 */
+    
   }
   
   .question-answer-content {
@@ -10,6 +11,8 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
     padding: 30px;
     margin: 20px;
+    margin-left: 150px; /* 사이드바와의 간격 확보 */
+
   }
   
   h2 {
