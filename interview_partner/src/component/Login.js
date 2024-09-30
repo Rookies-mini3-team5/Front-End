@@ -19,17 +19,16 @@ const Login = () => {
 
       // 받아온 사용자 데이터에서 필요한 정보만 저장
       const userData = {
-        id: response.data.id,
-        username: response.data.username,
-        name: response.data.name,
-        email: response.data.email,
-        role: response.data.role,
+        id: response.data.body.id,
+        username: response.data.body.username,
+        name: response.data.body.name,
+        email: response.data.body.email,
+        role: response.data.body.role,
       };
       setCurrentUser(userData);
-  
-      // JWT 토큰을 localStorage에 저장
-      
-      localStorage.setItem("token", token);  // JWT 토큰을 로컬 스토리지에 저장
+      localStorage.setItem("token", token);  // JWT 토큰 저장
+      localStorage.setItem("user", JSON.stringify(userData));  // 사용자 정보 저장
+
       alert("로그인 성공!");
       navigate("/");
     } catch (error) {
@@ -48,7 +47,7 @@ const Login = () => {
         <h2 className="info-main-title">다시 오셨군요!</h2>
         <h3 className="info-subtitle">GPT AI면접 코치</h3>
         <div className="info-image">
-          <img src="/path-to-your-image.png" alt="GPT AI 면접 코치" />
+          <img src="/img/ai_coach.png" alt="GPT AI 면접 코치" />
         </div>
         <p className="info-text">
           로그인하고 AI 면접 코치와 함께 연습을 시작하세요!
@@ -77,13 +76,6 @@ const Login = () => {
         <button className="login-button" onClick={handleLogin}>
           로그인
         </button>
-        <div className="login-footer">
-          <p>또는 다음으로 로그인</p>
-          <div className="social-buttons">
-            <button className="social-button google">Google</button>
-            <button className="social-button facebook">페이스북</button>
-          </div>
-        </div>
       </div>
     </div>
   );

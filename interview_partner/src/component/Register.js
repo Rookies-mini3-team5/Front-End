@@ -56,7 +56,7 @@ const Register = () => {
         <h2 className="info-main-title">기회를 탐색하고 계신가요?</h2>
         <h3 className="info-subtitle">GPT AI면접 코치</h3>
         <div className="info-image">
-          <img src="/path-to-your-image.png" alt="GPT AI 면접 코치" />
+          <img src="/img/ai_coach.png" alt="GPT AI 면접 코치" />
         </div>
         <p className="info-text">이동 중에도 구인공고에 접속하세요!</p>
       </div>
@@ -70,9 +70,9 @@ const Register = () => {
         <input
           className="register-input"
           type="text"
-          placeholder="Your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Your ID"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <input
           className="register-input"
@@ -84,9 +84,9 @@ const Register = () => {
         <input
           className="register-input"
           type="text"
-          placeholder="Your unique username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Your unique Nickname"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           className="register-input"
@@ -105,13 +105,6 @@ const Register = () => {
         <button className="register-button" onClick={handleRegister}>
           가입하기
         </button>
-        <div className="register-footer">
-          <p>또는 다음으로 회원가입</p>
-          <div className="social-buttons">
-            <button className="social-button google">Google</button>
-            <button className="social-button facebook">페이스북</button>
-          </div>
-        </div>
       </div>
     </div>
   );
