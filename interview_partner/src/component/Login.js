@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setCurrentUser } = useUser();
+  const { setCurrentUser, setToken } = useUser();
 
   const handleLogin = async () => {
     try {
@@ -26,6 +26,7 @@ const Login = () => {
         role: response.data.body.role,
       };
       setCurrentUser(userData);
+      setToken(token);
       localStorage.setItem("token", token);  // JWT 토큰 저장
       localStorage.setItem("user", JSON.stringify(userData));  // 사용자 정보 저장
 
