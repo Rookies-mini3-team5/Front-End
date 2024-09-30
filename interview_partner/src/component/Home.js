@@ -30,6 +30,7 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCalendarId, setSelectedCalendarId] = useState(null);
   const [profileImage, setProfileImage] = useState(null);  // 프로필 이미지 상태 추가
+  const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   // 로그아웃 처리
   const handleLogout = () => {
@@ -38,7 +39,7 @@ const Home = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setMemos({});
-    setProfileImage("/img/defaultPicture.jpg");
+    setProfileImage(`${imageBaseUrl}/defaultPicture.jpeg`);
   };
 
   // 로그인 처리
@@ -218,7 +219,7 @@ const Home = () => {
         {/* Profile Section */}
         <div className="profile-section">
           <img
-            src={profileImage || "/img/defaultPicture.jpg"}
+            src={profileImage || `${imageBaseUrl}/defaultPicture.jpeg`}
             alt="Profile"
             className="profile-pic"
           />
@@ -258,7 +259,7 @@ const Home = () => {
       {/* Main Content */}
       <main className="main-content">
         <header className="header">
-          <img className="header-logo" src="/img/logo.png" alt="Logo" />
+          <img className="header-logo" src={`${imageBaseUrl}/myAiCoach.png`} alt="Logo" />
           <h1 className="logo">MY AI COACH</h1>
         </header>
 
@@ -267,7 +268,7 @@ const Home = () => {
           <div className="job-cards">
             {/* Job Card 1 */}
             <div className="job-card">
-              <img src="/img/image1.jpg" />
+              <img src={`${imageBaseUrl}/aiCoach.png`}/>
               <h3>살펴보기</h3>
               <p>AI 면접 코치에 대해 자세히 알아보세요</p>
               <div className="job-card-footer">
@@ -279,7 +280,7 @@ const Home = () => {
 
             {/* Job Card 2 */}
             <div className="job-card">
-              <img src="/img/image2.jpg" />
+              <img src={`${imageBaseUrl}/job.png`}/>
               <h3>직무 선택</h3>
               <p>당신에게 맞는 직업을 찾아보세요</p>
               <div className="job-card-footer">
@@ -300,7 +301,7 @@ const Home = () => {
 
             {/* Job Card 3 */}
             <div className="job-card">
-              <img src="/img/image3.jpg" />
+              <img src={`${imageBaseUrl}/jobNews.png`}/>
               <h3>구글 기사 바로보기</h3>
               <p>관련된 구글 기사를 찾아보세요</p>
               <div className="job-card-footer">
