@@ -22,7 +22,7 @@ import MemoModal from "./MemoModal";
 import "./Home.css";
 
 const Home = () => {
-  const { currentUser, setCurrentUser } = useUser();
+  const { currentUser, setCurrentUser, setToken, token } = useUser();
   const navigate = useNavigate();
 
   const [memos, setMemos] = useState({});
@@ -34,6 +34,7 @@ const Home = () => {
   // 로그아웃 처리
   const handleLogout = () => {
     setCurrentUser(null);
+    setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setMemos({});
@@ -164,11 +165,8 @@ const Home = () => {
 
   // 메모 조회 기능
   const fetchMemos = (year, month) => {
-    const token = localStorage.getItem("token");
-    const username = currentUser?.username;
-
-    if (!token || !username) {
-      console.error("No token or username");
+    if (!token || !currentUser) {
+      console.error("No token or user");
       return;
     }
 
@@ -176,7 +174,7 @@ const Home = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`, // 토큰을 사용해서 메모 조회
       },
     })
       .then((response) => response.json())
@@ -188,19 +186,21 @@ const Home = () => {
           }, {});
           setMemos(fetchedMemos);
         } else {
-          console.error("Failed fetch memos:", data);
+          console.error("Failed to fetch memos:", data);
         }
       })
-      .catch((error) => console.error("Error fetch memos:", error));
+      .catch((error) => console.error("Error fetching memos:", error));
   };
 
-  // 컴포넌트가 처음 렌더링될 때 메모 조회
+  // 컴포넌트가 처음 렌더링될 때 메모 조회 (currentUser와 token이 있을 때만)
   useEffect(() => {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    fetchMemos(currentYear, currentMonth);
-  }, []);
+    if (currentUser && token) {  // currentUser와 token이 있을 때만 메모 조회
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      fetchMemos(currentYear, currentMonth); // 현재 연도와 월에 대한 메모 조회
+    }
+  }, [currentUser, token]);  // currentUser와 token이 변경될 때만 메모 조회
 
   // 메모가 있는 날짜에 표시할 내용
   const tileContent = ({ date, view }) => {
