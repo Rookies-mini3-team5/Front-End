@@ -1,77 +1,94 @@
 /* JobQuestionList.css */
 
 .JobQuestionList_container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-bottom: 100px;
-  }
-  
-  .common-title {
-    text-align: left;
-    font-size: 26px;
-    margin-bottom: 10px;
-  }
-  
-  .common-text {
-    text-align: left;
-    font-size: 18px;
-    margin-bottom: 40px;
-  }
-  
-  .questionsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  
-  .questionBox {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .questionBox.selected {
-    background-color: #e0f7fa; /* 선택된 상태에서 배경색 변경 */
-    border-color: #00796b; /* 선택된 상태에서 테두리 색상 변경 */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 100px;
 }
-  
-  .questionTitle {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .questionDescription {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.5;
-  }
-  
-  .fixedBottom {
-    position: fixed;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 10px;
-  }
-  
-  .startButton {
-    padding: 15px 30px;
-    background-color: #6200ee;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  .startButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+
+.common-title {
+  text-align: left;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.common-text {
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.questionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.questionBox {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  /* 부드러운 전환 효과 */
+  cursor: pointer;
+  /* 마우스를 올렸을 때 커서가 포인터로 변경 */
+}
+
+.questionBox:hover {
+  background-color: #e0f7fa; /* 마우스를 올렸을 때 배경색 변경 */
+  border-color: #00796b; /* 마우스를 올렸을 때 테두리 색상 변경 */
+}
+
+.questionBox.selected {
+  background-color: #e0f7fa;
+  /* 선택된 상태에서 배경색 변경 */
+  border-color: #00796b;
+  /* 선택된 상태에서 테두리 색상 변경 */
+}
+
+.questionTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.questionDescription {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.fixedBottom {
+  position: fixed;
+  bottom: 200px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+}
+
+.startButton {
+  padding: 15px 30px;
+  background-color: #6200ee;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.startButton:hover {
+  background-color: #6200ee; /* hover 시에도 기존 색상 유지 */
+}
+
+.startButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
