@@ -1,6 +1,5 @@
 // 사용자가 입력한 질문에 대한 GPT의 답변 보여주는 페이지
 
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -14,7 +13,7 @@ const AnswerPage = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:8080/api/section/user/question/one/${userQuestionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/user/question/one/${userQuestionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

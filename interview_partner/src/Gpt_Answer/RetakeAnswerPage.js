@@ -311,7 +311,7 @@ function RetakeAnswerPage({
       const token = localStorage.getItem("token");
 
       const feedbackResponse = await axios.get(
-        `http://localhost:8080/api/section/interview/answer/list/${gptQuestionId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/list/${gptQuestionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -342,7 +342,7 @@ function RetakeAnswerPage({
       const token = localStorage.getItem("token");
 
       await axios.post(
-        `http://localhost:8080/api/section/interview/answer/${gptQuestionId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/${gptQuestionId}`,
         { answer: userAnswer },
         {
           headers: {
