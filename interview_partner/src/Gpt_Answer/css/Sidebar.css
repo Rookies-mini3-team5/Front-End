@@ -1,96 +1,85 @@
+/* 사이드바 전체 스타일 */
 .sidebar {
-  width: 300px;
+  width: 250px;
   background-color: #f5f7fa;
   padding: 20px;
   height: 100vh;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
   border-right: 1px solid #e0e0e0;
   position: fixed;
-  /* 고정 위치 설정 */
-  transition: width 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* 상단에 요소 배치 */
   overflow-y: auto;
-  /* 수직 스크롤 가능하도록 설정 */
 }
 
-.sidebar .current-section {
-  padding: 15px;
-  background-color: #f0f4f7;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  position: relative;
+
+
+/* 로고 및 상단 부분 */
+.logo-home-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  /* 섹션 이름을 가운데 배치 */
-  padding: 10px;
+  justify-content: center; /* 중앙 정렬 */
+  width: 100%;
+  position: relative;
 }
-
-.sidebar .current-section p {
-  flex: 1;
-  font-size: 16px;
-  font-weight: bold;
-  color: #3b82f6;
-  margin: 0;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  /* 텍스트가 한 줄로 표시되도록 */
-  overflow: hidden;
-  /* 넘친 부분은 숨김 */
-  text-overflow: ellipsis;
-  /* 넘친 텍스트는 생략(...) 처리 */
-}
-
-.sidebar .current-section .edit-icon,
-.sidebar .current-section .delete-icon {
-  font-size: 24px;
-  color: #555;
+.home-icon {
   cursor: pointer;
-  position: absolute;
-  /* 절대 위치 설정 */
-  top: 50%;
-  /* 수직 가운데 정렬 */
-  transform: translateY(-50%);
-  /* 수직 가운데 정렬 보정 */
-  margin-left: 10px;
-  /* 아이콘 간격 조절 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s ease; /* 색상 전환을 부드럽게 하기 위한 전환 효과 */
+  z-index: 10; /* 우선순위를 높여 클릭 가능하게 함 */
 }
 
-.sidebar .current-section .edit-icon {
-  right: 50px;
-  /* 오른쪽에 수정 아이콘 배치 */
-}
-
-.sidebar .current-section .delete-icon {
-  right: 20px;
-  /* 오른쪽에 삭제 아이콘 배치 */
-}
-
-.sidebar .current-section .edit-icon {
-  right: 60px;
-  /* 오른쪽에서 수정 아이콘 위치 조정 */
-}
-
-.sidebar .current-section .delete-icon {
-  right: 20px;
-  /* 오른쪽에서 삭제 아이콘 위치 조정 */
-}
-
-.sidebar .current-section .edit-icon:hover {
+.home-icon:hover,
+.home-text:hover {
   color: #3b82f6;
-  /* 수정 버튼에 마우스 올리면 파란색으로 변경 */
+  /* 호버 시 색상 변경 */
 }
 
-.sidebar .current-section .delete-icon:hover {
-  color: #ff6363;
-  /* 삭제 버튼에 마우스 올리면 빨간색으로 변경 */
+.logo-text {
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  flex-grow: 1;
+  position: relative; /* 상대적 위치 */
 }
 
-.home-icon-container {
+.hamburger-btn {
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  left: 500; /* 오른쪽 끝에 고정 */
+  z-index: 10; /* 우선순위를 높여 클릭 가능하게 함 */
+
+}
+
+.hamburger-line {
+  width: 30px;
+  height: 4px;
+  background-color: #333;
+  border-radius: 2px;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo-container h2 {
+  font-size: 18px; /* 로고 텍스트 크기를 줄임 */
+  font-weight: bold;
+  color: #333;
+  margin-left: 10px;
+}
+
+.sidebar.home-icon-container {
   display: flex;
   flex-direction: column;
   /* 아이콘과 텍스트를 세로로 배치 */
@@ -102,473 +91,172 @@
 }
 
 .home-icon {
-  font-size: 48px;
-  /* 아이콘 크기 크게 설정 */
+  font-size: 28px; /* 아이콘 크기 조정 */
   color: #333;
-  margin-bottom: 5px;
-  /* 아이콘과 텍스트 사이 여백 */
+  margin-right: 10px;
 }
 
 .home-text {
-  font-size: 18px;
-  /* 텍스트 크기 설정 */
+  font-size: 16px; /* 텍스트 크기 줄이기 */
   color: #333;
 }
 
-.home-icon:hover,
+.home-icon-container:hover,
 .home-text:hover {
   color: #3b82f6;
-  /* 호버 시 색상 변경 */
 }
 
-/* 질문하기와 질문 목록 보기 버튼 스타일 */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  /* 버튼 사이에 10px의 간격을 추가 */
-  margin-top: 20px;
-  /* 상단 여백 추가 */
-}
 
-.ask-question-btn,
-.view-question-history-btn {
-  width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  background: linear-gradient(135deg, #3b82f6, #9061f9);
-  /* 버튼에 그라데이션 색상 추가 */
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-  /* 버튼 클릭 시 효과 추가 */
-}
 
-.ask-question-btn:hover,
-.view-question-history-btn:hover {
-  background: linear-gradient(135deg, #669df6, #804df9);
-  /* 호버 시 색상 변화 */
-  transform: scale(1.05);
-  /* 호버 시 약간 커지는 효과 */
-}
-
-.ask-question-btn:active,
-.view-question-history-btn:active {
-  transform: scale(0.98);
-  /* 클릭 시 살짝 작아지는 효과 */
-}
-
-.ask-question-btn {
-  background-color: #3b82f6;
-}
-
-.view-question-history-btn {
-  background-color: #9061f9;
-}
-
-.ask-question-btn:hover {
-  background-color: #669df6;
-}
-
-.view-question-history-btn:hover {
-  background-color: #804df9;
-}
-
-/* 섹션 목록을 감싸는 div */
-.section-list {
-  flex-grow: 1;
-  /* 섹션 목록이 가능한 많은 공간을 차지하도록 설정 */
-  overflow-y: auto;
-  /* 수직 스크롤 가능하도록 설정 */
-  margin-top: 20px;
-  /* 상단 공간 확보 */
-}
-
-/* 접힌 사이드바 스타일 */
-.sidebar.collapsed {
-  width: 100px;
-  /* 접혔을 때의 폭을 넉넉하게 조정 */
-  padding: 10px;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 햄버거 버튼 선 스타일 */
-.sidebar.collapsed .hamburger-line {
-  width: 25px;
-  height: 3px;
-  background-color: #3b82f6;
-  border-radius: 2px;
-}
-
-.sidebar h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-  display: flex;
-  justify-content: center;
-}
-
-.sidebar .logo-collapsed {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-/* 접힌 사이드바에서 나타나는 햄버거 버튼 (플러스와 돋보기 위에 위치) */
-.sidebar.collapsed .arrow-equal-toggle-button {
-  position: absolute;
-  top: 40px;
-  /* 플러스와 돋보기 버튼 위에 정확히 위치하도록 조정 */
-  left: 50%;
-  /* 가운데 정렬 */
-  transform: translateX(-50%);
-  background-color: transparent;
-  border: none;
-  color: #3b82f6;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  gap: 3px;
-  z-index: 100;
-  /* 버튼이 위로 나오도록 z-index 설정 */
-}
-
-/* 접힌 사이드바에서 나타나는 햄버거 버튼 선 스타일 */
-.sidebar.collapsed .hamburger-line {
-  width: 25px;
-  height: 3px;
-  background-color: #3b82f6;
-  border-radius: 2px;
-}
-
-/* 접혔을 때 플러스와 검색 버튼을 세로로 배치 */
-.sidebar.collapsed .chat-btn-expanded-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  /* 너비를 100%로 설정 */
-}
-
-.sidebar.collapsed .chat-btn-expanded {
-  width: 60px;
-  /* 버튼 너비 */
-  height: 60px;
-  /* 버튼 높이 */
-  margin-bottom: 10px;
-  /* 두 버튼 간의 간격 */
-}
-
-.sidebar.collapsed .search-btn {
-  width: 60px;
-  height: 60px;
-  background-color: #9061f9;
-  /* 검색 버튼 배경색 */
-  border-radius: 50%;
-  /* 검색 버튼 모서리 둥글게 */
-  color: white;
-  font-size: 30px;
-}
-
-.search-btn-collapsed {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #9061f9);
-  /* 플러스 버튼과 동일한 배경색 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 30px;
-  margin-top: 10px;
-  /* 플러스 버튼과의 간격 조정 */
-}
-
-.search-icon-collapsed {
-  color: white;
-  /* 아이콘 색상을 흰색으로 변경 */
-}
-
-/* 펼쳐졌을 때 햄버거 버튼의 기본 위치 (변경 없음) */
-.arrow-equal-toggle-button {
-  position: absolute;
-  top: 20px;
-  /* 상단 오른쪽 기본 위치 */
-  right: 20px;
-  background-color: transparent;
-  border: none;
-  color: #3b82f6;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  gap: 3px;
-  width: 50px;
-  /* 햄버거 버튼의 너비 */
-  height: 50px;
-  /* 햄버거 버튼의 높이 */
-}
-
-/* 햄버거 선 스타일 */
 .hamburger-line {
-  width: 20px;
-  height: 2px;
-  background-color: #3b82f6;
-  border-radius: 5px;
+  width: 30px; /* 너비 */
+  height: 4px; /* 높이 */
+  background-color: #333; /* 기본 색상 */
 }
-
-/* 접힌 상태에서도 기본 햄버거 버튼 스타일 유지 */
-.middle-equal-toggle-button {
-  display: none;
-  /* 접혔을 때는 로고 위 버튼만 활성화하기 위해 이 버튼을 숨김 */
-}
-
-/* 새 채팅 버튼 및 검색 버튼 컨테이너 */
-.chat-btn-container {
+/* 현재 섹션 스타일 */
+.current-section {
+  padding: 10px;
+  background-color: #f0f4f7;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-  flex-direction: column;
-  /* 줄바꿈을 위해 컬럼으로 변경 */
-  margin-top: 50px;
-  /* 새로 추가: 버튼을 아래로 내리기 위한 여백 */
+  font-size: 14px; /* 텍스트 크기 줄이기 */
 }
 
-.chat-btn-expanded-container {
-  display: flex;
-  /* 새 채팅과 검색 버튼을 한 줄에 배치 */
-  justify-content: space-between;
-  /* 좌우로 버튼 간격을 자동으로 배분 */
-  width: 90%;
-}
-
-.chat-btn-expanded {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #3b82f6, #9061f9);
-  padding: 10px 20px;
-  border-radius: 50px;
-  color: white;
-  font-size: 18px;
+.current-section p {
+  flex: 1;
   font-weight: bold;
-  width: 70%;
-  /* 가로 길이를 조정 */
-}
-
-.chat-icon {
-  margin-right: 20px;
-  font-size: 20px;
-}
-
-.chat-btn-collapsed {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #9061f9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 30px;
-  margin-bottom: 10px;
-  /* 돋보기 버튼과의 간격 조정 */
-}
-
-/* 검색 버튼 */
-.search-btn {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #9061f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 30px;
-  margin-left: 10px;
-  /* 새 채팅 버튼과의 간격 */
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-/* 질문 목록 항목에 마우스를 올렸을 때 스타일 */
-.sidebar ul li:hover {
-  background-color: #e6f7ff; /* 배경색 변경 */
-  transform: scale(1.05); /* 살짝 커지는 효과 */
-}
-
-.sidebar li {
-  margin-bottom: 10px;
-  /* 간격 줄임 */
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* 아이콘과 텍스트를 양쪽으로 배치 */
-  cursor: pointer;
+  color: #3b82f6;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .edit-icon {
+  font-size: 20px;
+  color: #555;
+margin-right: 10px;
   cursor: pointer;
-  color: #3b82f6;
-  /* 아이콘 색상 */
-  margin-left: 10px;
-  /* 텍스트와 아이콘 간격 */
 }
+.delete-icon {
+  font-size: 20px;
+  color: #555;
+  cursor: pointer;
+}
+
+
 
 .edit-icon:hover {
   color: #9061f9;
   /* 마우스 호버 시 색상 변경 */
 }
 
-.sidebar li a {
-  text-decoration: none;
-  color: #555;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
+.delete-icon:hover {
+  color: #ff6363;
+  cursor: pointer;
 }
 
-.sidebar li a:hover {
-  color: #3b82f6;
+/* 질문 목록 스타일 */
+.section-question-container {
+  flex-grow: 1; /* 질문 목록이 가능한 공간을 채우도록 설정 */
+  overflow-y: auto; /* 질문 목록 스크롤 가능 */
 }
 
-.sidebar li a.selected {
-  background-color: #e6f7ff;
-  padding: 10px;
-  border-radius: 5px;
-  color: #3b82f6;
-}
-
-.sidebar .divider {
-  border-top: 1px solid #e0e0e0;
-  margin: 20px 0;
-}
-
-/* 구분선 추가 (나의 대화 아래에 위치) */
-.sidebar .section-divider {
-  border-bottom: 1px solid #e0e0e0;
-  /* 구분선을 아래로 추가 */
-  margin-bottom: 20px;
-}
-
-.sidebar .settings {
-  justify-content: center;
-  background-color: transparent;
-  /* 필요에 따라 색상 변경 가능 */
-  margin-top: 200px;
-}
-
-.sidebar.collapsed .settings {
-  margin-top: 170px;
-}
-
-.sidebar .user-profile {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  margin-left: 18px;
-  padding: 10px 20px;
-  /* padding을 늘려서 여백을 확보 */
-  border-radius: 30px;
-  /* 모서리를 둥글게 */
-  background-color: #f0f4f7;
-  /* 배경 색상 */
-  border: 1px solid #e0e0e0;
-  /* 테두리 추가 */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  /* 그림자 추가 */
-}
-
-.sidebar .user-profile img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  /* 프로필 이미지를 둥글게 */
-  margin-right: 10px;
-}
-
-.sidebar .user-profile span {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  /* 텍스트 색상 */
-}
-
-.sidebar .user-profile .profile-action {
-  margin-left: auto;
-  /* 아이콘을 오른쪽 끝으로 밀기 */
-  background-color: #9061f9;
-  border-radius: 50%;
-  /* 아이콘 배경을 둥글게 */
-  padding: 10px;
-  color: white;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-}
-
-.sidebar ul {
-  flex-grow: 1;
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: auto;
-  /* 상단 공간 확보 */
-}
-
-.sidebar li {
+.section-question-container h2 {
+  font-size: 16px; /* 섹션 제목 크기 줄이기 */
   margin-bottom: 15px;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
+  color: #333;
 }
 
-.sidebar .user-profile {
-  display: flex;
-  align-items: center;
+.section-question-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section-question-container ul li {
   padding: 10px;
-  border-radius: 5px;
-  background-color: #f0f4f7;
-  position: absolute;
-  bottom: 100px;
-  width: calc(100);
-  left: 20px;
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 8px;
+  font-size: 14px; /* 질문 항목의 텍스트 크기 줄이기 */
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+.section-question-container ul li:hover {
+  background-color: #e0f7fa;
+  transform: scale(1.05);
+}
+
+/* 선택된 질문 항목 스타일 */
+.section-question-container ul li.active {
+  background-color: #e6f7ff;
+  color: #3b82f6;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;}
+
+.section-question-container ul li.active:hover {
+  background-color: #a7c4f2; /* 호버 시에도 동일한 배경색 유지 */
+  transform: none;
+}
+
+
+/* 질문하기, 질문 목록 보기 버튼 스타일 */
+.button-group {
+  margin-top: 20px; /* 버튼 상단에 약간의 여백 */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ask-question-btn,
+.view-question-history-btn {
+  width: 100%;
+  padding: 12px; /* 버튼 패딩 조정 */
+  background: linear-gradient(135deg, #3b82f6, #9061f9);
+  color: white;
+  font-size: 16px; /* 버튼 텍스트 크기 조정 */
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.ask-question-btn:hover,
+.view-question-history-btn:hover {
+  background: linear-gradient(135deg, #669df6, #804df9);
+  transform: scale(1.05);
+}
+
+.ask-question-btn:active,
+.view-question-history-btn:active {
+  transform: scale(0.98);
+}
+
+/* 질문 목록과 버튼 간 여백 추가 */
+.section-question-container + .button-group {
+  margin-top: 15px;
+}
+
+/* 유저 프로필 스타일 (선택 사항) */
 .user-profile {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  border-radius: 30px;
+  padding: 10px;
+  margin-top: auto; /* 하단에 고정 */
   background-color: #f0f4f7;
+  border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  width: 80%;
 }
 
 .user-profile img {
@@ -579,87 +267,42 @@
 }
 
 .user-profile span {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #333;
 }
 
-/* collapsed 상태일 때 프로필 텍스트와 나가기 버튼 숨기기 */
-.sidebar.collapsed .user-profile span,
-.sidebar.collapsed .user-profile .profile-action {
-  display: none;
-  /* 텍스트와 나가기 버튼 숨기기 */
-}
-
-/* collapsed 상태일 때 프로필 상자의 크기 조정 */
-.sidebar.collapsed .user-profile {
-  width: auto;
-  /* 상자의 너비를 자동으로 조정 */
-  padding: 0;
-  /* 여백 제거 */
-  background-color: transparent;
-  /* 배경 제거 */
-  border: none;
-  /* 테두리 제거 */
-  border-radius: 50%;
-  /* 프로필 사진 둥글게 유지 */
-
-  justify-content: center;
-  /* 프로필 이미지를 가운데 정렬 */
-}
-
-/* collapsed 상태에서도 프로필 이미지 유지 */
-.sidebar.collapsed .user-profile img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  /* 프로필 사진 둥글게 유지 */
-}
-
-.profile-action {
-  background-color: #9061f9;
-  border-radius: 50%;
-  padding: 10px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-}
-
-/* 선택된 항목을 강조할 스타일 */
-li.active {
-  background-color: #e6f7ff;
-  color: #3b82f6;
-  font-weight: bold;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* 축소된 사이드바 스타일 */
+/* 사이드바 접힘 상태 */
 .sidebar.collapsed {
-  width: 80px; /* 사이드바 축소 시의 폭 */
+  width: 80px; /* 접혔을 때의 폭 */
   padding: 10px;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-/* 축소된 사이드바에서 텍스트 숨기기 */
 .sidebar.collapsed .home-text,
 .sidebar.collapsed .current-section p,
-.sidebar.collapsed .selected-job h3,
-.sidebar.collapsed .selected-job h4,
 .sidebar.collapsed ul li a {
-  display: none; /* 축소된 상태에서 텍스트 숨기기 */
+  display: none;
 }
 
-/* 사이드바 내부 요소 숨기기 (축소 시) */
-.sidebar.collapsed .home-icon-container,
-.sidebar.collapsed .current-section,
-.sidebar.collapsed .section-list,
-.sidebar.collapsed .button-group,
+.sidebar.collapsed .home-icon-container {
+  justify-content: center;
+}
+
+.sidebar.collapsed .current-section {
+  justify-content: center;
+}
+
+.sidebar.collapsed .button-group {
+  display: none;
+}
+
 .sidebar.collapsed .user-profile {
-  display: none; /* 모든 요소를 숨기기 */
+  justify-content: center;
+}
+
+.sidebar.collapsed .user-profile img {
+  margin-right: 0;
 }
