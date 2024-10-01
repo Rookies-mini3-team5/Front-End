@@ -17,7 +17,7 @@ const JobQuestionList = () => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/question/list/${sectionId}`
+          `${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_SECTION_API_URL}/gpt/question/list/${sectionId}`
         );
         const data = await response.json();
         setQuestions(data.body.gptQuestionList); // gptQuestionList 배열에 접근

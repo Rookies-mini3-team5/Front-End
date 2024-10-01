@@ -4,7 +4,9 @@ on:
   push:
     branches: 
       - main
-
+env:
+  REACT_APP_IMAGE_URL: ${{ secrets.REACT_APP_IMAGE_URL }}
+  REACT_APP_API_BASE_URL: ${{ secrets.REACT_APP_API_BASE_URL }}
 jobs:
   Docker:
     runs-on: ubuntu-latest

@@ -70,7 +70,7 @@ const JobSelection = () => {
       alert("하나 이상의 직무를 선택해 주세요.");
     } else {
       // POST 요청
-      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/section`, {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_SECTION_API_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
