@@ -13,6 +13,7 @@ const Register = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const { setCurrentUser } = useUser();
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
+  const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const handleRegister = async () => {
     if (password !== repeatPassword) {
@@ -31,17 +32,24 @@ const Register = () => {
     try {
       // FormData 객체를 사용하여 데이터를 담습니다.
       const formData = new FormData();
-      formData.append("data", new Blob([JSON.stringify(registerData)], { type: "application/json" }));
-    
+      formData.append(
+        "data",
+        new Blob([JSON.stringify(registerData)], { type: "application/json" })
+      );
+
       // 파일이 있다면 formData에 파일도 추가
       // 파일을 업로드하지 않으면 null로 처리, 빈 파일 전송을 피하기 위해 조건을 추가
-      formData.append("file", null); 
+      formData.append("file", null);
 
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/open-api/join`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/open-api/join`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log("회원가입 성공:", response.data);
       alert("회원가입 성공!");
       navigate("/login");
@@ -57,6 +65,7 @@ const Register = () => {
         <h2 className="info-main-title">기회를 탐색하고 계신가요?</h2>
         <h3 className="info-subtitle">GPT AI면접 코치</h3>
         <div className="info-image">
+          <img src={`${imageBaseUrl}/ai.png`} alt="GPT AI 면접 코치" />
           <img src={`${imageBaseUrl}/ai.png`} alt="GPT AI 면접 코치" />
         </div>
         <p className="info-text">이동 중에도 구인공고에 접속하세요!</p>
@@ -74,6 +83,9 @@ const Register = () => {
           placeholder="Your ID"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          placeholder="Your ID"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <input
           className="register-input"
@@ -85,6 +97,9 @@ const Register = () => {
         <input
           className="register-input"
           type="text"
+          placeholder="Your unique Nickname"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           placeholder="Your unique Nickname"
           value={name}
           onChange={(e) => setName(e.target.value)}

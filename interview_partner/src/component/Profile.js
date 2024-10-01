@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useUser } from "./UserProvider"; // useUser 훅 불러오기
 import { useUser } from "./UserProvider"; // useUser 훅 불러오기
 import "./Profile.css";
 
@@ -8,8 +10,13 @@ const Profile = () => {
   const { currentUser, setCurrentUser } = useUser(); // useUser에서 currentUser와 setCurrentUser 가져오기
   const [name, setName] = useState(currentUser?.name || ""); // 초기값을 currentUser에서 가져옴
   const [email, setEmail] = useState(currentUser?.email || ""); // 초기값을 currentUser에서 가져옴
+  const { currentUser, setCurrentUser } = useUser(); // useUser에서 currentUser와 setCurrentUser 가져오기
+  const [name, setName] = useState(currentUser?.name || ""); // 초기값을 currentUser에서 가져옴
+  const [email, setEmail] = useState(currentUser?.email || ""); // 초기값을 currentUser에서 가져옴
   const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [profileImage, setProfileImage] = useState("/path/to/default-profile-image.jpg");
+  const [profileImage, setProfileImage] = useState(
+    "/path/to/default-profile-image.jpg"
+  );
   const [newProfileImage, setNewProfileImage] = useState(null);
   const navigate = useNavigate();
 
@@ -66,10 +73,8 @@ const Profile = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfileImage(reader.result); // 미리보기 이미지 설정
-        setProfileImage(reader.result); // 미리보기 이미지 설정
       };
       reader.readAsDataURL(file);
-      setNewProfileImage(file); // 실제 업로드할 파일 저장
       setNewProfileImage(file); // 실제 업로드할 파일 저장
     }
   };
@@ -93,14 +98,14 @@ const Profile = () => {
       })
       .then((response) => {
         alert("프로필이 성공적으로 업데이트되었습니다.");
-  
+
         // 전역 상태를 업데이트하여 Home에서 이름이 자동으로 새로고침되도록 함
         const updatedUser = { ...currentUser, name, email };
         setCurrentUser(updatedUser);
-  
+
         // localStorage에 업데이트된 사용자 정보 저장
         localStorage.setItem("user", JSON.stringify(updatedUser));
-  
+
         setIsEditingEmail(false);
         navigate("/"); // 저장 후 메인 페이지로 이동
       })
@@ -112,7 +117,6 @@ const Profile = () => {
 
   const handleCancel = () => {
     setIsEditingEmail(false);
-    navigate("/");
     navigate("/");
   };
 

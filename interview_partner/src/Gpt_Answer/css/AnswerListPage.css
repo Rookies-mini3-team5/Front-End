@@ -1,0 +1,77 @@
+.answer-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.answer-list-wrapper {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    max-height: 90vh; /* 최대 높이 설정 */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.guide {
+    margin-bottom: 30px;
+}
+
+.guide h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+/* 가이드 박스 스타일 */
+.guide-box {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+p {
+    color: #555;
+    margin: 10px 0;
+}
+
+/* 체크 표시 추가 스타일 */
+.checkmark {
+    color: green;
+    margin-right: 5px;
+}
+
+/* 피드백 박스 스타일 */
+.feedback-box {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-top: 10px;
+}
