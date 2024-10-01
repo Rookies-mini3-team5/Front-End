@@ -39,10 +39,6 @@
     color: #777;
 }
 
-.menu-section {
-    margin-top: 30px;
-}
-
 .menu-item {
     display: flex;
     align-items: center;
@@ -54,11 +50,6 @@
 }
 
 .menu-item:hover {
-    background-color: #ddd;
-    border-radius: 8px;
-}
-
-.menu-item.active {
     background-color: #ddd;
     border-radius: 8px;
 }
@@ -100,7 +91,6 @@
 
 .header {
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     margin-bottom: 20px;
 }
@@ -433,3 +423,8 @@
   .react-calendar__navigation__next2-button {
     display: none; /* 2개월 전/후 이동 버튼 숨김 */
   }
+
+  /* 현재 보고 있는 월이 아닌 날짜를 연하게 보이게 하는 스타일 */
+  .out-of-current-month { 
+    color: #ccc;
+}
