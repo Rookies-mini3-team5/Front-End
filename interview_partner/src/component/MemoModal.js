@@ -41,8 +41,6 @@ const MemoModal = ({
         <div className="memo-modal-buttons">
           <button onClick={handleSave}>{calendarId ? "수정" : "저장"}</button>
           {calendarId && <button onClick={handleDelete}>삭제</button>}
-          <button onClick={handleSave}>{calendarId ? "수정" : "저장"}</button>
-          {calendarId && <button onClick={handleDelete}>삭제</button>}
           <button onClick={onClose}>취소</button>
         </div>
       </div>
