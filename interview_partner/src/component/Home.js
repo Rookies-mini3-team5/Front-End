@@ -13,6 +13,8 @@ import {
   LogOut,
   User,
   LogIn,
+  UserPlus, // 회원가입 아이콘
+
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Calendar } from "react-calendar";
@@ -50,6 +52,10 @@ const Home = () => {
   // 로그인 처리
   const handleLogin = () => {
     navigate("/login");
+  };
+  // 회원가입 처리
+  const handleSignUp = () => {
+    navigate("/register");
   };
 
   // 프로필 이미지 가져오기
@@ -334,8 +340,8 @@ const Home = () => {
             className="profile-pic"
           />
           <h3>{currentUser ? currentUser.name : "게스트"}</h3>
-          <p>{currentUser ? "구직자" : "로그인하세요"}</p>
-        </div>
+          <p>{currentUser ? "구직자" : <>로그인하여 <br /> AI 면접 코치를 시작해보세요!</>}</p>
+          </div>
 
         {/* Login/Logout Section */}
         <div className="auth-section">
@@ -358,13 +364,20 @@ const Home = () => {
               <span>로그아웃</span>
             </div>
           ) : (
-            <div className="menu-item" onClick={handleLogin}>
-              <LogIn size={20} />
-              <span>로그인</span>
-            </div>
+            <>
+              <div className="menu-item" onClick={handleLogin}>
+                <LogIn size={20} />
+                <span>로그인</span>
+              </div>
+              <div className="menu-item" onClick={handleSignUp}>
+                <UserPlus size={20} />
+                <span>회원가입</span>
+              </div>
+            </>
           )}
         </div>
       </aside>
+
 
       {/* Main Content */}
       <main className="main-content">
@@ -479,24 +492,29 @@ const Home = () => {
         />
       )}
 
-      {/* Right Sidebar */}
-      <aside className="right-sidebar">
-        <h2>나의 면접 섹션</h2>
-        <ul>
-          {sections.length > 0 ? (
-            sections.map((section) => (
-              <li
-                key={section.id}
-                onClick={() => handleSectionClick(section.id, section.name)}
-              >
-                {section.name}
-              </li>
-            ))
-          ) : (
-            <li>섹션이 없습니다.</li>
-          )}
-        </ul>
-      </aside>
+{/* // Right Sidebar */}
+<aside className="right-sidebar">
+  <h2>나의 면접 섹션</h2>
+  <ul>
+    {currentUser ? (
+      sections.length > 0 ? (
+        sections.map((section) => (
+          <li
+            key={section.id}
+            onClick={() => handleSectionClick(section.id, section.name)}
+          >
+            {section.name}
+          </li>
+        ))
+      ) : (
+        <li>섹션이 없습니다.</li>
+      )
+    ) : (
+      <li>로그인하여 나의 면접 세션 보기</li>
+    )}
+  </ul>
+</aside>
+
     </div>
   );
 };

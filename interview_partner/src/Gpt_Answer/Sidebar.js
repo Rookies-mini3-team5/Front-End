@@ -9,8 +9,12 @@ const Sidebar = () => {
   const location = useLocation(); // navigate로 전달된 state에서 값 가져오기
   const [collapsed, setCollapsed] = useState(false);
   const [sections, setSections] = useState([]); // 사용자 섹션 목록
-  const [selectedSectionId, setSelectedSectionId] = useState(sectionId || location.state?.sectionId || null); // 선택된 섹션 ID
-  const [selectedSectionName, setSelectedSectionName] = useState(location.state?.sectionName || "섹션 제목 없음"); // 섹션 이름 상태
+  const [selectedSectionId, setSelectedSectionId] = useState(
+    sectionId || location.state?.sectionId || null
+  ); // 선택된 섹션 ID
+  const [selectedSectionName, setSelectedSectionName] = useState(
+    location.state?.sectionName || "섹션 제목 없음"
+  ); // 섹션 이름 상태
   const [questions, setQuestions] = useState([]); // 선택된 섹션의 질문 목록
   const [selectedQuestionId, setSelectedQuestionId] = useState(null); // 선택된 질문 ID
   const navigate = useNavigate();
@@ -20,13 +24,16 @@ const Sidebar = () => {
     const fetchUserSections = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/section`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-  
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/section`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
         if (response.status === 200) {
           const sectionList = response.data.body;
           setSections(sectionList);
@@ -38,7 +45,9 @@ const Sidebar = () => {
             setSelectedSectionName(recentSection.name);
           } else if (selectedSectionId) {
             // 선택된 섹션이 있을 경우 해당 섹션 이름을 설정
-            const selectedSection = sectionList.find((sec) => sec.id === Number(selectedSectionId));
+            const selectedSection = sectionList.find(
+              (sec) => sec.id === Number(selectedSectionId)
+            );
             if (selectedSection) {
               setSelectedSectionName(selectedSection.name);
             }
@@ -50,7 +59,7 @@ const Sidebar = () => {
         console.error("Error fetching user sections:", error);
       }
     };
-  
+
     fetchUserSections();
   }, [selectedSectionId]);
 
@@ -87,8 +96,12 @@ const Sidebar = () => {
 
   // 섹션 삭제 기능
   const handleDeleteSection = async (sectionId) => {
-    const sectionName = sections.find((section) => section.id === sectionId)?.name;
-    const confirmDelete = window.confirm(`"${sectionName}"의 모의 면접 기록을 삭제하시겠습니까?`);
+    const sectionName = sections.find(
+      (section) => section.id === sectionId
+    )?.name;
+    const confirmDelete = window.confirm(
+      `"${sectionName}"의 모의 면접 기록을 삭제하시겠습니까?`
+    );
     if (confirmDelete) {
       try {
         const token = localStorage.getItem("token");
@@ -149,22 +162,21 @@ const Sidebar = () => {
     }
   };
   // '질문하기' 페이지로 이동
-const handleAskQuestionClick = () => {
-  if (selectedSectionId) {
-    navigate(`/ask-question/${selectedSectionId}`);
-  } else {
-    alert("먼저 섹션을 선택해주세요.");
-  }
-};
-// '질문 목록 보기' 페이지로 이동
-const handleViewQuestionHistoryClick = () => {
-  if (selectedSectionId) {
-    navigate(`/question-history/${selectedSectionId}`);
-  } else {
-    alert("먼저 섹션을 선택해주세요.");
-  }
-};
-
+  const handleAskQuestionClick = () => {
+    if (selectedSectionId) {
+      navigate(`/ask-question/${selectedSectionId}`);
+    } else {
+      alert("먼저 섹션을 선택해주세요.");
+    }
+  };
+  // '질문 목록 보기' 페이지로 이동
+  const handleViewQuestionHistoryClick = () => {
+    if (selectedSectionId) {
+      navigate(`/question-history/${selectedSectionId}`);
+    } else {
+      alert("먼저 섹션을 선택해주세요.");
+    }
+  };
 
   // 사이드바 확장/축소 토글
   const toggleSidebar = () => {
@@ -173,70 +185,86 @@ const handleViewQuestionHistoryClick = () => {
 
   return (
     <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
-      <button onClick={toggleSidebar} className="arrow-equal-toggle-button">
-        <span className="hamburger-line"></span>
-        <span className="hamburger-line"></span>
-        <span className="hamburger-line"></span>
-      </button>
-      <div className="logo-container">
+      <div className="logo-home-container">
+        <FaHome
+          className="home-icon"
+          onClick={() => {
+            console.log("Home icon clicked");
+            navigate("/");
+          }}
+        />
         {!collapsed ? (
-          <h2>AI 면접 코치</h2>
+          <h2 className="logo-text">AI 면접 코치</h2>
         ) : (
           <div className="logo-collapsed">🤔</div>
         )}
+        <button className="hamburger-btn" onClick={toggleSidebar}>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
       </div>
-      <div className="home-icon-container" onClick={() => navigate("/")}>
-        <FaHome className="home-icon" />
-        <span className="home-text">홈</span>
+
+      {/* 현재 섹션 정보와 질문 목록을 상단에 배치 */}
+      <div className="section-question-container">
+        <h2>현재 섹션</h2>
+        {selectedSectionId ? (
+          <div className="current-section">
+            <p>{selectedSectionName}</p>
+            <FaPen
+              className="edit-icon"
+              onClick={() => goToEditSection(selectedSectionId)}
+              title="수정하기"
+            />
+            <FaTrash
+              className="delete-icon"
+              onClick={() => handleDeleteSection(selectedSectionId)}
+              title="삭제하기"
+            />
+          </div>
+        ) : (
+          <p>현재 섹션 없음</p>
+        )}
+
+        {/* 질문 목록 표시 */}
+        {selectedSectionId && (
+          <div>
+            <h2>질문 목록</h2>
+            <ul>
+              {questions.length > 0 ? (
+                questions.map((question) => (
+                  <li
+                    key={question.id}
+                    onClick={() => handleQuestionClick(question.id)}
+                    className={
+                      selectedQuestionId === question.id ? "active" : ""
+                    }
+                  >
+                    {question.question}
+                  </li>
+                ))
+              ) : (
+                <li>질문이 없습니다.</li>
+              )}
+            </ul>
+          </div>
+        )}
       </div>
 
-      {/* 현재 섹션 정보 표시 */}
-      <h2>현재 섹션</h2>
-      {selectedSectionId ? (
-        <div className="current-section">
-          <p>{selectedSectionName}</p>
-          <FaPen className="edit-icon" onClick={() => goToEditSection(selectedSectionId)} title="수정하기" />
-          <FaTrash className="delete-icon" onClick={() => handleDeleteSection(selectedSectionId)} title="삭제하기" />
-        </div>
-      ) : (
-        <p>현재 섹션 없음</p>
-      )}
-
-      {/* 질문 목록 표시 */}
-      {selectedSectionId && (
-        <div>
-          <h2>질문 목록</h2>
-          <ul>
-            {questions.length > 0 ? (
-              questions.map((question) => (
-                <li
-                  key={question.id}
-                  onClick={() => handleQuestionClick(question.id)}
-                  className={selectedQuestionId === question.id ? "active" : ""}
-                >
-                  {question.question}
-                </li>
-              ))
-            ) : (
-              <li>질문이 없습니다.</li>
-            )}
-          </ul>
-        </div>
-        
-      )}
-
-    {/* '질문하기'와 '질문 목록 보기' 버튼 */}
+      {/* 질문하기와 질문 목록 보기 버튼 */}
       <div className="button-group">
         <button className="ask-question-btn" onClick={handleAskQuestionClick}>
           질문하기
         </button>
-        <button className="view-question-history-btn" onClick={handleViewQuestionHistoryClick}>
+        <button
+          className="view-question-history-btn"
+          onClick={handleViewQuestionHistoryClick}
+        >
           질문 목록 보기
         </button>
       </div>
     </div>
   );
 };
-
 
 export default Sidebar;
