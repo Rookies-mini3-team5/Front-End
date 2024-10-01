@@ -380,7 +380,7 @@ const Home = () => {
             <div className="job-card">
               <img src={`${imageBaseUrl}/job.png`} />
               <h3>직무 선택</h3>
-              <p>당신에게 맞는 직업을 찾아보세요</p>
+              <p>지원 직무를 선택해 면접을 시작하세요</p>
               <div className="job-card-footer">
                 <button
                   onClick={() => {
