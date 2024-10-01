@@ -268,7 +268,7 @@ const Home = () => {
         setQuestions(questionList); // 사이드바에 전체 질문 목록 표시
 
         // 첫 번째 질문 페이지로 이동
-        navigate("/question-answer", {
+        navigate(`/question-answer/${firstQuestion.id}`, {
           state: {
             question: firstQuestion,
             sectionId: sectionId,

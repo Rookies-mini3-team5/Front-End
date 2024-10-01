@@ -158,7 +158,6 @@
 //   const { question } = location.state || {}; // 전달된 question 데이터를 받음
 //   const navigate = useNavigate(); // 홈 화면으로 이동을 위한 navigate 추가
 
-
 //   const [feedbackData, setFeedbackData] = useState({});
 //   const [userAnswer, setUserAnswer] = useState(""); // 빈 텍스트 필드 유지
 
@@ -353,7 +352,7 @@ function RetakeAnswerPage({
       );
 
       alert("답변이 성공적으로 제출되었습니다.");
-      
+
       // 답변 제출 후 최신 피드백 데이터 다시 가져오기
       await fetchFeedback();
     } catch (error) {
@@ -377,7 +376,8 @@ function RetakeAnswerPage({
       <div className="retake-content">
         <h2>면접 질문 다시 작성해보기</h2>
 
-        <p>📝 면접 질문: {question?.expectedQuestion}</p>
+        {/* <p>📝 면접 질문: {question?.expectedQuestion}</p> */}
+        <p>📝 면접 질문: {question?.question || "질문이 없습니다."}</p>
 
         <div className="previous-feedback">
           <h3>이전 답변: {feedbackData.answer || "이전 답변이 없습니다."}</h3>

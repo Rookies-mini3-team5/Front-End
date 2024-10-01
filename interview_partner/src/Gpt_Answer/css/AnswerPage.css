@@ -1,0 +1,73 @@
+/* 기본 레이아웃 설정 */
+.answer-page {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* 질문 스타일링 */
+  .question {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* 답변 박스 스타일링 */
+  .answer-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* 답변 레이블 스타일링 */
+  .answer-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+  
+  /* 답변 텍스트 스타일링 */
+  .answer-text {
+    font-size: 18px;
+    color: #444;
+    line-height: 1.6;
+    word-wrap: break-word;
+  }
+  
+  /* 로딩 텍스트 스타일링 */
+  .loading-text {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+  }
+  
+  /* 반응형 설정 */
+  @media (max-width: 768px) {
+    .answer-page {
+      padding: 15px;
+      margin: 20px auto;
+    }
+  
+    .question {
+      font-size: 20px;
+    }
+  
+    .answer-label {
+      font-size: 18px;
+    }
+  
+    .answer-text {
+      font-size: 16px;
+    }
+  }
+  

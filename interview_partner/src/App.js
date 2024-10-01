@@ -377,7 +377,7 @@ const AppContent = () => {
           }
         />
         <Route
-          path="/question-answer"
+          path="/question-answer/:questionId"
           element={
             <QuestionAnswerPage
               activeChat={activeChat}
