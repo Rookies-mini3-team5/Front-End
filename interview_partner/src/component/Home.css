@@ -99,9 +99,10 @@
     font-size: 30px;
     font-weight: bold;
 }
+
 .header-logo {
     max-width: 100px;
-  }
+}
 
 /* Job Cards */
 .job-cards {
@@ -172,7 +173,8 @@
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Ensure it appears after the job cards */
+    margin-top: 20px;
+    /* Ensure it appears after the job cards */
 }
 
 .calendar-header {
@@ -352,13 +354,17 @@
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* "인터뷰 일정" 섹션이 다른 요소들 아래에 위치하게 함 */
+    margin-top: 20px;
+    /* "인터뷰 일정" 섹션이 다른 요소들 아래에 위치하게 함 */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(100% - 40px); /* 가로 크기를 패딩을 고려해 조정하여 넘치지 않게 함 */
-    flex-direction: column; /* 제목과 캘린더를 세로로 정렬 */
-    max-width: 100%; /* 부모 컨테이너를 넘지 않도록 최대 너비 설정 */
+    width: calc(100% - 40px);
+    /* 가로 크기를 패딩을 고려해 조정하여 넘치지 않게 함 */
+    flex-direction: column;
+    /* 제목과 캘린더를 세로로 정렬 */
+    max-width: 100%;
+    /* 부모 컨테이너를 넘지 않도록 최대 너비 설정 */
 }
 
 
@@ -368,8 +374,10 @@
 
 /* React Calendar 전체 컨테이너 */
 .react-calendar {
-    width: 100%; /* 캘린더를 섹션 너비에 맞게 조정 */
-    max-width: 100%; /* 캘린더가 부모 컨테이너의 크기를 넘지 않도록 설정 */
+    width: 100%;
+    /* 캘린더를 섹션 너비에 맞게 조정 */
+    max-width: 100%;
+    /* 캘린더가 부모 컨테이너의 크기를 넘지 않도록 설정 */
     background-color: white;
     border-radius: 10px;
     border: 1px solid #ddd;
@@ -377,54 +385,61 @@
     padding: 10px;
     font-family: Arial, sans-serif;
 }
-  
-  .react-calendar__navigation button {
+
+.react-calendar__navigation button {
     color: black;
     cursor: pointer;
-  }
-  
-  /* 요일 헤더 */
-  .react-calendar__month-view__weekdays {
+}
+
+/* 요일 헤더 */
+.react-calendar__month-view__weekdays {
     font-size: 16px;
-  }
-  
-  /* 각 날짜 타일 */
-  .react-calendar__tile {
+}
+
+/* 각 날짜 타일 */
+.react-calendar__tile {
     max-width: 100%;
     height: 80px;
     color: black;
     font-size: 15px;
     cursor: pointer;
-  }
-  
-  .react-calendar__tile--now {
+}
+
+.react-calendar__tile--now {
     background: skyblue;
     color: white;
     border-radius: 8px;
-  }
-  
-  /* 메모가 있는 날짜 */
-  .memo-indicator {
+}
+
+/* 메모가 있는 날짜 */
+.memo-indicator {
     margin-top: 5px;
     background-color: blanchedalmond;
     color: orangered;
     font-size: 12px;
     padding: 2px 5px;
     border-radius: 5px;
-  }
-  
-  /* 주말 강조 */
-  .react-calendar__month-view__days__day--weekend {
-    color: #ff5722;
-  }
-  
-  /* 월 전환 버튼 */
-  .react-calendar__navigation__prev2-button,
-  .react-calendar__navigation__next2-button {
-    display: none; /* 2개월 전/후 이동 버튼 숨김 */
-  }
+}
 
-  /* 현재 보고 있는 월이 아닌 날짜를 연하게 보이게 하는 스타일 */
-  .out-of-current-month { 
+/* 일요일을 빨간 색으로 설정 */
+.react-calendar__month-view__days__day--sunday {
+    color: red;
+}
+
+/* 토요일을 파란 색으로 설정 */
+.react-calendar__month-view__days__day--saturday {
+    color: blue;
+    /* 토요일을 파란 색으로 설정 */
+}
+
+/* 월 전환 버튼 */
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+    display: none;
+    /* 2개월 전/후 이동 버튼 숨김 */
+}
+
+/* 현재 보고 있는 월이 아닌 날짜를 연하게 보이게 하는 스타일 */
+.out-of-current-month {
     color: #ccc;
 }

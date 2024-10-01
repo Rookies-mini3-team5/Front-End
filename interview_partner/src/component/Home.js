@@ -326,11 +326,18 @@ const Home = () => {
               value={new Date()}
               locale="ko"
               tileContent={tileContent}
+              calendarType='gregory'
               // 그 월 기준 다른 달의 날짜 연하게 표시
               tileClassName={({ date, view, activeStartDate }) => {
                 const currentViewingMonth = activeStartDate.getMonth();
                 if (view === 'month' && date.getMonth() !== currentViewingMonth) {
                   return 'out-of-current-month';
+                }
+                if (view === "month" && date.getDay() === 6) { // 토요일(6)인 경우
+                  return 'react-calendar__month-view__days__day--saturday';
+                }
+                if (view === "month" && date.getDay() === 0) { // 일요일인 경우
+                  return 'react-calendar__month-view__days__day--sunday';
                 }
               }}
             />
