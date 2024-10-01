@@ -287,9 +287,6 @@
     background-color: #e64a19;
 }
 
-
-
-
 /* Calendar Section */
 .calendar-section {
     background-color: #f9f9f9;
@@ -308,11 +305,6 @@
     max-width: 100%;
     /* 부모 컨테이너를 넘지 않도록 최대 너비 설정 */
 }
-
-
-
-
-
 
 /* React Calendar 전체 컨테이너 */
 .react-calendar {
@@ -334,8 +326,17 @@
 }
 
 /* 요일 헤더 */
-.react-calendar__month-view__weekdays {
+.react-calendar__month-view__weekdays__weekday {
     font-size: 16px;
+    text-decoration: none;
+}
+
+.react-calendar__month-view__weekdays__weekday:nth-child(1) abbr {
+    color: red;
+}
+
+.react-calendar__month-view__weekdays__weekday:nth-child(7) abbr {
+    color: blue;
 }
 
 /* 각 날짜 타일 */
@@ -371,14 +372,12 @@
 /* 토요일을 파란 색으로 설정 */
 .react-calendar__month-view__days__day--saturday {
     color: blue;
-    /* 토요일을 파란 색으로 설정 */
 }
 
 /* 월 전환 버튼 */
 .react-calendar__navigation__prev2-button,
 .react-calendar__navigation__next2-button {
     display: none;
-    /* 2개월 전/후 이동 버튼 숨김 */
 }
 
 /* 현재 보고 있는 월이 아닌 날짜를 연하게 보이게 하는 스타일 */
