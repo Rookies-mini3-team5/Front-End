@@ -145,13 +145,13 @@ const JobQuestionList = ({ setActiveChat, updateSidebar, sectionName }) => {
             expectedQuestion: selectedQuestion.expectedQuestion,
             answerGuide: selectedQuestion.answerGuide || [],
 
-           
+
           },
           sectionId: sectionId,
           sectionName: sectionName,
         },
         replace: true,
-        source: "jobQuestionList", 
+        source: "jobQuestionList",
       });
     } else {
       alert("질문을 선택해주세요.");
@@ -169,7 +169,7 @@ const JobQuestionList = ({ setActiveChat, updateSidebar, sectionName }) => {
             key={question.questionId}
             className={`questionBox ${
               selectedQuestion === question ? "selected" : ""
-            }`}
+              }`}
             onClick={() => handleQuestionSelect(question)}
           >
             <div className="questionTitle">{question.expectedQuestion}</div>
@@ -178,11 +178,9 @@ const JobQuestionList = ({ setActiveChat, updateSidebar, sectionName }) => {
         ))}
       </div>
 
-      <div className="fixedBottom">
-        <button className="startButton" onClick={handleStartClick}>
-          시작
-        </button>
-      </div>
+      <button className="startButton" onClick={handleStartClick}>
+        시작
+      </button>
     </div>
   );
 };

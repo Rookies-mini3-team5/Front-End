@@ -235,7 +235,7 @@ const Home = () => {
       console.error("Error fetching sections:", error);
     }
   };
-  
+
 
   // 섹션 목록을 가져오기 위한 useEffect
   useEffect(() => {
@@ -247,7 +247,7 @@ const Home = () => {
   const handleSectionClick = async (sectionId, sectionName) => {
     setSelectedSectionId(sectionId);
     setSelectedSectionName(sectionName);
-  
+
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
@@ -259,14 +259,14 @@ const Home = () => {
           },
         }
       );
-  
+
       const questionList = response.data.body.gptQuestionList || [];
       if (questionList.length > 0) {
         // 첫 번째 질문 자동 선택 및 이동
         const firstQuestion = questionList[0];
         setSelectedQuestionId(firstQuestion.id); // 첫 번째 질문 선택
         setQuestions(questionList); // 사이드바에 전체 질문 목록 표시
-  
+
         // 첫 번째 질문 페이지로 이동
         navigate("/question-answer", {
           state: {
@@ -283,6 +283,18 @@ const Home = () => {
       console.error("Error fetching questions for section:", error);
     }
   };
+
+  // 버튼 클릭할 때 계속 눌린 상태로 남지 않도록 포커스 해제
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (event.target.tagName === 'BUTTON') {
+        document.activeElement.blur();
+      }
+    };
+
+    window.addEventListener('click', handleClick);
+    return () => window.removeEventListener('click', handleClick);
+  }, []);
 
   return (
     <div className="jobdash-container">
@@ -301,7 +313,7 @@ const Home = () => {
 
         {/* Login/Logout Section */}
         <div className="auth-section">
-        <div
+          <div
             className="menu-item"
             onClick={() => {
               if (token) {
@@ -339,7 +351,7 @@ const Home = () => {
           <div className="job-cards">
             {/* Job Card 1 */}
             <div className="job-card">
-              <img src={`${imageBaseUrl}/aiCoach.png`}/>
+              <img src={`${imageBaseUrl}/aiCoach.png`} />
               <h3>살펴보기</h3>
               <p>AI 면접 코치에 대해 자세히 알아보세요</p>
               <div className="job-card-footer">
@@ -430,22 +442,6 @@ const Home = () => {
 
       {/* Right Sidebar */}
       <aside className="right-sidebar">
-        <h2>진행중인 신청</h2>
-        <div className="application-card">
-          <img src="/api/placeholder/100/100" alt="Software Engineer" />
-          <div>
-            <h4>소프트웨어 엔지니어</h4>
-            <p>(면접일: 3일)</p>
-            <p>
-              <Clock size={16} /> 작성일: 2021년 10월 10일
-            </p>
-            <div className="progress-bar">
-              <div className="progress" style={{ width: "40%" }}></div>
-            </div>
-            <p>2/5 단계를 완료</p>
-          </div>
-        </div>
-
         <h2>내 섹션 목록</h2>
         <ul>
           {sections.length > 0 ? (
