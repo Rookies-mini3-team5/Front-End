@@ -336,8 +336,12 @@ const AppContent = () => {
     <UserProvider>
       {location.pathname !== "/" &&
         !location.pathname.startsWith("/login") &&
+        !location.pathname.startsWith("/register") &&
         !location.pathname.startsWith("/jobselect") &&
-        !location.pathname.startsWith("/jobresume") && (
+        !location.pathname.startsWith("/jobresume") && 
+        !location.pathname.startsWith("/profile") && 
+        !location.pathname.startsWith("/about") &&
+        !location.pathname.startsWith("/jobquestionlist") &&  (
           <Sidebar
             sectionId={sectionId}
             questionId={selectedQuestionId}
