@@ -385,3 +385,7 @@
 .out-of-current-month {
     color: #ccc;
 }
+
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+}
