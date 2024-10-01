@@ -138,7 +138,7 @@ const JobQuestionList = ({ setActiveChat, updateSidebar, sectionName }) => {
       console.log("섹션 ID:", sectionId);
       updateSidebar(sectionId, sectionName, currentSectionName); // Update with section name
 
-      navigate("/question-answer", {
+      navigate(`/question-answer/${selectedQuestion.questionId}`, {
         state: {
           question: {
             questionId: selectedQuestion.questionId,

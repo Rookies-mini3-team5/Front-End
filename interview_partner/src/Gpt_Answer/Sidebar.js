@@ -136,7 +136,7 @@ const Sidebar = () => {
       } else {
         const selectedQuestion = questions.find((q) => q.id === gptQuestionId);
         if (selectedQuestion) {
-          navigate("/question-answer", {
+          navigate(`/question-answer/${gptQuestionId}`, {
             state: {
               question: selectedQuestion,
               sectionId: selectedSectionId,
@@ -148,6 +148,23 @@ const Sidebar = () => {
       console.error("Error checking question answers:", error);
     }
   };
+  // '질문하기' 페이지로 이동
+const handleAskQuestionClick = () => {
+  if (selectedSectionId) {
+    navigate(`/ask-question/${selectedSectionId}`);
+  } else {
+    alert("먼저 섹션을 선택해주세요.");
+  }
+};
+// '질문 목록 보기' 페이지로 이동
+const handleViewQuestionHistoryClick = () => {
+  if (selectedSectionId) {
+    navigate(`/question-history/${selectedSectionId}`);
+  } else {
+    alert("먼저 섹션을 선택해주세요.");
+  }
+};
+
 
   // 사이드바 확장/축소 토글
   const toggleSidebar = () => {
@@ -205,9 +222,21 @@ const Sidebar = () => {
             )}
           </ul>
         </div>
+        
       )}
+
+    {/* '질문하기'와 '질문 목록 보기' 버튼 */}
+      <div className="button-group">
+        <button className="ask-question-btn" onClick={handleAskQuestionClick}>
+          질문하기
+        </button>
+        <button className="view-question-history-btn" onClick={handleViewQuestionHistoryClick}>
+          질문 목록 보기
+        </button>
+      </div>
     </div>
   );
 };
+
 
 export default Sidebar;

@@ -41,7 +41,7 @@ const AnswerListPage = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/question/${gptQuestionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_SECTION_API_URL}/gpt/question/${gptQuestionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -71,15 +71,18 @@ const AnswerListPage = () => {
   }, [gptQuestionId, question]);
 
   const handleRetakeAnswer = (answer) => {
-    navigate(`/question-answer`, {
+    console.log("Button clicked"); // 클릭 이벤트 발생 확인
+
+    navigate(`/question-answer/${gptQuestionId}`, {
       state: {
-        question: answer.question, // 질문 데이터 전달
-        answerGuide: guide, // 가이드 전달
-        sectionId: answer.sectionId, // 섹션 ID 전달
+        question: answer.question, // 질문 데이터
+        sectionId: answer.sectionId, // 섹션 ID
+        sectionName: answer.sectionName, // 섹션 이름
+        answerGuide: answer.answerGuide, // 가이드 추가
       },
     });
+    console.log("Answer Data:", answer);
   };
-  console.log("Received state data:", location.state);
 
   if (loading) {
     return <p>로딩 중...</p>;
@@ -100,7 +103,7 @@ const AnswerListPage = () => {
 
         {guide.length > 0 && (
           <div className="guide">
-            <h3>💡 답변 가이드:</h3>
+            <h3>💡 답변 가이드</h3>
             <div className="guide-box">
               <ul>
                 {guide.map((item, index) => (
@@ -127,7 +130,10 @@ const AnswerListPage = () => {
                   </ul>
                 </div>
                 <button
-                  onClick={() => handleRetakeAnswer(answer)}
+                  onClick={() => {
+                    console.log("Button clicked:", answer);
+                    handleRetakeAnswer(answer);
+                  }}
                   className="retake-answer-button"
                 >
                   다시 답변하기

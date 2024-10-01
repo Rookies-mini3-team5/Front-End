@@ -1,77 +1,155 @@
 .answer-list-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh; /* 화면 전체 높이 */
-    padding: 20px;
+    align-items: flex-start;
+    height: 100vh;
+    padding: 40px;
     box-sizing: border-box;
+    background-color: #f1f3f5;
 }
 
 .answer-list-wrapper {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 1200px;
     width: 100%;
-    overflow-y: auto; /* 세로 스크롤 추가 */
-    max-height: 90vh; /* 최대 높이 설정 */
+    overflow-y: auto;
+    max-height: 85vh;
+    margin-top: 30px;
+    font-family: 'Arial', sans-serif;
+    color: #343a40;
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 15px; /* Reduced margin to bring elements closer */
+    color: #212529;
+    font-size: 26px;
+    font-weight: bold;
+    padding-bottom: 10px;
 }
+
 
 .guide {
     margin-bottom: 30px;
+    padding: 20px;
+    background-color: #e9f5ff; /* Light blue background to highlight the guide */
+    border-radius: 10px;
 }
 
 .guide h3 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom:20px;
+    margin-top: 0px; /* Reduce the top margin to bring the text higher */
+    text-align: left; /* Ensure the title is left-aligned */
     color: #007bff;
+    font-size: 26px;
+    font-weight: 500;
 }
 
-/* 가이드 박스 스타일 */
 .guide-box {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    border: 1px solid #ced4da;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    font-size: 18px;
+    line-height: 1.8;
+    text-align: left; /* Ensures the guide text is left-aligned */
+    color: #495057; /* Softer text color for readability */
 }
-
+/* List styling for the answer guide */
 ul {
     list-style-type: none;
     padding-left: 0;
+    margin-top: 10px;
 }
 
 ul li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 12px 0;
+    border-bottom: 1px solid #ced4da;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #343a40; /* Darker text for better visibility */
+    text-align: left; /* Ensure text is left-aligned */
 }
 
 ul li:last-child {
-    border-bottom: none;
+    border-bottom: none; /* Removes the last border line */
+}
+
+.checkmark {
+    color: #28a745;
+    margin-right: 10px;
+    font-size: 22px;
 }
 
 p {
-    color: #555;
-    margin: 10px 0;
+    color: #495057;
+    margin: 15px 0;
+    font-size: 18px;
 }
 
-/* 체크 표시 추가 스타일 */
 .checkmark {
-    color: green;
-    margin-right: 5px;
+    color: #28a745;
+    margin-right: 8px;
+    font-size: 22px;
 }
 
-/* 피드백 박스 스타일 */
 .feedback-box {
-    border: 1px solid #ddd;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    margin-top: 10px;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    background-color: #f1f3f5;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.retake-answer-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    font-size: 18px;
+}
+
+.retake-answer-button:hover {
+    background-color: #0056b3;
+}
+
+.no-answers {
+    text-align: center;
+    font-size: 20px;
+    color: #ff6b6b;
+    margin-top: 50px;
+    font-weight: 500;
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.ask-question-btn,
+.view-question-history-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    margin: 10px 5px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    font-size: 18px;
+}
+
+.ask-question-btn:hover,
+.view-question-history-btn:hover {
+    background-color: #218838;
 }

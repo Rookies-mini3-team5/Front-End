@@ -1,8 +1,7 @@
-// 사용자가 입력한 질문에 대한 GPT의 답변 보여주는 페이지
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "./css/AnswerPage.css"; // CSS 파일 추가
 
 const AnswerPage = () => {
   const { userQuestionId } = useParams();
@@ -34,11 +33,14 @@ const AnswerPage = () => {
     <div className="answer-page">
       {answerData ? (
         <>
-          <h2>질문: {answerData.question}</h2>
-          <p>답변: {answerData.answer}</p>
+          <h2 className="question">질문: {answerData.question}</h2>
+          <div className="answer-box">
+            <p className="answer-label">AI 면접 코치의 답변 🧐</p>
+            <p className="answer-text">{answerData.answer}</p>
+          </div>
         </>
       ) : (
-        <p>답변을 불러오는 중입니다...</p>
+        <p className="loading-text">답변을 불러오는 중입니다...</p>
       )}
     </div>
   );
