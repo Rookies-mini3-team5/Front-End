@@ -17,13 +17,13 @@ const JobSelection = () => {
 
   // useEffect를 사용해 직군 데이터를 가져옴
   useEffect(() => {
-    fetch('http://localhost:8080/open-api/occupational')
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/open-api/occupational`)
       .then(response => response.json())
       .then(data => {
         setJobs(data.body.occupationalList); // API 응답 구조에 맞게 직군 데이터 저장
         const promises = data.body.occupationalList.map(occupational => {
           const occupationalId = occupational.id; // 직군의 ID를 가져옴
-          return fetch(`http://localhost:8080/open-api/occupational/${occupationalId}`)
+          return fetch(`${process.env.REACT_APP_API_BASE_URL}/open-api/occupational/${occupationalId}`)
             .then(response => response.json())
             .then(subJobData => {
               setSubJobsMap(prev => ({ ...prev, [occupationalId]: subJobData.body.jobList })); // 각 직군의 하위 직무 데이터를 저장
@@ -70,7 +70,7 @@ const JobSelection = () => {
       alert("하나 이상의 직무를 선택해 주세요.");
     } else {
       // POST 요청
-      fetch('http://localhost:8080/api/section', {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/section`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
