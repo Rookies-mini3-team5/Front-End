@@ -13,10 +13,14 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/open-api/login`,
+        { username, password }
+      );
       const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/open-api/login`, { username, password });
       console.log("로그인 성공:", response.data);
-  
-      const token = response.data.body.token;  // 응답에서 JWT 토큰 추출
+
+      const token = response.data.body.token; // 응답에서 JWT 토큰 추출
 
       // 받아온 사용자 데이터에서 필요한 정보만 저장
       const userData = {
@@ -27,6 +31,10 @@ const Login = () => {
         role: response.data.body.role,
       };
       setCurrentUser(userData);
+      setToken(token);
+      localStorage.setItem("token", token); // JWT 토큰 저장
+      localStorage.setItem("user", JSON.stringify(userData)); // 사용자 정보 저장
+
       setToken(token);
       localStorage.setItem("token", token);  // JWT 토큰 저장
       localStorage.setItem("user", JSON.stringify(userData));  // 사용자 정보 저장

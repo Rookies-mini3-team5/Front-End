@@ -23,10 +23,24 @@ import "./Home.css";
 const Home = () => {
   const { currentUser, setCurrentUser, setToken, token } = useUser();
   const navigate = useNavigate();
+  const [sections, setSections] = useState([]); // 섹션 목록 상태 추가
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null); // 선택된 질문 ID 상태 추가
+  const [questions, setQuestions] = useState([]); // 질문 목록 상태 추가
+
 
   const [memos, setMemos] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCalendarId, setSelectedCalendarId] = useState(null);
+  const [profileImage, setProfileImage] = useState(null); // 프로필 이미지 상태 추가
+  const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
+  const [selectedSectionId, setSelectedSectionId] = useState(null); // 선택된 섹션 ID 상태 추가
+  const [selectedSectionName, setSelectedSectionName] = useState(""); // 선택된 섹션 이름 상태 추가
+
+
+  
+
+  // 로그아웃 처리
   const [selectedCalendarId, setSelectedCalendarId] = useState(null);
   const [profileImage, setProfileImage] = useState(null);  // 프로필 이미지 상태 추가
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
@@ -373,39 +387,21 @@ const Home = () => {
           </div>
         </div>
 
-        <h3>인터뷰 기록</h3>
-        <div className="interview-records">
-          <div className="record-item">
-            <div className="record-icon">
-              <Clock size={20} />
-            </div>
-            <div className="record-info">
-              <h4>소프트웨어 엔지니어</h4>
-              <p>면접일자: 09/10/2021</p>
-            </div>
-            <div className="record-progress">83%</div>
-          </div>
-          <div className="record-item">
-            <div className="record-icon">
-              <Clock size={20} />
-            </div>
-            <div className="record-info">
-              <h4>제품 관리자</h4>
-              <p>면접일자: 08/10/2021</p>
-            </div>
-            <div className="record-progress">72%</div>
-          </div>
-          <div className="record-item">
-            <div className="record-icon">
-              <Clock size={20} />
-            </div>
-            <div className="record-info">
-              <h4>마케팅 매니저</h4>
-              <p>면접일자: 07/10/2021</p>
-            </div>
-            <div className="record-progress">34%</div>
-          </div>
-        </div>
+        <h2>내 섹션 목록</h2>
+        <ul>
+          {sections.length > 0 ? (
+            sections.map((section) => (
+              <li
+                key={section.id}
+                onClick={() => handleSectionClick(section.id, section.name)}
+              >
+                {section.name}
+              </li>
+            ))
+          ) : (
+            <li>섹션이 없습니다.</li>
+          )}
+        </ul>
 
         <div className="alert-box">
           <h3>알림</h3>

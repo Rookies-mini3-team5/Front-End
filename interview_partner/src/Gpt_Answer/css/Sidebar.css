@@ -6,12 +6,150 @@
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #e0e0e0;
     position: fixed; /* 고정 위치 설정 */
-
     transition: width 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* 상단과 하단에 요소 배치 */
+    justify-content: flex-start; /* 상단에 요소 배치 */
+    overflow-y: auto; /* 수직 스크롤 가능하도록 설정 */
 }
+.sidebar .current-section {
+    padding: 15px;
+    background-color: #f0f4f7;
+    border-radius: 8px;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative; /* 수정 및 삭제 버튼 절대 위치 */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 섹션 이름을 가운데 배치 */
+}
+
+.sidebar .current-section p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #3b82f6;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.sidebar .current-section .edit-icon,
+.sidebar .current-section .delete-icon {
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+    position: absolute; /* 절대 위치 설정 */
+    top: 50%; /* 수직 가운데 정렬 */
+    transform: translateY(-50%); /* 수직 가운데 정렬 보정 */
+}
+
+.sidebar .current-section .edit-icon {
+    right: 50px; /* 오른쪽에 수정 아이콘 배치 */
+}
+
+.sidebar .current-section .delete-icon {
+    right: 20px; /* 오른쪽에 삭제 아이콘 배치 */
+}
+
+.sidebar .current-section .edit-icon {
+    right: 60px; /* 오른쪽에서 수정 아이콘 위치 조정 */
+}
+
+.sidebar .current-section .delete-icon {
+    right: 20px; /* 오른쪽에서 삭제 아이콘 위치 조정 */
+}
+.sidebar .current-section .edit-icon:hover {
+    color: #3b82f6; /* 수정 버튼에 마우스 올리면 파란색으로 변경 */
+}
+
+.sidebar .current-section .delete-icon:hover {
+    color: #ff6363; /* 삭제 버튼에 마우스 올리면 빨간색으로 변경 */
+}
+.home-icon-container {
+    display: flex;
+    flex-direction: column; /* 아이콘과 텍스트를 세로로 배치 */
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* 아래 여백 추가 */
+    cursor: pointer;
+}
+
+.home-icon {
+    font-size: 48px; /* 아이콘 크기 크게 설정 */
+    color: #333;
+    margin-bottom: 5px; /* 아이콘과 텍스트 사이 여백 */
+}
+
+.home-text {
+    font-size: 18px; /* 텍스트 크기 설정 */
+    color: #333;
+}
+
+.home-icon:hover,
+.home-text:hover {
+    color: #3b82f6; /* 호버 시 색상 변경 */
+}
+
+
+/* 질문하기와 질문 목록 보기 버튼 스타일 */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* 버튼 사이에 10px의 간격을 추가 */
+    margin-top: 20px; /* 상단 여백 추가 */
+  }
+  
+.ask-question-btn,
+.view-question-history-btn {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: linear-gradient(135deg, #3b82f6, #9061f9); /* 버튼에 그라데이션 색상 추가 */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease; /* 버튼 클릭 시 효과 추가 */
+}
+
+.ask-question-btn:hover,
+.view-question-history-btn:hover {
+    background: linear-gradient(135deg, #669df6, #804df9); /* 호버 시 색상 변화 */
+    transform: scale(1.05); /* 호버 시 약간 커지는 효과 */
+}
+
+.ask-question-btn:active,
+.view-question-history-btn:active {
+    transform: scale(0.98); /* 클릭 시 살짝 작아지는 효과 */
+}
+
+.ask-question-btn {
+    background-color: #3b82f6;
+}
+
+.view-question-history-btn {
+    background-color: #9061f9;
+}
+
+.ask-question-btn:hover {
+    background-color: #669df6;
+}
+
+.view-question-history-btn:hover {
+    background-color: #804df9;
+}
+
+/* 섹션 목록을 감싸는 div */
+.section-list {
+    flex-grow: 1; /* 섹션 목록이 가능한 많은 공간을 차지하도록 설정 */
+    overflow-y: auto; /* 수직 스크롤 가능하도록 설정 */
+    margin-top: 20px; /* 상단 공간 확보 */
+}
+
+
 
 /* 접힌 사이드바 스타일 */
 .sidebar.collapsed {
@@ -207,14 +345,26 @@
 .sidebar ul {
     list-style-type: none;
     padding: 0;
-}
-
-.sidebar li {
-    margin-bottom: 15px;
+  }
+  
+  .sidebar li {
+    margin-bottom: 10px; /* 간격 줄임 */
     font-size: 18px;
     display: flex;
     align-items: center;
-}
+    justify-content: space-between; /* 아이콘과 텍스트를 양쪽으로 배치 */
+  }
+  
+  .edit-icon {
+    cursor: pointer;
+    color: #3b82f6; /* 아이콘 색상 */
+    margin-left: 10px; /* 텍스트와 아이콘 간격 */
+  }
+  
+  .edit-icon:hover {
+    color: #9061f9; /* 마우스 호버 시 색상 변경 */
+  }
+  
 
 .sidebar li a {
     text-decoration: none;
@@ -379,3 +529,13 @@
     width: 40px;
     height: 40px;
 }
+
+/* 선택된 항목을 강조할 스타일 */
+li.active {
+    background-color: #e6f7ff;
+    color: #3b82f6;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  

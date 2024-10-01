@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ClipLoader from "react-spinners/DotLoader";
 import './css/JobResume.css';
@@ -11,8 +11,13 @@ const JobResume = () => {
     const [loading, setLoading] = useState(false);  // 로딩 상태 추가
     const navigate = useNavigate(); // 페이지 전환을 위한 useNavigate 훅 사용
     const location = useLocation(); // JobSelection에서 전달된 sectionId 받기
-    const { sectionId } = location.state || {}; // location.state에서 sectionId 추출
+    const { sectionId, sectionName } = location.state || {}; // location.state에서 sectionId와 sectionName 추출
 
+
+    useEffect(() => {
+        console.log("Received sectionId:", sectionId);
+        console.log("Received sectionName:", sectionName);
+      }, [sectionId, sectionName]);
     // 입력 필드 변경 핸들러 (100자 제한)
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -55,17 +60,17 @@ const JobResume = () => {
             .then((data) => {
                 setLoading(false);  // 로딩 상태 종료
 
-                if (data.result && data.result.resultCode === 200) {
-                    const questions = data.body;  // 응답의 body 배열을 questions로 전달
-                    navigate("/jobquestionlist", { state: { questions, sectionId } });
-                } else {
-                    console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
-                }
-            })
-            .catch((error) => {
-                setLoading(false);  // 로딩 상태 종료
-                console.error("에러가 발생했습니다.", error);
-            });
+            if (data.result && data.result.resultCode === 200) {
+                const questions = data.body;  // 응답의 body 배열을 questions로 전달
+                navigate("/jobquestionlist", { state: { questions, sectionId , sectionName } });
+            } else {
+                console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
+            }
+        })
+        .catch((error) => {
+            setLoading(false);  // 로딩 상태 종료
+            console.error("에러가 발생했습니다.", error);
+        });
     };
 
     return (
