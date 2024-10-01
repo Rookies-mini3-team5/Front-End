@@ -27,7 +27,13 @@ const EditSection = () => {
             },
           }
         );
-        setSectionData(response.data.body);
+        if (response.data.body) {
+          setSectionData({
+            name: response.data.body.sectionName || "",
+            resume: response.data.body.resume || "",
+            emphasize: response.data.body.emphasize || "",
+          });
+        }
       } catch (error) {
         console.error("Error fetching section data:", error);
       }
@@ -53,6 +59,7 @@ const EditSection = () => {
           },
         }
       );
+      console.log(sectionData);
       navigate("/"); // 수정 후 홈으로 이동
     } catch (error) {
       console.error("Error updating section:", error);
@@ -69,29 +76,29 @@ const EditSection = () => {
       <form onSubmit={handleSubmit} className="edit-section-form">
         <h2>섹션 수정</h2>
         <label>
-          섹션 이름:
+          섹션 이름
           <input
             type="text"
             name="name"
-            value={sectionData.name || ""}
+            value={sectionData.name}
             onChange={handleChange}
           />
         </label>
         <label>
-          이력:
-          <input
+          이력
+          <textarea
             type="text"
             name="resume"
-            value={sectionData.resume || ""}
+            value={sectionData.resume}
             onChange={handleChange}
           />
         </label>
         <label>
-          강조:
-          <input
+          강조하고 싶은 점
+          <textarea
             type="text"
             name="emphasize"
-            value={sectionData.emphasize || ""}
+            value={sectionData.emphasize}
             onChange={handleChange}
           />
         </label>
