@@ -77,12 +77,12 @@ const Profile = () => {
     const formData = new FormData();
     const data = JSON.stringify({ name, email });
     formData.append("data", new Blob([data], { type: "application/json" }));
-
+  
     // 파일이 존재하는 경우 추가
     if (newProfileImage) {
       formData.append("file", newProfileImage);
     }
-
+  
     axios
       .patch(`${process.env.REACT_APP_API_BASE_URL}/mypage`, formData, {
         headers: {
@@ -91,10 +91,14 @@ const Profile = () => {
       })
       .then((response) => {
         alert("프로필이 성공적으로 업데이트되었습니다.");
-        
+  
         // 전역 상태를 업데이트하여 Home에서 이름이 자동으로 새로고침되도록 함
-        setCurrentUser({ ...currentUser, name, email });
-
+        const updatedUser = { ...currentUser, name, email };
+        setCurrentUser(updatedUser);
+  
+        // localStorage에 업데이트된 사용자 정보 저장
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+  
         setIsEditingEmail(false);
         navigate("/"); // 저장 후 메인 페이지로 이동
       })
