@@ -32,7 +32,7 @@ function QuestionAnswerPage() {
       }
 
       const response = await axios.post(
-        `http://localhost:8080/api/section/interview/answer/${question.questionId}`, // 경로에 questionId 값 삽입
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/${question.questionId}`, // 경로에 questionId 값 삽입
         {
           answer: userAnswer, // 요청 본문에 사용자 답변 포함
         },

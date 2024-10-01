@@ -11,7 +11,7 @@ function RetakeAnswerPage({ sectionId, gptQuestionId }) {
     const fetchFeedbackAndQuestion = async () => {
       try {
         const feedbackResponse = await axios.get(
-          `/api/section/gpt/answer/${sectionId}/${gptQuestionId}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/answer/${sectionId}/${gptQuestionId}`
         );
         setFeedbackData(feedbackResponse.data);
         setUserAnswer(feedbackResponse.data.answer); // 이전에 사용자가 작성한 답변을 가져옴
@@ -26,7 +26,7 @@ function RetakeAnswerPage({ sectionId, gptQuestionId }) {
   const handleSubmit = async () => {
     try {
       await axios.post(
-        `/api/section/gpt/answer/${sectionId}/${gptQuestionId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/answer/${sectionId}/${gptQuestionId}`,
         {
           answer: userAnswer,
         }

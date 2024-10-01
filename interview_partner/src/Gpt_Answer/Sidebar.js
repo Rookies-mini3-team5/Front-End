@@ -97,7 +97,7 @@ function Sidebar({ sectionId }) {
     const fetchUserQuestions = async () => {
       try {
         const response = await axios.get(
-          `/api/section/user/question/list/${sectionId}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/user/question/list/${sectionId}`
         );
         const allQuestions = response.data;
 
