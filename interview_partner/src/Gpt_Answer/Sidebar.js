@@ -20,7 +20,7 @@ const Sidebar = () => {
     const fetchUserSections = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8080/api/section", {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/section`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const Sidebar = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:8080/api/section/gpt/question/list/${selectedSectionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/question/list/${selectedSectionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -93,7 +93,7 @@ const Sidebar = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.delete(
-          `http://localhost:8080/api/section/${sectionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/${sectionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -122,7 +122,7 @@ const Sidebar = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:8080/api/section/interview/answer/list/${gptQuestionId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/list/${gptQuestionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
