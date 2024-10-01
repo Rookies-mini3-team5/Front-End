@@ -266,16 +266,31 @@ const Home = () => {
         const firstQuestion = questionList[0];
         setSelectedQuestionId(firstQuestion.id); // 첫 번째 질문 선택
         setQuestions(questionList); // 사이드바에 전체 질문 목록 표시
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/list/${firstQuestion.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
 
-        // 첫 번째 질문 페이지로 이동
-        navigate("/question-answer", {
-          state: {
-            question: firstQuestion,
-            sectionId: sectionId,
-            sectionName: sectionName, // 섹션 이름 전달
-
-          },
-        });
+          if (response.data.body.interviewAnswerList.length > 0) {
+            navigate(`/gpt-answer/${firstQuestion.id}`); // 답변이 있으면 답변 페이지로 이동
+          } else {
+            navigate("/question-answer", {  // 답변이 없으면 첫 번째 질문 페이지로 이동
+              state: {
+                question: firstQuestion,
+                sectionId: sectionId,
+                sectionName: sectionName
+              },
+            });
+          }
+        } catch (error) {
+          console.error("Error checking question answers:", error);
+        }
       } else {
         alert("이 섹션에 질문이 없습니다.");
       }
@@ -363,7 +378,7 @@ const Home = () => {
 
             {/* Job Card 2 */}
             <div className="job-card">
-              <img src={`${imageBaseUrl}/job.png`}/>
+              <img src={`${imageBaseUrl}/job.png`} />
               <h3>직무 선택</h3>
               <p>당신에게 맞는 직업을 찾아보세요</p>
               <div className="job-card-footer">
@@ -384,7 +399,7 @@ const Home = () => {
 
             {/* Job Card 3 */}
             <div className="job-card">
-              <img src={`${imageBaseUrl}/jobNews.png`}/>
+              <img src={`${imageBaseUrl}/jobNews.png`} />
               <h3>구글 기사 바로보기</h3>
               <p>관련된 구글 기사를 찾아보세요</p>
               <div className="job-card-footer">
