@@ -65,10 +65,9 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
-  margin-left: 20px;
-  margin-bottom: 20px;
   resize: none;
   overflow: auto;
+  box-sizing: border-box;
 }
 
 .charCount {
@@ -100,4 +99,39 @@
 .nextButton:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.guideTextLeft {
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #333;
+  white-space: nowrap;  /* 줄바꿈 방지 */
+}
+
+.guideTextRight-1 {
+  position: absolute;
+  right: -100px;  /* 여유 공간을 더 확보하여 텍스트가 침범하지 않도록 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #333;
+  white-space: nowrap;  /* 줄바꿈 방지 */
+}
+
+.guideTextRight-2 {
+  position: absolute;
+  right: -150px;  /* 여유 공간을 더 확보하여 텍스트가 침범하지 않도록 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #333;
+  white-space: nowrap;  /* 줄바꿈 방지 */
 }
