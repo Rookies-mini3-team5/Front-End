@@ -17,7 +17,7 @@ const JobResume = () => {
     useEffect(() => {
         console.log("Received sectionId:", sectionId);
         console.log("Received sectionName:", sectionName);
-      }, [sectionId, sectionName]);
+    }, [sectionId, sectionName]);
     // 입력 필드 변경 핸들러 (100자 제한)
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -60,17 +60,17 @@ const JobResume = () => {
             .then((data) => {
                 setLoading(false);  // 로딩 상태 종료
 
-            if (data.result && data.result.resultCode === 200) {
-                const questions = data.body;  // 응답의 body 배열을 questions로 전달
-                navigate("/jobquestionlist", { state: { questions, sectionId , sectionName } });
-            } else {
-                console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
-            }
-        })
-        .catch((error) => {
-            setLoading(false);  // 로딩 상태 종료
-            console.error("에러가 발생했습니다.", error);
-        });
+                if (data.result && data.result.resultCode === 200) {
+                    const questions = data.body;  // 응답의 body 배열을 questions로 전달
+                    navigate("/jobquestionlist", { state: { questions, sectionId , sectionName } });
+                } else {
+                    console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
+                }
+            })
+            .catch((error) => {
+                setLoading(false);  // 로딩 상태 종료
+                console.error("에러가 발생했습니다.", error);
+            });
     };
 
     return (
@@ -120,12 +120,9 @@ const JobResume = () => {
                         <div className="charCount">{answers.emphasize.length}/100</div> {/* 입력된 문자 수 표시 */}
                     </div>
 
-                    {/* 아래 고정된 버튼 */}
-                    <div className="fixedBottom">
-                        <button onClick={handleNextClick} className="nextButton" disabled={loading}>
-                            {loading ? "처리 중..." : "다음"}
-                        </button>
-                    </div>
+                    <button onClick={handleNextClick} className="nextButton" disabled={loading}>
+                        {loading ? "처리 중..." : "다음"}
+                    </button>
                 </>
             )}
         </div>

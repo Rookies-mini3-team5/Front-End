@@ -2,27 +2,29 @@
 
 .JobQuestionList_container {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1400px; /* 가로 길이를 더 넓게 조정 */
   margin: 0 auto;
   padding-bottom: 100px;
 }
 
 .common-title {
   text-align: left;
-  font-size: 26px;
+  font-size: 34px;
   margin-bottom: 10px;
 }
 
 .common-text {
   text-align: left;
-  font-size: 18px;
+  font-size: 24px;
   margin-bottom: 40px;
 }
 
 .questionsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 가로로 3개의 열을 배치 */
   gap: 20px;
+  grid-auto-rows: minmax(200px, auto); /* 각 카드가 최소 200px에서 필요에 따라 늘어남 */
+  margin-bottom: 100px;
 }
 
 .questionBox {
@@ -33,9 +35,10 @@
   text-align: left;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, border-color 0.3s ease;
-  /* 부드러운 전환 효과 */
   cursor: pointer;
-  /* 마우스를 올렸을 때 커서가 포인터로 변경 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 내용이 위에서부터 쌓이도록 설정 */
 }
 
 .questionBox:hover {
@@ -45,13 +48,11 @@
 
 .questionBox.selected {
   background-color: #e0f7fa;
-  /* 선택된 상태에서 배경색 변경 */
   border-color: #00796b;
-  /* 선택된 상태에서 테두리 색상 변경 */
 }
 
 .questionTitle {
-  font-size: 18px;
+  font-size: 23px;
   font-weight: bold;
   margin-bottom: 10px;
   display: flex;
@@ -59,18 +60,12 @@
 }
 
 .questionDescription {
-  font-size: 14px;
+  font-size: 18px;
   color: #555;
   line-height: 1.5;
-}
-
-.fixedBottom {
-  position: fixed;
-  bottom: 200px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  padding: 10px;
+  flex-grow: 1; /* 설명이 많으면 공간을 늘려 사용 */
+  display: flex;
+  align-items: flex-start;
 }
 
 .startButton {
@@ -81,14 +76,9 @@
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* 부드러운 전환 효과 */
+  transition: background-color 0.3s ease;
 }
 
 .startButton:hover {
-  background-color: #6200ee; /* hover 시에도 기존 색상 유지 */
-}
-
-.startButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  background-color: #6200ee;
 }

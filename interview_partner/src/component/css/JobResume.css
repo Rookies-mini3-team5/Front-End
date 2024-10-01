@@ -77,15 +77,6 @@
   margin-top: 5px;
 }
 
-.fixedBottom {
-  position: fixed;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  padding: 10px;
-}
-
 .nextButton {
   padding: 15px 30px;
   background-color: #6200ee;
@@ -94,16 +85,13 @@
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
-}
-
-.nextButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  margin-top: 100px;
 }
 
 .inputWrapper {
   position: relative;
   width: 100%;
+  margin-left: 50px;
 }
 
 .guideTextLeft {
