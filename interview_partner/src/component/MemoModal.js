@@ -11,16 +11,8 @@ const MemoModal = ({
 }) => {
   const [memo, setMemo] = useState(initialMemo);
   const maxChars = 50;
-  const maxChars = 50;
 
   const handleSave = () => {
-    onSave(memo, calendarId);
-  };
-
-  const handleDelete = () => {
-    if (window.confirm("정말로 삭제하시겠습니까?")) {
-      onDelete(calendarId);
-    }
     onSave(memo, calendarId);
   };
 
@@ -43,7 +35,6 @@ const MemoModal = ({
           value={memo}
           onChange={(e) => setMemo(e.target.value)}
           placeholder="메모를 입력하세요..."
-          maxLength={maxChars}
           maxLength={maxChars}
         />
 

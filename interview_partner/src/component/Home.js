@@ -37,14 +37,6 @@ const Home = () => {
   const [selectedSectionId, setSelectedSectionId] = useState(null); // 선택된 섹션 ID 상태 추가
   const [selectedSectionName, setSelectedSectionName] = useState(""); // 선택된 섹션 이름 상태 추가
 
-
-  
-
-  // 로그아웃 처리
-  const [selectedCalendarId, setSelectedCalendarId] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);  // 프로필 이미지 상태 추가
-  const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
-
   // 로그아웃 처리
   const handleLogout = () => {
     setCurrentUser(null);
