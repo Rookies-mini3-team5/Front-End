@@ -43,7 +43,7 @@ const JobResume = () => {
         setLoading(true);  // 로딩 상태 시작
 
         // 백엔드로 POST 요청을 보냄 (sectionId 포함)
-        fetch(`http://localhost:8080/api/section/${sectionId}`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_SECTION_API_URL}/${sectionId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

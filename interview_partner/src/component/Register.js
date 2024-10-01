@@ -37,7 +37,7 @@ const Register = () => {
       // 파일을 업로드하지 않으면 null로 처리, 빈 파일 전송을 피하기 위해 조건을 추가
       formData.append("file", null); 
 
-      const response = await axios.post("http://localhost:8080/open-api/join", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/open-api/join`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

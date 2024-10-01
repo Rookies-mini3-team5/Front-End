@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     // Get user profile info from server
     axios
-      .get("http://localhost:8080/mypage", {
+      .get(`${process.env.REACT_APP_API_BASE_URL}/mypage`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -31,7 +31,7 @@ const Profile = () => {
 
     // Get profile picture from server
     axios({
-      url: "http://localhost:8080/mypage/picture",
+      url: `${process.env.REACT_APP_API_BASE_URL}/mypage/picture`,
       method: "GET",
       responseType: "blob",
       headers: {
@@ -84,7 +84,7 @@ const Profile = () => {
     }
 
     axios
-      .patch("http://localhost:8080/mypage", formData, {
+      .patch(`${process.env.REACT_APP_API_BASE_URL}/mypage`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
