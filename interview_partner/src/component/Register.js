@@ -13,7 +13,6 @@ const Register = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const { setCurrentUser } = useUser();
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
-  const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const handleRegister = async () => {
     if (password !== repeatPassword) {
@@ -83,9 +82,6 @@ const Register = () => {
           placeholder="Your ID"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="Your ID"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
         />
         <input
           className="register-input"
@@ -97,9 +93,6 @@ const Register = () => {
         <input
           className="register-input"
           type="text"
-          placeholder="Your unique Nickname"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
           placeholder="Your unique Nickname"
           value={name}
           onChange={(e) => setName(e.target.value)}

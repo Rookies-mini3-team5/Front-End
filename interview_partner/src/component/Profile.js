@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useUser } from "./UserProvider"; // useUser 훅 불러오기
 import { useUser } from "./UserProvider"; // useUser 훅 불러오기
 import "./Profile.css";
 
 const Profile = () => {
-  const { currentUser, setCurrentUser } = useUser(); // useUser에서 currentUser와 setCurrentUser 가져오기
-  const [name, setName] = useState(currentUser?.name || ""); // 초기값을 currentUser에서 가져옴
-  const [email, setEmail] = useState(currentUser?.email || ""); // 초기값을 currentUser에서 가져옴
   const { currentUser, setCurrentUser } = useUser(); // useUser에서 currentUser와 setCurrentUser 가져오기
   const [name, setName] = useState(currentUser?.name || ""); // 초기값을 currentUser에서 가져옴
   const [email, setEmail] = useState(currentUser?.email || ""); // 초기값을 currentUser에서 가져옴
