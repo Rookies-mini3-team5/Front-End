@@ -108,7 +108,7 @@ function FeedbackPage() {
         }
 
         const response = await axios.get(
-          `http://localhost:8080/api/section/interview/answer/list/${gptQuestionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/list/${gptQuestionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // JWT 토큰을 헤더에 포함

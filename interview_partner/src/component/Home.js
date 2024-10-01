@@ -51,7 +51,7 @@ const Home = () => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      fetch(`${process.env.REACT_APP_BASE_URL}/mypage/picture`, {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/mypage/picture`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -93,8 +93,8 @@ const Home = () => {
     }
 
     const url = calendarId
-      ? `${process.env.REACT_APP_BASE_URL}/api/calendar/${calendarId}`
-      : `${process.env.REACT_APP_BASE_URL}/api/calendar`;
+      ? `${process.env.REACT_APP_API_BASE_URL}/api/calendar/${calendarId}`
+      : `${process.env.REACT_APP_API_BASE_URL}/api/calendar`;
     const method = calendarId ? "PATCH" : "POST";
 
     fetch(url, {
@@ -170,7 +170,7 @@ const Home = () => {
       return;
     }
 
-    fetch(`http://localhost:8080/api/calendar/list?year=${year}&month=${month}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/calendar/list?year=${year}&month=${month}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
