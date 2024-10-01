@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Calendar } from "react-calendar";
-import { ko } from "date-fns/locale";
 import 'react-calendar/dist/Calendar.css';
 import { useUser } from "./UserProvider";
 import MemoModal from "./MemoModal";
@@ -52,7 +51,7 @@ const Home = () => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      fetch("http://localhost:8080/mypage/picture", {
+      fetch(`${process.env.REACT_APP_BASE_URL}/mypage/picture`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -94,8 +93,8 @@ const Home = () => {
     }
 
     const url = calendarId
-      ? `http://localhost:8080/api/calendar/${calendarId}`
-      : "http://localhost:8080/api/calendar";
+      ? `${process.env.REACT_APP_BASE_URL}/api/calendar/${calendarId}`
+      : `${process.env.REACT_APP_BASE_URL}/api/calendar`;
     const method = calendarId ? "PATCH" : "POST";
 
     fetch(url, {
@@ -137,7 +136,7 @@ const Home = () => {
       return;
     }
 
-    fetch(`http://localhost:8080/api/calendar/${calendarId}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/calendar/${calendarId}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -324,7 +323,6 @@ const Home = () => {
             <Calendar
               onChange={handleDateChange}
               value={new Date()}
-              locale="ko"
               tileContent={tileContent}
               calendarType='gregory'
               // 그 월 기준 다른 달의 날짜 연하게 표시
