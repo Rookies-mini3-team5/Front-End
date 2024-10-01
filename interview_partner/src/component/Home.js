@@ -457,13 +457,6 @@ const Home = () => {
             <li>섹션이 없습니다.</li>
           )}
         </ul>
-
-        <div className="alert-box">
-          <h3>알림</h3>
-          <p>새로운 일자리 추천!</p>
-          <p>최근 구인 공고를 확인하고 지금 지원하세요.</p>
-          <button className="alert-btn">→</button>
-        </div>
       </aside>
     </div>
   );
