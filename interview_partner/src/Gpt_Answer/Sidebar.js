@@ -1004,16 +1004,18 @@ const Sidebar = () => {
       {selectedSectionId ? (
         <div className="current-section">
           <p>{selectedSectionName || "섹션 제목 없음"}</p>
-          <FaPen
-            className="edit-icon"
-            onClick={() => goToEditSection(selectedSectionId)}
-            title="수정하기"
-          />
-          <FaTrash
-            className="delete-icon"
-            onClick={() => handleDeleteSection(selectedSectionId)}
-            title="삭제하기"
-          />
+          <div className="icon-group">
+            <FaPen
+              className="edit-icon"
+              onClick={() => goToEditSection(selectedSectionId)}
+              title="수정하기"
+            />
+            <FaTrash
+              className="delete-icon"
+              onClick={() => handleDeleteSection(selectedSectionId)}
+              title="삭제하기"
+            />
+          </div>
         </div>
       ) : (
         <p>현재 섹션 없음</p>
