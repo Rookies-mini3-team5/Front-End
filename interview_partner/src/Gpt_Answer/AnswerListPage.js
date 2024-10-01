@@ -70,18 +70,20 @@ const AnswerListPage = () => {
     fetchAnswers();
   }, [gptQuestionId, question]);
 
-  const handleRetakeAnswer = (answer) => {
-    console.log("Button clicked"); // 클릭 이벤트 발생 확인
+  const handleRetakeAnswer = () => {
+    // 첫 번째 답변으로 다시 답변하기 버튼을 눌렀을 때 이동
+    const firstAnswer = answers.length > 0 ? answers[0] : null;
 
-    navigate(`/question-answer/${gptQuestionId}`, {
-      state: {
-        question: answer.question, // 질문 데이터
-        sectionId: answer.sectionId, // 섹션 ID
-        sectionName: answer.sectionName, // 섹션 이름
-        answerGuide: answer.answerGuide, // 가이드 추가
-      },
-    });
-    console.log("Answer Data:", answer);
+    if (firstAnswer) {
+      navigate(`/question-answer/${gptQuestionId}`, {
+        state: {
+          question: firstAnswer.question, // 질문 데이터
+          sectionId: firstAnswer.sectionId, // 섹션 ID
+          sectionName: firstAnswer.sectionName, // 섹션 이름
+          answerGuide: firstAnswer.answerGuide, // 가이드 추가
+        },
+      });
+    }
   };
 
   if (loading) {
@@ -118,31 +120,36 @@ const AnswerListPage = () => {
 
         {answers.length > 0 ? (
           <ul>
-            {answers.map((answer) => (
+            {answers.map((answer, index) => (
               <li key={answer.id}>
-                <p>유저 답변: {answer.answer}</p>
+                <p>
+                  유저 답변 {index + 1}: {answer.answer}
+                </p>
                 <p>피드백:</p>
                 <div className="feedback-box">
                   <ul>
-                    {answer.feedbackList.map((feedback, index) => (
-                      <li key={index}>{feedback}</li>
+                    {answer.feedbackList.map((feedback, idx) => (
+                      <li key={idx}>{feedback}</li>
                     ))}
                   </ul>
                 </div>
-                <button
-                  onClick={() => {
-                    console.log("Button clicked:", answer);
-                    handleRetakeAnswer(answer);
-                  }}
-                  className="retake-answer-button"
-                >
-                  다시 답변하기
-                </button>
               </li>
             ))}
           </ul>
         ) : (
           <p>답변이 없습니다.</p>
+        )}
+
+        {/* 다시 답변하기 버튼을 맨 하단에 배치 */}
+        {answers.length > 0 && (
+          <div className="retake-answer-wrapper">
+            <button
+              onClick={handleRetakeAnswer}
+              className="retake-answer-button"
+            >
+              다시 답변하기
+            </button>
+          </div>
         )}
       </div>
     </div>

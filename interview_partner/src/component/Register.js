@@ -65,7 +65,6 @@ const Register = () => {
         <h3 className="info-subtitle">GPT AI면접 코치</h3>
         <div className="info-image">
           <img src={`${imageBaseUrl}/ai.png`} alt="GPT AI 면접 코치" />
-          <img src={`${imageBaseUrl}/ai.png`} alt="GPT AI 면접 코치" />
         </div>
         <p className="info-text">이동 중에도 구인공고에 접속하세요!</p>
       </div>
