@@ -59,6 +59,11 @@ const EditSection = () => {
     }
   };
 
+  // 취소 버튼 클릭 시 브라우저 뒤로가기 효과
+  const handleCancel = () => {
+    navigate(-1); // 뒤로 가기
+  };
+
   return (
     <div className="edit-section-container">
       <form onSubmit={handleSubmit} className="edit-section-form">
@@ -90,7 +95,10 @@ const EditSection = () => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">수정하기</button>
+        <div className="button-group">
+          <button type="submit" className="submit-button">수정하기</button>
+          <button type="button" className="cancel-button" onClick={handleCancel}>취소</button>
+        </div>
       </form>
     </div>
   );
