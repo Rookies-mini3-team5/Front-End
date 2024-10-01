@@ -14,7 +14,7 @@ const AskQuestionPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:8080/api/section/user/question/${sectionId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/user/question/${sectionId}`,
         { question: question.trim() },
         {
           headers: {

@@ -15,7 +15,7 @@ const SectionList = () => {
     const fetchSections = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:8080/api/section`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/section`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const SectionList = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:8080/api/section/gpt/question/list/${sectionId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/question/list/${sectionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

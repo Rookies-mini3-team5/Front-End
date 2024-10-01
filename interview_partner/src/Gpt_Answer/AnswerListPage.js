@@ -222,7 +222,7 @@ const AnswerListPage = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:8080/api/section/interview/answer/list/${gptQuestionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/list/${gptQuestionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -244,7 +244,7 @@ const AnswerListPage = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:8080/api/section/gpt/question/${gptQuestionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/question/${gptQuestionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -15,7 +15,7 @@ const QuestionHistoryPage = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:8080/api/section/user/question/list/${sectionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/user/question/list/${sectionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

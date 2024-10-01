@@ -19,7 +19,7 @@ const EditSection = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:8080/api/section/${sectionId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/section/${sectionId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const EditSection = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:8080/api/section/${sectionId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/${sectionId}`,
         sectionData,
         {
           headers: {
