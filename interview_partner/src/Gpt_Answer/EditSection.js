@@ -60,6 +60,7 @@ const EditSection = () => {
         }
       );
       console.log(sectionData);
+      alert("수정되었습니다. 홈으로 이동합니다.");
       navigate("/"); // 수정 후 홈으로 이동
     } catch (error) {
       console.error("Error updating section:", error);
