@@ -413,6 +413,12 @@
   padding: 0;
 }
 
+/* 질문 목록 항목에 마우스를 올렸을 때 스타일 */
+.sidebar ul li:hover {
+  background-color: #e6f7ff; /* 배경색 변경 */
+  transform: scale(1.05); /* 살짝 커지는 효과 */
+}
+
 .sidebar li {
   margin-bottom: 10px;
   /* 간격 줄임 */
@@ -421,6 +427,7 @@
   align-items: center;
   justify-content: space-between;
   /* 아이콘과 텍스트를 양쪽으로 배치 */
+  cursor: pointer;
 }
 
 .edit-icon {

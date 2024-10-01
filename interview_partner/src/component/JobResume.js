@@ -78,7 +78,7 @@ const JobResume = () => {
             {loading ? (  // 로딩 중일 때 로딩 화면 표시
                 <div className="loadingContainer">
                     <ClipLoader color={"#123abc"} loading={loading} size={80} />
-                    <p className="loadingText">면접 예상 질문 뽑는 중...</p>
+                    <p className="loadingText">면접 예상 질문 생성 중...</p>
                 </div>
             ) : (
                 <>

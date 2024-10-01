@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Calendar } from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css";
 import { useUser } from "./UserProvider";
 import MemoModal from "./MemoModal";
 import "./Home.css";
@@ -27,7 +27,6 @@ const Home = () => {
   const [sections, setSections] = useState([]); // 섹션 목록 상태 추가
   const [selectedQuestionId, setSelectedQuestionId] = useState(null); // 선택된 질문 ID 상태 추가
   const [questions, setQuestions] = useState([]); // 질문 목록 상태 추가
-
 
   const [memos, setMemos] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
@@ -61,7 +60,7 @@ const Home = () => {
       fetch(`${process.env.REACT_APP_API_BASE_URL}/mypage/picture`, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => response.blob())
@@ -83,7 +82,7 @@ const Home = () => {
     }
 
     setSelectedDate(date);
-    const formattedDate = date.toLocaleDateString('en-CA');
+    const formattedDate = date.toLocaleDateString("en-CA");
     const existingMemo = memos[formattedDate];
     setSelectedCalendarId(existingMemo ? existingMemo.id : null);
     setIsModalOpen(true);
@@ -91,7 +90,7 @@ const Home = () => {
 
   // 메모 저장 또는 수정
   const handleSaveMemo = (memo, calendarId) => {
-    const formattedDate = selectedDate.toLocaleDateString('en-CA');
+    const formattedDate = selectedDate.toLocaleDateString("en-CA");
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -108,7 +107,7 @@ const Home = () => {
       method: method,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         date: formattedDate,
@@ -117,12 +116,17 @@ const Home = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.result?.resultCode === 200 || data.result?.resultCode === 201) {
+        if (
+          data.result?.resultCode === 200 ||
+          data.result?.resultCode === 201
+        ) {
           const newCalendarId = calendarId || data.body?.id;
 
           // 전체 메모 다시 불러오기 - 저장하자마자 삭제버튼 안생기는 버그 해결
           const currentYear = selectedDate.getFullYear();
-          const currentMonth = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+          const currentMonth = (selectedDate.getMonth() + 1)
+            .toString()
+            .padStart(2, "0");
           fetchMemos(currentYear, currentMonth);
 
           setSelectedCalendarId(newCalendarId);
@@ -146,7 +150,7 @@ const Home = () => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/api/calendar/${calendarId}`, {
       method: "DELETE",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -177,13 +181,16 @@ const Home = () => {
       return;
     }
 
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/calendar/list?year=${year}&month=${month}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`, // 토큰을 사용해서 메모 조회
-      },
-    })
+    fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/calendar/list?year=${year}&month=${month}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // 토큰을 사용해서 메모 조회
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.result?.resultCode === 200) {
@@ -201,17 +208,20 @@ const Home = () => {
 
   // 컴포넌트가 처음 렌더링될 때 메모 조회 (currentUser와 token이 있을 때만)
   useEffect(() => {
-    if (currentUser && token) {  // currentUser와 token이 있을 때만 메모 조회
+    if (currentUser && token) {
+      // currentUser와 token이 있을 때만 메모 조회
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      const currentMonth = (currentDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0");
       fetchMemos(currentYear, currentMonth); // 현재 연도와 월에 대한 메모 조회
     }
-  }, [currentUser, token]);  // currentUser와 token이 변경될 때만 메모 조회
+  }, [currentUser, token]); // currentUser와 token이 변경될 때만 메모 조회
 
   // 메모가 있는 날짜에 표시할 내용
   const tileContent = ({ date, view }) => {
-    const formattedDate = date.toLocaleDateString('en-CA');
+    const formattedDate = date.toLocaleDateString("en-CA");
     if (view === "month" && memos[formattedDate]) {
       return <div className="memo-indicator">{memos[formattedDate].memo}</div>;
     }
@@ -224,18 +234,20 @@ const Home = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/section`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/section`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setSections(response.data.body); // 섹션 목록을 상태에 저장
     } catch (error) {
       console.error("Error fetching sections:", error);
     }
   };
-
 
   // 섹션 목록을 가져오기 위한 useEffect
   useEffect(() => {
@@ -264,18 +276,32 @@ const Home = () => {
       if (questionList.length > 0) {
         // 첫 번째 질문 자동 선택 및 이동
         const firstQuestion = questionList[0];
-        setSelectedQuestionId(firstQuestion.id); // 첫 번째 질문 선택
-        setQuestions(questionList); // 사이드바에 전체 질문 목록 표시
+        setSelectedQuestionId(firstQuestion.id);
+        setQuestions(questionList);
 
-        // 첫 번째 질문 페이지로 이동
-        navigate(`/question-answer/${firstQuestion.id}`, {
-          state: {
-            question: firstQuestion,
-            sectionId: sectionId,
-            sectionName: sectionName, // 섹션 이름 전달
+        try {
+          const answerResponse = await axios.get(
+            `${process.env.REACT_APP_API_BASE_URL}/api/section/interview/answer/list/${firstQuestion.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
 
-          },
-        });
+          if (answerResponse.data.body.interviewAnswerList.length > 0) {
+            navigate(`/gpt-answer/${firstQuestion.id}`, {
+              state: { question: firstQuestion, sectionId, sectionName },
+            });
+          } else {
+            navigate(`/question-answer/${firstQuestion.id}`, {
+              state: { question: firstQuestion, sectionId, sectionName },
+            });
+          }
+        } catch (error) {
+          console.error("Error checking question answers:", error);
+        }
       } else {
         alert("이 섹션에 질문이 없습니다.");
       }
@@ -287,13 +313,13 @@ const Home = () => {
   // 버튼 클릭할 때 계속 눌린 상태로 남지 않도록 포커스 해제
   useEffect(() => {
     const handleClick = (event) => {
-      if (event.target.tagName === 'BUTTON') {
+      if (event.target.tagName === "BUTTON") {
         document.activeElement.blur();
       }
     };
 
-    window.addEventListener('click', handleClick);
-    return () => window.removeEventListener('click', handleClick);
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
   }, []);
 
   return (
@@ -321,7 +347,8 @@ const Home = () => {
               } else {
                 navigate("/login");
               }
-            }}>
+            }}
+          >
             <User size={20} />
             <span>내 프로필</span>
           </div>
@@ -342,7 +369,11 @@ const Home = () => {
       {/* Main Content */}
       <main className="main-content">
         <header className="header">
-          <img className="header-logo" src={`${imageBaseUrl}/myAiCoach.png`} alt="Logo" />
+          <img
+            className="header-logo"
+            src={`${imageBaseUrl}/myAiCoach.png`}
+            alt="Logo"
+          />
           <h1 className="logo">MY AI COACH</h1>
         </header>
 
@@ -363,9 +394,9 @@ const Home = () => {
 
             {/* Job Card 2 */}
             <div className="job-card">
-              <img src={`${imageBaseUrl}/job.png`}/>
+              <img src={`${imageBaseUrl}/job.png`} />
               <h3>직무 선택</h3>
-              <p>당신에게 맞는 직업을 찾아보세요</p>
+              <p>지원 직무를 선택해 면접을 시작하세요</p>
               <div className="job-card-footer">
                 <button
                   onClick={() => {
@@ -376,7 +407,8 @@ const Home = () => {
                       alert("회원만 이용 가능합니다.");
                       navigate("/login");
                     }
-                  }}>
+                  }}
+                >
                   직무 선택
                 </button>
               </div>
@@ -384,7 +416,7 @@ const Home = () => {
 
             {/* Job Card 3 */}
             <div className="job-card">
-              <img src={`${imageBaseUrl}/jobNews.png`}/>
+              <img src={`${imageBaseUrl}/jobNews.png`} />
               <h3>구글 기사 바로보기</h3>
               <p>관련된 구글 기사를 찾아보세요</p>
               <div className="job-card-footer">
@@ -409,18 +441,23 @@ const Home = () => {
               onChange={handleDateChange}
               value={new Date()}
               tileContent={tileContent}
-              calendarType='gregory'
+              calendarType="gregory"
               // 그 월 기준 다른 달의 날짜 연하게 표시
               tileClassName={({ date, view, activeStartDate }) => {
                 const currentViewingMonth = activeStartDate.getMonth();
-                if (view === 'month' && date.getMonth() !== currentViewingMonth) {
-                  return 'out-of-current-month';
+                if (
+                  view === "month" &&
+                  date.getMonth() !== currentViewingMonth
+                ) {
+                  return "out-of-current-month";
                 }
-                if (view === "month" && date.getDay() === 6) { // 토요일(6)인 경우
-                  return 'react-calendar__month-view__days__day--saturday';
+                if (view === "month" && date.getDay() === 6) {
+                  // 토요일(6)인 경우
+                  return "react-calendar__month-view__days__day--saturday";
                 }
-                if (view === "month" && date.getDay() === 0) { // 일요일인 경우
-                  return 'react-calendar__month-view__days__day--sunday';
+                if (view === "month" && date.getDay() === 0) {
+                  // 일요일인 경우
+                  return "react-calendar__month-view__days__day--sunday";
                 }
               }}
             />
@@ -431,8 +468,10 @@ const Home = () => {
       {/* Memo Modal */}
       {isModalOpen && (
         <MemoModal
-          date={selectedDate.toLocaleDateString('en-CA')}
-          initialMemo={memos[selectedDate.toLocaleDateString('en-CA')]?.memo || ""}
+          date={selectedDate.toLocaleDateString("en-CA")}
+          initialMemo={
+            memos[selectedDate.toLocaleDateString("en-CA")]?.memo || ""
+          }
           onSave={handleSaveMemo}
           onDelete={handleDeleteMemo}
           onClose={() => setIsModalOpen(false)}
@@ -442,7 +481,7 @@ const Home = () => {
 
       {/* Right Sidebar */}
       <aside className="right-sidebar">
-        <h2>내 섹션 목록</h2>
+        <h2>나의 면접</h2>
         <ul>
           {sections.length > 0 ? (
             sections.map((section) => (
@@ -457,13 +496,6 @@ const Home = () => {
             <li>섹션이 없습니다.</li>
           )}
         </ul>
-
-        <div className="alert-box">
-          <h3>알림</h3>
-          <p>새로운 일자리 추천!</p>
-          <p>최근 구인 공고를 확인하고 지금 지원하세요.</p>
-          <button className="alert-btn">→</button>
-        </div>
       </aside>
     </div>
   );

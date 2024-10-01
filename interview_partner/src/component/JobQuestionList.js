@@ -144,8 +144,6 @@ const JobQuestionList = ({ setActiveChat, updateSidebar, sectionName }) => {
             questionId: selectedQuestion.questionId,
             expectedQuestion: selectedQuestion.expectedQuestion,
             answerGuide: selectedQuestion.answerGuide || [],
-
-
           },
           sectionId: sectionId,
           sectionName: sectionName,
@@ -161,7 +159,7 @@ const JobQuestionList = ({ setActiveChat, updateSidebar, sectionName }) => {
   return (
     <div className="JobQuestionList_container">
       <h1 className="common-title">면접 예상 질문 리스트</h1>
-      <p className="common-text">예상 질문과 그에 따른 답변을 적어보세요.</p>
+      <p className="common-text">질문을 선택한 뒤 답변을 적어보세요.</p>
 
       <div className="questionsGrid">
         {questions.map((question) => (
@@ -173,7 +171,7 @@ const JobQuestionList = ({ setActiveChat, updateSidebar, sectionName }) => {
             onClick={() => handleQuestionSelect(question)}
           >
             <div className="questionTitle">{question.expectedQuestion}</div>
-            <p className="questionDescription">{question.answerGuide}</p>
+            <p className="questionDescription">{question.answerGuide.join(" ")}</p>
           </div>
         ))}
       </div>
