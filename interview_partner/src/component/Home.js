@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Bell,
   ShoppingBag,
@@ -215,6 +216,72 @@ const Home = () => {
       return <div className="memo-indicator">{memos[formattedDate].memo}</div>;
     }
     return null;
+  };
+
+  // 사용자 섹션 목록을 가져오는 함수 추가
+  const fetchSections = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/section`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setSections(response.data.body); // 섹션 목록을 상태에 저장
+    } catch (error) {
+      console.error("Error fetching sections:", error);
+    }
+  };
+  
+
+  // 섹션 목록을 가져오기 위한 useEffect
+  useEffect(() => {
+    if (currentUser && token) {
+      fetchSections(); // 섹션 목록 가져오기
+    }
+  }, [currentUser, token]);
+
+  const handleSectionClick = async (sectionId, sectionName) => {
+    setSelectedSectionId(sectionId);
+    setSelectedSectionName(sectionName);
+  
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/section/gpt/question/list/${sectionId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      const questionList = response.data.body.gptQuestionList || [];
+      if (questionList.length > 0) {
+        // 첫 번째 질문 자동 선택 및 이동
+        const firstQuestion = questionList[0];
+        setSelectedQuestionId(firstQuestion.id); // 첫 번째 질문 선택
+        setQuestions(questionList); // 사이드바에 전체 질문 목록 표시
+  
+        // 첫 번째 질문 페이지로 이동
+        navigate("/question-answer", {
+          state: {
+            question: firstQuestion,
+            sectionId: sectionId,
+            sectionName: sectionName, // 섹션 이름 전달
+
+          },
+        });
+      } else {
+        alert("이 섹션에 질문이 없습니다.");
+      }
+    } catch (error) {
+      console.error("Error fetching questions for section:", error);
+    }
   };
 
   return (
