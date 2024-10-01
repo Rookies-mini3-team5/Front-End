@@ -51,21 +51,21 @@ const JobResume = () => {
             },
             body: JSON.stringify(answers), // answers 객체를 JSON 문자열로 변환하여 전송
         })
-        .then((response) => response.json()) // 응답을 JSON으로 변환
-        .then((data) => {
-            setLoading(false);  // 로딩 상태 종료
+            .then((response) => response.json()) // 응답을 JSON으로 변환
+            .then((data) => {
+                setLoading(false);  // 로딩 상태 종료
 
-            if (data.result && data.result.resultCode === 200) {
-                const questions = data.body;  // 응답의 body 배열을 questions로 전달
-                navigate("/jobquestionlist", { state: { questions, sectionId } });
-            } else {
-                console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
-            }
-        })
-        .catch((error) => {
-            setLoading(false);  // 로딩 상태 종료
-            console.error("에러가 발생했습니다.", error);
-        });
+                if (data.result && data.result.resultCode === 200) {
+                    const questions = data.body;  // 응답의 body 배열을 questions로 전달
+                    navigate("/jobquestionlist", { state: { questions, sectionId } });
+                } else {
+                    console.error("서버 응답에서 오류가 발생했습니다:", data.result.resultMessage);
+                }
+            })
+            .catch((error) => {
+                setLoading(false);  // 로딩 상태 종료
+                console.error("에러가 발생했습니다.", error);
+            });
     };
 
     return (
@@ -82,27 +82,36 @@ const JobResume = () => {
 
                     <div className="questionContainer">
                         <div className="questionNumber">1</div>
-                        <div className="questionText">해당 직무에서 가장 자신 있는 기술 또는 능력은 무엇인가요?</div>
-                        <textarea
-                            name="resume"
-                            value={answers.resume}
-                            onChange={handleChange}
-                            className="answerInput"
-                            placeholder="여기에 기술 또는 능력을 적어주세요."
-                        />
+                        <div className="questionText">이력을 작성해 주세요.</div>
+                        <div className="inputWrapper">
+                            <span className="guideTextLeft">나는</span> {/* 왼쪽 가이드 텍스트 */}
+                            <textarea
+                                name="resume"
+                                value={answers.resume}
+                                onChange={handleChange}
+                                className="answerInput"
+                                placeholder="여기에 이력을 적어주세요."
+                            />
+                            <span className="guideTextRight-1">한 이력이 있다.</span> {/* 오른쪽 가이드 텍스트 */}
+                        </div>
                         <div className="charCount">{answers.resume.length}/100</div> {/* 입력된 문자 수 표시 */}
                     </div>
 
                     <div className="questionContainer">
                         <div className="questionNumber">2</div>
-                        <div className="questionText">당신의 강점이 무엇인가요?</div>
-                        <textarea
-                            name="emphasize"
-                            value={answers.emphasize}
-                            onChange={handleChange}
-                            className="answerInput"
-                            placeholder="여기에 당신의 강점을 적어주세요."
-                        />
+                        <div className="questionText">면접에서 강조하고 싶은 점을 작성해 주세요.</div>
+                        <div className="inputWrapper">
+                            <span className="guideTextLeft">나는</span> {/* 왼쪽 가이드 텍스트 */}
+                            <textarea
+                                name="emphasize"
+                                value={answers.emphasize}
+                                onChange={handleChange}
+                                className="answerInput"
+                                placeholder="여기에 강조하고 싶은 점을 적어주세요."
+                            />
+                            <span className="guideTextRight-2">한 점을 강조하고 싶다.</span> {/* 오른쪽 가이드 텍스트 */}
+                        </div>
+
                         <div className="charCount">{answers.emphasize.length}/100</div> {/* 입력된 문자 수 표시 */}
                     </div>
 
