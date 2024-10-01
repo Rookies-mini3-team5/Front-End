@@ -457,7 +457,7 @@ const Home = () => {
 
       {/* Right Sidebar */}
       <aside className="right-sidebar">
-        <h2>내 섹션 목록</h2>
+        <h2>나의 면접</h2>
         <ul>
           {sections.length > 0 ? (
             sections.map((section) => (
