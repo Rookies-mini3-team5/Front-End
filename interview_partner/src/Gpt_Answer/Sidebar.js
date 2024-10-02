@@ -205,7 +205,10 @@ const Sidebar = () => {
         </button>
       </div>
 
+      {/* Divider 추가 */}
+      <hr className="sidebar-divider" />
       {/* 현재 섹션 정보와 질문 목록을 상단에 배치 */}
+
       <div className="section-question-container">
         <h2>현재 섹션</h2>
         {selectedSectionId ? (
@@ -225,7 +228,7 @@ const Sidebar = () => {
         ) : (
           <p>현재 섹션 없음</p>
         )}
-
+        <hr className="sidebar-divider2" />
         {/* 질문 목록 표시 */}
         {selectedSectionId && (
           <div>

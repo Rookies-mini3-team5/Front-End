@@ -19,9 +19,9 @@
 .logo-home-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* 중앙 정렬 */
   width: 100%;
   position: relative;
+  top:30px;
 }
 .home-icon {
   cursor: pointer;
@@ -41,11 +41,14 @@
 }
 
 .logo-text {
-  font-size: 20px;
+  font-size: 30px;
   color: #333;
   text-align: center;
   flex-grow: 1;
-  position: relative; /* 상대적 위치 */
+  position:absolute;
+  justify-content: space-between;
+
+  left: 75px;
 }
 
 .hamburger-btn {
@@ -55,7 +58,8 @@
   flex-direction: column;
   gap: 5px;
   position: absolute;
-  left: 500; /* 오른쪽 끝에 고정 */
+  top:-10px;
+  left: 180px; /* Move the hamburger menu to the far right */
   z-index: 10; /* 우선순위를 높여 클릭 가능하게 함 */
 
 }
@@ -68,27 +72,16 @@
 }
 .logo-container {
   display: flex;
-  align-items: center;
   margin-bottom: 20px;
 }
 
 .logo-container h2 {
-  font-size: 18px; /* 로고 텍스트 크기를 줄임 */
+  font-size: 1px; /* 로고 텍스트 크기를 줄임 */
   font-weight: bold;
   color: #333;
-  margin-left: 10px;
 }
 
-.sidebar.home-icon-container {
-  display: flex;
-  flex-direction: column;
-  /* 아이콘과 텍스트를 세로로 배치 */
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  /* 아래 여백 추가 */
-  cursor: pointer;
-}
+
 
 .home-icon {
   font-size: 28px; /* 아이콘 크기 조정 */
@@ -113,27 +106,52 @@
   height: 4px; /* 높이 */
   background-color: #333; /* 기본 색상 */
 }
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid #7991f1; /* Light gray divider line */
+  margin: 70px 0; /* Adjust the spacing around the divider */
+  margin-bottom: -30px;
+}
+.sidebar-divider2 {
+  border: none;
+  border-top: 1px solid #7991f1; /* Light gray divider line */
+  margin: 20px auto; /* Adjust the spacing around the divider */
+  margin-bottom: 10px;
+  width: 80%; /* 구분선 길이 설정, 80%로 설정 */
+  text-align: center;
+
+}
+
 /* 현재 섹션 스타일 */
 .current-section {
-  padding: 10px;
+  width: 80%; /* 전체 너비의 80%만 차지 */
+
+  padding: 5px;
   background-color: #f0f4f7;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin: auto; /* 가로 중앙 정렬을 위해 양쪽 margin을 auto로 설정 */
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 14px; /* 텍스트 크기 줄이기 */
+  overflow: auto; /* 스크롤바 비활성화 */
+  
+
 }
 
 .current-section p {
+  
   flex: 1;
   font-weight: bold;
   color: #3b82f6;
-  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  
+  
 }
 
 .edit-icon {
@@ -162,13 +180,23 @@ margin-right: 10px;
 
 /* 질문 목록 스타일 */
 .section-question-container {
-  flex-grow: 1; /* 질문 목록이 가능한 공간을 채우도록 설정 */
-  overflow-y: auto; /* 질문 목록 스크롤 가능 */
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #ddd; /* 미세한 테두리 */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  margin: 10px 0; /* 상하 간격 */
+  margin-top: 50px;
+  overflow: auto;
 }
 
+
+
 .section-question-container h2 {
-  font-size: 16px; /* 섹션 제목 크기 줄이기 */
-  margin-bottom: 15px;
+  margin-top: 30px;
+  font-size: 26px; /* 섹션 제목 크기 줄이기 */
+  margin-bottom: 30px;
   color: #333;
 }
 
@@ -183,7 +211,7 @@ margin-right: 10px;
   margin-bottom: 10px;
   background-color: white;
   border-radius: 8px;
-  font-size: 14px; /* 질문 항목의 텍스트 크기 줄이기 */
+  font-size: 15px; /* 질문 항목의 텍스트 크기 줄이기 */
   color: #333;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
@@ -211,10 +239,11 @@ margin-right: 10px;
 
 /* 질문하기, 질문 목록 보기 버튼 스타일 */
 .button-group {
-  margin-top: 20px; /* 버튼 상단에 약간의 여백 */
+  margin-top: 30px; /* 버튼 상단에 약간의 여백 */
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 30px;
 }
 
 .ask-question-btn,
@@ -230,6 +259,7 @@ margin-right: 10px;
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
+  margin-bottom: 15px;
 }
 
 .ask-question-btn:hover,
