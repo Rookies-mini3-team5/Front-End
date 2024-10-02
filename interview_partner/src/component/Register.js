@@ -66,13 +66,13 @@ const Register = () => {
         <div className="info-image">
           <img src={`${imageBaseUrl}/ai.png`} alt="GPT AI 면접 코치" />
         </div>
-        <p className="info-text">이동 중에도 구인공고에 접속하세요!</p>
+        <p className="info-text">AI 코치와 함께 기회를 잡으세요!</p>
       </div>
 
       <div className="register-box">
         <h3 className="register-title">구직자</h3>
         <p className="register-subtitle">
-          이미 계정이 있으신가요? 로그인하세요.
+          이미 계정이 있으신가요? <a href="/login">로그인하세요</a>.
         </p>
         <p className="register-instruction">무료로 시작하세요</p>
         <input
@@ -92,7 +92,7 @@ const Register = () => {
         <input
           className="register-input"
           type="text"
-          placeholder="Your unique Nickname"
+          placeholder="Your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -109,6 +109,11 @@ const Register = () => {
           placeholder="Repeat password"
           value={repeatPassword}
           onChange={(e) => setRepeatPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleRegister();
+            }
+          }}
         />
         <button className="register-button" onClick={handleRegister}>
           가입하기
