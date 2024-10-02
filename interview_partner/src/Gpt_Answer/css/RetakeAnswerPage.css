@@ -1,108 +1,93 @@
 .retake-answer-page-container {
     display: flex;
-
     padding: 30px;
     background-color: #f9fafb;
     height: 100vh;
     box-sizing: border-box;
-    margin-left:300px;
-}
-
-.retake-content {
+    margin-left: 300px;
+  }
+  
+  .retake-content {
     padding: 30px;
     width: 100%;
-    max-width: 1050px; /* 최대 너비를 설정 */
+    max-width: 1050px;
     border-radius: 10px;
-    height:1400px;
+    height: 1400px;
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-left: 100px;
-
-    border-radius: 10px;
-}
-.p{
-    font-size: 100px;
-}
-h2 {
+  }
+  
+  .retake-title {
     font-size: 30px;
     color: #333;
     margin-bottom: 20px;
-}
-
-p {
-    font-size: 30px; /* 면접 질문 텍스트 크기를 키움 */
+  }
+  
+  .retake-question {
+    font-size: 30px;
     color: #555;
     margin-bottom: 20px;
-}
-
-.previous-feedback {
-    background-color: #eef6ff; /* 피드백 배경 색상 */
+  }
+  
+  .previous-feedback {
+    background-color: #eef6ff;
     padding: 15px;
     font-weight: bold;
-
     border-radius: 10px;
     margin-bottom: 20px;
-}
-
-.previous-feedback h3 {
+  }
+  
+  .previous-feedback-title {
     font-size: 20px;
     color: #333;
-}
-
-.feedback {
-    background-color: #fffbdd; /* 피드백 배경을 밝은 노란색으로 변경 */
-
+  }
+  
+  .feedback {
+    background-color: #fffbdd;
     padding: 20px;
-    border: 2px solid #ffcc00; /* 두꺼운 테두리 추가 */
+    border: 2px solid #ffcc00;
     border-radius: 10px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(255, 204, 0, 0.5); /* 그림자 추가 */
-}
-
-.strengths, .weaknesses {
-    width: 40%;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f1f5f9;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.strengths {
-    background-color: #34d399; /* 강점 색상 - 초록 */
-    color: white;
-}
-
-.weaknesses {
-    background-color: #fbbf24; /* 개선할 부분 색상 - 노란 */
-    color: white;
-}
-
-.strengths h3, .weaknesses h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.answer-textarea {
+    box-shadow: 0 4px 12px rgba(255, 204, 0, 0.5);
+  }
+  
+  .feedback-title {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .feedback-item {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .no-feedback {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .answer-textarea {
     width: 100%;
     height: 150px;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 16px;
-    margin-bottom: 20px; /* 텍스트 에어리어 아래에 여백 추가 */
-}
-.button-container {
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
     display: flex;
-    justify-content: space-between; /* 버튼 사이의 공간을 균등하게 만듦 */
-    align-items: center; /* 버튼들이 수직으로 중앙에 배치되도록 설정 */
-    width: 100%; /* 버튼들이 부모 요소의 너비를 차지하도록 설정 */
-
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     margin-top: 20px;
     gap: 30px;
-}
-
-button {
-    width: 45%; /* 버튼이 양옆에 배치되도록 너비를 48%로 설정 */
+  }
+  
+  .submit-button {
+    width: 45%;
     padding: 10px 10px;
     background-color: #3b82f6;
     color: white;
@@ -111,8 +96,25 @@ button {
     font-size: 18px;
     cursor: pointer;
     text-align: center;
-}
-
-button:hover {
+  }
+  
+  .submit-button:hover {
     background-color: #2563eb;
-}
+  }
+  
+  .finish-interview-button {
+    width: 45%;
+    padding: 10px 10px;
+    background-color: #f87171;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .finish-interview-button:hover {
+    background-color: #e11d48;
+  }
+  

@@ -1,71 +1,70 @@
 .ask-question-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* 중앙 대신 약간 위로 */
-    align-items: flex-start; /* 중앙 대신 좌측으로 정렬 */
-    padding: 40px;
-    background-color: #f9f9f9;
-    width: 60%; /* 컨테이너 너비를 줄여서 좌우에 여백을 둠 */
-    margin: 40px auto; /* 여백을 주어 화면이 비지 않도록 설정 */
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-    font-size: 28px;
-    font-weight: 700;
-    color: #333;
-  }
-  
-  .description-text {
-    font-size: 18px;
-    margin-bottom: 30px;
-    color: #666;
-    text-align: left; /* 설명 텍스트를 좌측 정렬 */
-  }
-  
-  .ask-question-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  textarea {
-    width: 100%;
-    height: 180px;
-    padding: 15px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    resize: none;
-    margin-bottom: 20px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  button {
-    align-self: flex-end; /* 버튼을 오른쪽으로 정렬 */
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  button:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 40px;
+  background-color: #f9f9f9;
+  width: 60%;
+  margin: 40px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ask-question-title {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.description-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #666;
+  text-align: left;
+}
+
+.ask-question-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ask-question-textarea {
+  width: 100%;
+  height: 180px;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ask-question-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.submit-button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
