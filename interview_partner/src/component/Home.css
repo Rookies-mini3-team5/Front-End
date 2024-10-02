@@ -263,6 +263,11 @@ h3, p {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 10px;
+  width: 150px;
+  height: 36px;
+  font-size: 16px;
+  text-align: center;
 }
 
 .job-card-footer button:hover {
@@ -497,6 +502,7 @@ h3, p {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
   font-family: Arial, sans-serif;
+  margin-top: 20px;
 }
 
 .react-calendar__navigation button {

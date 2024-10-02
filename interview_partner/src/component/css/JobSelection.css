@@ -104,7 +104,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nextButton {
+.nextButton_S {
   margin-top: 50px;
   padding: 15px 30px;
   color: white;
@@ -113,9 +113,10 @@
   font-size: 20px;
   background-color: #ccc;
   cursor: not-allowed;
+  width: 200px;
 }
 
-.nextButton:not([disabled]) {
+.nextButton_S:not([disabled]) {
   background-color: #6200ee;
   cursor: pointer;
 }
