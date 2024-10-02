@@ -343,6 +343,7 @@ const AppContent = () => {
         !location.pathname.startsWith("/about") &&
         !location.pathname.startsWith("/jobquestionlist") &&  (
           <Sidebar
+          
             sectionId={sectionId}
             questionId={selectedQuestionId}
             expectedQuestion={selectedExpectedQuestion}

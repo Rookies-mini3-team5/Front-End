@@ -74,10 +74,13 @@ function FeedbackPage() {
             <ClipLoader color={"#123abc"} loading={loading} size={50} />
           </div>
         ) : recentFeedback ? (
+          <>
+        <div className="user-answer-box">
+          <h3>유저 답변</h3>
+          <p>{recentFeedback?.answer || "답변이 없습니다."}</p>
+        </div>
           <div className="feedback-item">
-            <h3>유저 답변: {recentFeedback?.answer || "답변이 없습니다."}</h3>
-            <div>
-              <h4>GPT 피드백:</h4>
+              <h4>GPT 피드백</h4><br></br>
               {Array.isArray(recentFeedback?.feedbackList) &&
               recentFeedback?.feedbackList.length > 0 ? (
                 <ul>
@@ -89,7 +92,7 @@ function FeedbackPage() {
                 <p>피드백이 없습니다.</p>
               )}
             </div>
-          </div>
+          </>
         ) : (
           <p>피드백을 불러오는 중 오류가 발생했거나, 피드백이 아직 없습니다.</p>
         )}

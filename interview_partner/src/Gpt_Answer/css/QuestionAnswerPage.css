@@ -1,19 +1,21 @@
 .question-answer-container {
-    display: flex;
-    background-color: #f4f4f4; /* 전체 배경색 */
-    
-  }
-  
-  .question-answer-content {
-    flex: 1;
-    background-color: #ffffff; /* 배경을 흰색으로 */
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-    padding: 30px;
-    margin: 20px;
-    margin-left: 150px; /* 사이드바와의 간격 확보 */
+  display: flex;
+  background-color: #f4f4f4; /* 전체 배경색 */
+  padding: 30px;
 
-  }
+}
+  
+.question-answer-content {
+  flex: 1;
+  max-width: 1050px; /* 최대 너비를 설정 */
+  background-color: #ffffff; /* 배경을 흰색으로 */
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  padding: 30px;
+  margin-top: 50px;
+  margin-left: 400px;
+  height: 700px;
+}
   
   h2 {
     color: #333;
@@ -64,7 +66,7 @@
     cursor: pointer;
     border-radius: 5px;
     font-size: 16px;
-    align-items: center; /* 수평 중앙 정렬 */
+    margin-left: 350px;
 }
   button:hover {
     background-color: #45a049;

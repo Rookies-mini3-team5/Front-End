@@ -407,11 +407,12 @@ function RetakeAnswerPage({
           className="answer-textarea"
         />
 
-        <button onClick={handleSubmit}>답변 제출하기</button>
-
-        <button className="finish-interview-button" onClick={handleFinish}>
-          모의 면접 종료
-        </button>
+        <div className="button-container">
+          <button onClick={handleSubmit}>답변 제출하기</button>
+          <button className="finish-interview-button" onClick={handleFinish}>
+            모의 면접 종료
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -193,15 +193,20 @@ const JobSelection = ({
   // useEffect를 사용해 직군 데이터를 가져옴
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/open-api/occupational`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setJobs(data.body.occupationalList); // API 응답 구조에 맞게 직군 데이터 저장
         const promises = data.body.occupationalList.map((occupational) => {
           const occupationalId = occupational.id; // 직군의 ID를 가져옴
-          return fetch(`${process.env.REACT_APP_API_BASE_URL}/open-api/occupational/${occupationalId}`)
-            .then(response => response.json())
-            .then(subJobData => {
-              setSubJobsMap(prev => ({ ...prev, [occupationalId]: subJobData.body.jobList })); // 각 직군의 하위 직무 데이터를 저장
+          return fetch(
+            `${process.env.REACT_APP_API_BASE_URL}/open-api/occupational/${occupationalId}`
+          )
+            .then((response) => response.json())
+            .then((subJobData) => {
+              setSubJobsMap((prev) => ({
+                ...prev,
+                [occupationalId]: subJobData.body.jobList,
+              })); // 각 직군의 하위 직무 데이터를 저장
             })
             .catch((error) => console.error("Error fetching sub-jobs:", error));
         });
@@ -243,29 +248,30 @@ const JobSelection = ({
       alert("하나 이상의 직무를 선택해 주세요.");
     } else {
       // POST 요청
-      fetch(`${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_SECTION_API_URL}`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 포함
-        },
-        body: JSON.stringify({
-          occupational: selectedOccupationalId, // 선택된 직군 ID 전송
-          job: selectedJobId, // 선택된 직무 ID 전송
-        }),
-      })
+      fetch(
+        `${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_SECTION_API_URL}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더에 포함
+          },
+          body: JSON.stringify({
+            occupational: selectedOccupationalId, // 선택된 직군 ID 전송
+            job: selectedJobId, // 선택된 직무 ID 전송
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           if (data.result && data.result.resultCode === 200) {
             const sectionId = data.body.id; // 서버에서 받은 섹션 ID
             const sectionName = data.body.name;
 
-
             // 부모 컴포넌트로 선택된 직군, 직무 정보 전달
             setSelectedJobName(selectedJobName);
             setSelectedOccupationalName(selectedOccupationalName);
             setSectionId(sectionId);
-            
 
             console.log("Section ID being set:", sectionId);
 
@@ -275,7 +281,7 @@ const JobSelection = ({
             console.log("Section Name being set:", sectionName);
 
             // 섹션 ID를 JobResume 페이지로 넘기면서 이동
-            navigate("/jobresume", { state: { sectionId , sectionName} });
+            navigate("/jobresume", { state: { sectionId, sectionName } });
           } else {
             console.log("POST 실패:", data);
             alert("직무 선택에 실패했습니다. 다시 시도해 주세요.");
@@ -287,7 +293,6 @@ const JobSelection = ({
         });
     }
   };
-
 
   return (
     <div className="JobSelect_container">
