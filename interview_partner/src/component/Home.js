@@ -381,7 +381,7 @@ const Home = () => {
 
       {/* Main Content */}
       <main className="main-content">
-        <header className="header">
+        <header className="headerM">
           <img
             className="header-logo"
             src={`${imageBaseUrl}/myAiCoach.png`}
