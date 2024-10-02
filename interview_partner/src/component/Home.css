@@ -154,34 +154,6 @@ h3, p {
   color: #007bff;
 }
 
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .left-sidebar {
-    width: 100%; /* 모바일에서는 전체 너비 사용 */
-    height: auto; /* 높이 자동 설정 */
-    padding: 15px;
-  }
-
-  .menu-item {
-    padding: 10px;
-    height: auto; /* 높이 자동 설정 */
-  }
-
-  .profile-pic {
-    width: 80px;
-    height: 80px;
-  }
-
-  .profile-section h3 {
-    font-size: 18px;
-  }
-
-  .menu-item span {
-    font-size: 14px;
-  }
-}
-
 /* Main Content */
 .main-content {
   flex: 1;
@@ -191,7 +163,7 @@ h3, p {
   background-color: #fff;
 }
 
-.header {
+.headerM {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -557,6 +529,11 @@ h3, p {
 /* 토요일을 파란 색으로 설정 */
 .react-calendar__month-view__days__day--saturday {
   color: blue;
+}
+
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next-button {
+  width: 300px;
 }
 
 /* 월 전환 버튼 */
