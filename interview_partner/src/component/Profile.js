@@ -79,12 +79,12 @@ const Profile = () => {
     const formData = new FormData();
     const data = JSON.stringify({ name, email });
     formData.append("data", new Blob([data], { type: "application/json" }));
-  
+
     // 파일이 존재하는 경우 추가
     if (newProfileImage) {
       formData.append("file", newProfileImage);
     }
-  
+
     axios
       .patch(`${process.env.REACT_APP_API_BASE_URL}/mypage`, formData, {
         headers: {
@@ -163,11 +163,11 @@ const Profile = () => {
         </div>
 
         <div className="button-group">
-          <button className="cancel-button" onClick={handleCancel}>
-            취소
-          </button>
           <button className="save-button" onClick={handleSave}>
             변경 사항 저장
+          </button>
+          <button className="cancel-button" onClick={handleCancel}>
+            취소
           </button>
         </div>
       </div>

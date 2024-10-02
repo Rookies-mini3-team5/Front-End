@@ -85,13 +85,9 @@
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
-  margin-top: 100px;
-  align-items: center; /* 수평 중앙 정렬 */
-  text-align: center;
-  justify-content: center; /* 버튼 사이의 공간을 균등하게 만듦 */
-  margin-left: 500px;
-
-
+  margin: 0 auto;
+  display: block;
+  width: 200px;
 }
 
 .inputWrapper {

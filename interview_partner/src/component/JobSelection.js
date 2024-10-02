@@ -358,7 +358,7 @@ const JobSelection = ({
         <p className="banner">전문가에게 맡기는 면접 코치 AI 서비스</p>
         <button
           onClick={handleNextClick}
-          className="nextButton"
+          className="nextButton_S"
           disabled={!selectedJobId}
         >
           다음
