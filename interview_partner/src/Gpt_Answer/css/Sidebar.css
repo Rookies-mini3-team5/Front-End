@@ -62,8 +62,8 @@
   flex-direction: column;
   gap: 5px;
   position: absolute;
-  top:-11px;
-  left: 230px; /* Move the hamburger menu to the far right */
+  top:0px;
+  left: 240px; /* Move the hamburger menu to the far right */
   z-index: 1000; /* 우선순위를 높여 클릭 가능하게 함 */
   border: none; /* 버튼에 불필요한 경계선을 제거 */
 
@@ -136,7 +136,7 @@
 .current-section {
   width: 80%; /* 전체 너비의 80%만 차지 */
 
-  padding: 5px;
+  padding: 15px;
   background-color: #f0f4f7;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -146,7 +146,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px; /* 텍스트 크기 줄이기 */
   overflow: auto; /* 스크롤바 비활성화 */
   
 
@@ -160,6 +159,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 20px;
   
   
 }
@@ -207,6 +207,7 @@ margin-right: 10px;
   margin-top: 30px;
   font-size: 26px; /* 섹션 제목 크기 줄이기 */
   margin-bottom: 30px;
+  text-align: center;
   color: #333;
 }
 
@@ -248,11 +249,11 @@ margin-right: 10px;
 
 
 /* 질문하기, 질문 목록 보기 버튼 스타일 */
-.button-group {
+.button-group2 {
   margin-top: 30px; /* 버튼 상단에 약간의 여백 */
   display: flex;
+  gap: 7px;
   flex-direction: column;
-  gap: 10px;
   margin-bottom: 30px;
 }
 
@@ -360,8 +361,8 @@ font-size: 1px;}
   display: flex; /* 햄버거 버튼이 접힌 상태에서 표시되도록 설정 */
   justify-content: center;
   position: absolute; /* 사이드바 안에서 절대 위치 */
-  top: 5px; /* 상단으로부터 20px 떨어짐 */
-  left: 40px; /* 왼쪽으로부터 20px 떨어짐 */
+  top: 10px; /* 상단으로부터 20px 떨어짐 */
+  left: 50px; /* 왼쪽으로부터 20px 떨어짐 */
   z-index: 1000; /* 다른 요소 위에 표시되도록 z-index를 높게 설정 */
   transform: scale(0.7); /* 버튼 크기를 70%로 줄이기 */
   margin-top: auto; /* 햄버거 버튼을 하단에 고정 */

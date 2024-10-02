@@ -104,7 +104,7 @@ const EditSection = () => {
           />
         </label>
         <div className="button-group">
-          <button type="submit" className="submit-button">수정하기</button>
+          <button type="submit" className="submit-button2">수정하기</button>
           <button type="button" className="cancel-button" onClick={handleCancel}>취소</button>
         </div>
       </form>

@@ -4,12 +4,12 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "./css/AnswerListPage.css";
 
 const AnswerListPage = () => {
-  const { gptQuestionId } = useParams(); // URL에서 question ID 받아옴
+  const { gptQuestionId } = useParams();
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [guide, setGuide] = useState([]);
-  const [questionText, setQuestionText] = useState(""); // 질문 텍스트 상태 추가
+  const [questionText, setQuestionText] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { question } = location.state || {};
@@ -51,7 +51,7 @@ const AnswerListPage = () => {
         );
 
         const questionData = response.data.body;
-        setQuestionText(questionData.question); // 질문 텍스트 설정
+        setQuestionText(questionData.question);
         const answerGuide = questionData.answerGuide;
         setGuide(Array.isArray(answerGuide) ? answerGuide : []);
       } catch (error) {
@@ -59,7 +59,6 @@ const AnswerListPage = () => {
       }
     };
 
-    // 만약 location.state로부터 질문 정보가 없다면 API를 통해 가져옴
     if (!question) {
       fetchGuideAndQuestion();
     } else {
@@ -71,27 +70,26 @@ const AnswerListPage = () => {
   }, [gptQuestionId, question]);
 
   const handleRetakeAnswer = () => {
-    // 첫 번째 답변으로 다시 답변하기 버튼을 눌렀을 때 이동
     const firstAnswer = answers.length > 0 ? answers[0] : null;
 
     if (firstAnswer) {
       navigate(`/question-answer/${gptQuestionId}`, {
         state: {
-          question: firstAnswer.question, // 질문 데이터
-          sectionId: firstAnswer.sectionId, // 섹션 ID
-          sectionName: firstAnswer.sectionName, // 섹션 이름
-          answerGuide: firstAnswer.answerGuide, // 가이드 추가
+          question: firstAnswer.question,
+          sectionId: firstAnswer.sectionId,
+          sectionName: firstAnswer.sectionName,
+          answerGuide: firstAnswer.answerGuide,
         },
       });
     }
   };
 
   if (loading) {
-    return <p>로딩 중...</p>;
+    return <p className="loading-text">로딩 중...</p>;
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="error-text">{error}</p>;
   }
 
   return (
@@ -99,17 +97,17 @@ const AnswerListPage = () => {
       <div className="answer-list-wrapper">
         {questionText && (
           <div>
-            <h2>질문: {questionText}</h2>
+            <h2 className="question-title">질문: {questionText}</h2>
           </div>
         )}
 
         {guide.length > 0 && (
           <div className="guide">
-            <h3>💡 답변 가이드</h3>
+            <h3 className="guide-title">💡 답변 가이드</h3>
             <div className="guide-box">
-              <ul>
+              <ul className="guide-list">
                 {guide.map((item, index) => (
-                  <li key={index}>
+                  <li key={index} className="guide-list-item">
                     <span className="checkmark">✔️</span> {item}
                   </li>
                 ))}
@@ -119,17 +117,19 @@ const AnswerListPage = () => {
         )}
 
         {answers.length > 0 ? (
-          <ul>
+          <ul className="answer-list">
             {answers.map((answer, index) => (
-              <li key={answer.id}>
-                <p>
+              <li key={answer.id} className="answer-item">
+                <p className="user-answer">
                   유저 답변 {index + 1}: {answer.answer}
                 </p>
-                <p>피드백:</p>
+                <p className="feedback-title">피드백:</p>
                 <div className="feedback-box">
-                  <ul>
+                  <ul className="feedback-list">
                     {answer.feedbackList.map((feedback, idx) => (
-                      <li key={idx}>{feedback}</li>
+                      <li key={idx} className="feedback-item">
+                        {feedback}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -137,12 +137,11 @@ const AnswerListPage = () => {
             ))}
           </ul>
         ) : (
-          <p>답변이 없습니다.</p>
+          <p className="no-answers-text">답변이 없습니다.</p>
         )}
 
-        {/* 다시 답변하기 버튼을 맨 하단에 배치 */}
         {answers.length > 0 && (
-          <div className="retake-answer-wrapper">
+          <div className="button-group3">
             <button
               onClick={handleRetakeAnswer}
               className="retake-answer-button"
