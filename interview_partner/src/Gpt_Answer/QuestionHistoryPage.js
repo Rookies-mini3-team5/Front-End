@@ -1,4 +1,3 @@
-// 사용자가 gpt 에게 직접 질문했던 history 확인하는 페이지
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -34,29 +33,35 @@ const QuestionHistoryPage = () => {
     fetchQuestionHistory();
   }, [sectionId]);
 
-  if (loading) return <p>로딩 중...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p className="loading-text">로딩 중...</p>;
+  if (error) return <p className="error-text">{error}</p>;
 
   return (
     <div className="question-history-container">
-      <h2>내가 물어봤던 모의 면접 질문 내역</h2>
+      <h2 className="question-history-title">
+        내가 물어봤던 모의 면접 질문 내역
+      </h2>
       {questionHistory.length > 0 ? (
         <div className="question-list">
           {questionHistory.map((question) => (
             <div className="question-card" key={question.id}>
               <div className="question-card-header">
-                <h3>내 질문</h3>
-                <p>{question.question || "질문이 없습니다."}</p>
+                <h3 className="question-title">내 질문</h3>
+                <p className="question-text">
+                  {question.question || "질문이 없습니다."}
+                </p>
               </div>
               <div className="question-card-body">
-                <h4>답변</h4>
-                <p>{question.answer || "답변이 없습니다."}</p>
+                <h4 className="answer-title">답변</h4>
+                <p className="answer-text">
+                  {question.answer || "답변이 없습니다."}
+                </p>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <p>질문 내역이 없습니다.</p>
+        <p className="no-history-text">질문 내역이 없습니다.</p>
       )}
     </div>
   );

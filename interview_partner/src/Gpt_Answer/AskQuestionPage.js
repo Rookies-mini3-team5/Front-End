@@ -39,19 +39,22 @@ const AskQuestionPage = () => {
 
   return (
     <div className="ask-question-container">
-      <h2>모의 질문 입력</h2>
+      <h2 className="ask-question-title">모의 질문 입력</h2>
       <p className="description-text">
         직접 답변받고 싶은 모의 면접 질문을 입력해, AI 코치에게 모의 면접 질문에
         대한 답변을 받으세요!
       </p>
       <form onSubmit={handleSubmit} className="ask-question-form">
         <textarea
+          className="ask-question-textarea"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="답변 받고 싶은 모의 면접 질문을 입력하세요!"
           required
         />
-        <button type="submit">제출</button>
+        <button className="submit-button" type="submit">
+          제출
+        </button>
       </form>
     </div>
   );
