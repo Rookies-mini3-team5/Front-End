@@ -67,7 +67,7 @@ const Login = () => {
         <input
           className="login-input"
           type="text"
-          placeholder="Your ID"
+          placeholder="ID"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -77,6 +77,11 @@ const Login = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleLogin();
+            }
+          }}
         />
         <button className="login-button" onClick={handleLogin}>
           로그인
