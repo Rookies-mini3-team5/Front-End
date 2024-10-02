@@ -255,7 +255,7 @@ const Sidebar = () => {
       </div>
 
       {/* 질문하기와 질문 목록 보기 버튼 */}
-      <div className="button-group">
+      <div className="button-group2">
         <button className="ask-question-btn" onClick={handleAskQuestionClick}>
           질문하기
         </button>

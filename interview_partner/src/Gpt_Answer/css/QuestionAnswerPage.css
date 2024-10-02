@@ -6,7 +6,7 @@
 }
   
 .question-answer-content {
-  flex: 1;
+  flex: 2;
   max-width: 1050px; /* 최대 너비를 설정 */
   background-color: #ffffff; /* 배경을 흰색으로 */
   border-radius: 10px;
@@ -15,6 +15,7 @@
   margin-top: 50px;
   margin-left: 400px;
   height: 700px;
+  
 }
   
 .question-answer-content.h2 {
@@ -58,18 +59,20 @@
   
   
   /* 버튼에 대한 클래스 네임 적용 */
-.submit-button {
-  margin-top: 20px;
-  padding: 12px 24px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-left: 350px;
-}
-
+  .submit-button {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px auto 0; /* 상단 여백 및 중앙 정렬 */
+    display: block;
+  }
 .submit-button:hover {
   background-color: #45a049;
 }
